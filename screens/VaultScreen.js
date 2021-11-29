@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Text, View, Image, Button } from 'react-native';
-import {styles} from '../components/styles';
+import {styles} from '../style/styles';
 
 export default function TreasuresScreen({navigation}) {
   return (

@@ -69,5 +69,13 @@ export default function Navigation() {
           <Tab.Screen name="Mail" component={MailScreen} />
           <Tab.Screen name="Settings" component={SettingsScreen} />
         </Tab.Navigator>
+            //   <NavigationContainer>
+    //   <Stack.Navigator>
+    //     <Stack.Screen name="Home" component={Home} />
+    //     <Stack.Screen name="Notifications" component={Notifications} />
+    //     <Stack.Screen name="Profile" component={Profile} />
+    //     <Stack.Screen name="Settings" component={Settings} />
+    // </Stack.Navigator>
+    // </NavigationContainer>
       );
 }
