@@ -266,7 +266,10 @@ const styles = StyleSheet.create({
       marginTop: 10,
       paddingTop: 20,
       width: '55%'
-    }
+    },
+    regularTreasure:{
+      width: '95%',
+    },
   });
 
 

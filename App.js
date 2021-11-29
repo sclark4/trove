@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Navigation from './components/Navigation';
-import AddTreasureModal from './screens/AddTreasureScreen';
+import AddTreasureModal from './components/AddTreasureModal';
 
 const Stack = createNativeStackNavigator();
 

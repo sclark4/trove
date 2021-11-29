@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Alert, Button, Modal, StyleSheet, Text, Pressable, View, TextInput, Keyboard,  TouchableWithoutFeedback, Image } from "react-native";
-// import {styles} from '../style/styles';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import DatePicker from 'react-native-date-picker';
 import * as ImagePicker from 'expo-image-picker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 
 const DismissKeyboard = ({ children }) => (
@@ -17,12 +17,30 @@ export default function AddTreasureModal() {
     const [title, onChangeTitle] = React.useState("The Best Monday");
     const [description, setDescription] = React.useState("I had the best monday ever");
     const [date, setDate] = React.useState(new Date().toLocaleString());
-    const [time, setTime] = React.useState('now');
     const [location, setLocation] = React.useState('Lake Waban');
     const [tags, setTags] = React.useState('fun, wellesley');
-    const [open, setOpen] = useState(false)
+    
     const [modalVisible, setModalVisible] = useState(false);
     const [image, setImage] = useState(null);
+  
+    const onChange = (event, selectedDate) => {
+      const currentDate = selectedDate || date;
+      setShow(Platform.OS === 'ios');
+      setDate(currentDate);
+    };
+  
+    const showMode = (currentMode) => {
+      setShow(true);
+      setMode(currentMode);
+    };
+  
+    const showDatepicker = () => {
+      showMode('date');
+    };
+  
+    const showTimepicker = () => {
+      showMode('time');
+    };
 
   useEffect(() => {
     (async () => {
@@ -57,7 +75,7 @@ export default function AddTreasureModal() {
         style={[styles.button, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}
       >
-        <Text style={styles.textStyle}>Add Treasure</Text>
+        <Text style={styles.textStyle}>Edit Treasure</Text>
       </Pressable>
       
       <Modal
@@ -97,26 +115,6 @@ export default function AddTreasureModal() {
         onChangeText={setDate}
         value={date}
       />
-            {/* <Button title="Open" onPress={() => setOpen(true)} />
-      <DatePicker
-        modal
-        open={open}
-        date={date}
-        onConfirm={(date) => {
-          setOpen(false)
-          setDate(date)
-        }}
-        onCancel={() => {
-          setOpen(false)
-        }}
-      /> */}
-            {/* <DatePicker date={date} onDateChange={setDate} mode='date' /> */}
-            {/* <Text style={styles.modalText}>Time</Text>
-            <TextInput
-        style={styles.input}
-        onChangeText={setTime}
-        value={time}
-      /> */}
          
             <Text style={styles.modalText}>Location</Text>
             <TextInput
@@ -136,7 +134,13 @@ export default function AddTreasureModal() {
               style={[styles.button, styles.buttonClose]}
               onPress={() => setModalVisible(!modalVisible)}
             >
-              <Text style={styles.textStyle}>Add Treasure</Text>
+              <Text style={styles.textStyle}>Update Treasure</Text>
+            </Pressable>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}
+            >
+              <Text style={styles.textStyle}>Delete Treasure</Text>
             </Pressable>
           </View>
           </DismissKeyboard>

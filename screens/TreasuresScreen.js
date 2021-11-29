@@ -2,7 +2,8 @@ import * as React from 'react';
 import { useState, useEffect } from "react";
 import { Text, View, Image, Button, FlatList, TouchableOpacity } from 'react-native';
 import {styles} from '../style/styles';
-import AddTreasureModal from './AddTreasureScreen';
+import AddTreasureModal from '../components/AddTreasureModal';
+import Treasure from '../components/Treasure';
 
 const animals = [
   'anole',
@@ -21,7 +22,7 @@ const animals = [
 ]
 
 export default function TreasuresScreen({navigation}) {
-  const [selectedMail, setSelectedMail] = useState('question');
+  const [selectedMail, setSelectedMail] = useState(null);
   const ListItem = props => { 
     return (
     //   <NavigationContainer>
