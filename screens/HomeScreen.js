@@ -3,7 +3,7 @@ import { Text, View, Image, Button } from 'react-native';
 import {styles} from '../style/styles';
 
 export default function HomeScreen({navigation}) {
-  return (
+  return ( 
     <View style={styles.container}>
       <Text style={styles.paragraph}>
        This is our home page template

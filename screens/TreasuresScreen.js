@@ -4,6 +4,7 @@ import { Text, View, Image, Button, FlatList, TouchableOpacity } from 'react-nat
 import {styles} from '../style/styles';
 import AddTreasureModal from '../components/AddTreasureModal';
 import Treasure from '../components/Treasure';
+import { NavigationActions } from 'react-navigation';
 
 const animals = [
   'anole',
@@ -25,16 +26,8 @@ export default function TreasuresScreen({navigation}) {
   const [selectedMail, setSelectedMail] = useState(null);
   const ListItem = props => { 
     return (
-    //   <NavigationContainer>
-    //   <Stack.Navigator>
-    //     <Stack.Screen name="Home" component={Home} />
-    //     <Stack.Screen name="Notifications" component={Notifications} />
-    //     <Stack.Screen name="Profile" component={Profile} />
-    //     <Stack.Screen name="Settings" component={Settings} />
-    // </Stack.Navigator>
-    // </NavigationContainer>
       <TouchableOpacity
-        onPress={() => setSelectedMail(props.text)}
+        onPress={() => navigation.navigate('TreasuresNav', { screen: 'Treasure', params: { title: 'Oh Happy Day!' }})}
       >
         <View style={styles.listItem}>
           <Image
@@ -47,16 +40,17 @@ export default function TreasuresScreen({navigation}) {
       </TouchableOpacity>
     );
   }
+  const navigateAction = NavigationActions.navigate({
+    routeName: 'Treasures',
+    action: NavigationActions.navigate({
+      routeName: 'Treasure',
+      params: {title: 'Oh Happy Day!'},
+    }),
+  });
 
   return (
     <View style={styles.container}>
       <AddTreasureModal />
-      {/* <Button
-      title="Add Treasure"
-      onPress={() =>
-        navigation.navigate('Treasures')
-      }
-    /> */}
       <View style={styles.listWrapper}>
           <FlatList showsVerticalScrollIndicator={false}
           style={styles.list}
