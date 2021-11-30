@@ -30,10 +30,14 @@ export default function TreasuresScreen({navigation}) {
         onPress={() => navigation.navigate('TreasuresNav', { screen: 'Treasure', params: { title: 'Oh Happy Day!' }})}
       >
         <View style={styles.listItem}>
-          <Image
+          {/* <Image
             style={styles.smallImage}
             source={{uri: 'https://cs.wellesley.edu/~cs/ai2workshop/animals/'
                          + props.text + '.jpg'}}
+          /> */}
+          <Image
+            style={styles.smallIcon}
+            source={require('../assets/diamond.png')}
           />
           <Text style={styles.listItemText}>{props.text}</Text>
         </View>

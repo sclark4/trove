@@ -256,6 +256,11 @@ const styles = StyleSheet.create({
       margin: 10,
       borderRadius: 50,
     },
+    smallIcon: {
+      width: 90,
+      height: 90,
+      margin: 10,
+    },
     regularProfile: {
       width: 150,
       height: 150,

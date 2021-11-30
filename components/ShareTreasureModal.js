@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Alert, Button, Modal, StyleSheet, Text, Pressable, View, TextInput, Keyboard,  TouchableWithoutFeedback, Image } from "react-native";
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import DatePicker from 'react-native-date-picker';
-import * as ImagePicker from 'expo-image-picker';
-import DateTimePicker from '@react-native-community/datetimepicker';
-
 
 const DismissKeyboard = ({ children }) => (
     <TouchableWithoutFeedback 
