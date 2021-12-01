@@ -3,7 +3,8 @@ import React from 'react';
 import { NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Navigation from './navigation/Navigation';
-import TreasuresNavigator from './navigation/TreasuresNavigator'
+import TreasuresNavigator from './navigation/TreasuresNavigator';
+import VaultsNavigator from './navigation/VaultsNavigator';
 import HomeScreen from './screens/HomeScreen';
 import VaultScreen from './screens/VaultScreen';
 const Stack = createNativeStackNavigator();
@@ -27,7 +28,7 @@ export default function App() {
       <Stack.Screen name="Main" component={Navigation} options={{ headerShown: false }}/>
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="TreasuresNav" component={TreasuresNavigator} options={{ headerShown: false }}/>
-      <Stack.Screen name="Vault" component={VaultScreen} />
+      <Stack.Screen name="VaultsNav" component={VaultsNavigator} options={{ headerShown: false }}/>
       {/* <Stack.Screen name="ShareTreasure" component={ShareTreasureModal} /> */}
     </Stack.Navigator>
   </NavigationContainer>

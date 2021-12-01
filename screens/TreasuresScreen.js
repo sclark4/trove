@@ -44,13 +44,6 @@ export default function TreasuresScreen({navigation}) {
       </TouchableOpacity>
     );
   }
-  const navigateAction = NavigationActions.navigate({
-    routeName: 'Treasures',
-    action: NavigationActions.navigate({
-      routeName: 'Treasure',
-      params: {title: 'Oh Happy Day!'},
-    }),
-  });
 
   return (
     <View style={styles.container}>

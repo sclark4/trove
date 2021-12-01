@@ -22,7 +22,7 @@ export default function VaultScreen({navigation}) {
   const ListItem = props => { 
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate('Vault', { screen: 'Vault', params: { title: 'Oh Happy Day!' }})}
+        onPress={() => navigation.navigate('VaultsNav', { screen: 'Vault', params: { title: 'Oh Happy Day!' }})}
       > 
       {/* Update nav to go to single vault screen */}
         <View style={styles.listItem}>
