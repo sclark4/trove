@@ -6,7 +6,6 @@ import EditTreasureModal from './EditTreasureModal';
 import ShareTreasureModal from './ShareTreasureModal';
 
 export default function Vault({navigation,route}) {
-
   return (
     <View style={styles.container}>
       <Text style={styles.h1}>{route.params.title}</Text>
