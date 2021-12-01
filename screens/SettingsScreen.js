@@ -6,6 +6,13 @@ import { Icon } from 'react-native-elements';
 export default function SettingsScreen({navigation}) {
   return (
     <View style={styles.container}>
+      <Header
+      backgroundColor='#fff'
+      // leftComponent={<Button title='Add'></Button>}
+  leftComponent={{ icon: 'menu', color: '#BEBEBE', iconStyle: { color: '#BEBEBE' } }}
+  centerComponent={{ text: 'Settings', style: { color: '#00CCFF' } }}
+  rightComponent={{ icon: 'home', color: '#BEBEBE' }}
+/>
       <Text style={styles.h1}>
       Wendy Wellesley
       </Text>

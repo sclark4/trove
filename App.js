@@ -57,7 +57,7 @@ export default function App() {
     <NavigationContainer>
     <Stack.Navigator>
       <Stack.Screen name="Main" component={Navigation} options={{ headerShown: false }}/>
-      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="TreasuresNav" component={TreasuresNavigator} options={{ headerShown: false }}/>
       <Stack.Screen name="VaultsNav" component={VaultsNavigator} options={{ headerShown: false }}/>
     </Stack.Navigator>

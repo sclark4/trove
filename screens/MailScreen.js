@@ -40,6 +40,12 @@ export default function MailScreen({navigation}) {
 
   return (
     <View style={styles.container}>
+      <Header
+      backgroundColor='#fff'
+  leftComponent={{ icon: 'menu', color: '#BEBEBE', iconStyle: { color: '#BEBEBE' } }}
+  centerComponent={{ text: 'Mail', style: { color: '#00CCFF' } }}
+  rightComponent={{ icon: 'home', color: '#BEBEBE' }}
+/>
       <Text>All Exchanges</Text>
       <View style={styles.listWrapper}>
           <FlatList showsVerticalScrollIndicator={false}

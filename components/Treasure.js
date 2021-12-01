@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, Image, Button, FlatList, TouchableOpacity } from 'react-native';
-import { Card, ListItem, Icon } from 'react-native-elements'
+import { Card, ListItem, Icon, Header } from 'react-native-elements'
 import {styles} from '../style/styles';
 import EditTreasureModal from './EditTreasureModal';
 import ShareTreasureModal from './ShareTreasureModal';
@@ -9,7 +9,14 @@ export default function Treasure({navigation,route}) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.h1}>{route.params.title}</Text>
+      <Header
+      backgroundColor='#fff'
+      // leftComponent={<Button title='Add'></Button>}
+  leftComponent={{ icon: 'menu', color: '#BEBEBE', iconStyle: { color: '#BEBEBE' } }}
+  centerComponent={{ text: route.params.title, style: { color: '#00CCFF' } }}
+  rightComponent={{ icon: 'home', color: '#BEBEBE' }}
+/>
+      {/* <Text style={styles.h1}>{route.params.title}</Text> */}
       <Text style={styles.h2}>Date/Time</Text>
       <Text style={styles.paragraph}>Description</Text>
       <Text style={styles.paragraph}>Location</Text>

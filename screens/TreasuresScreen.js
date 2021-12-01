@@ -5,7 +5,7 @@ import {styles} from '../style/styles';
 import AddTreasureModal from '../components/AddTreasureModal';
 import Treasure from '../components/Treasure';
 import { NavigationActions } from 'react-navigation';
-
+import { Card, Icon, Header } from 'react-native-elements'
 const animals = [
   'anole',
   'cat',
@@ -45,18 +45,48 @@ export default function TreasuresScreen({navigation}) {
     );
   }
 
+  const CardItem = props => {
+    return (
+    <TouchableOpacity
+        onPress={() => navigation.navigate('TreasuresNav', { screen: 'Treasure', params: { title: 'Oh Happy Day!' }})}
+      >
+    <Card containerStyle={styles.treasureCard}>
+  <Card.Title style={{margin: 10}}>{props.text}</Card.Title>
+  {/* <Card.Divider/> */}
+  <Card.Image style={styles.treasureThumbnail} source={{uri:('https://cdn.pixabay.com/photo/2021/01/21/16/17/english-cocker-spaniel-5937757_1280.jpg')}}>
+  </Card.Image>
+  <Text style={{margin: 10}}>
+      Super cute picture of a dog I found on the internet <Text style={{color:'blue'}}>#dog </Text>
+    </Text>
+    {/* <Button
+      icon={<Icon name='code' color='#ffffff' />}
+      buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+      title='VIEW NOW' /> */}
+</Card>
+</TouchableOpacity>)
+  }
+
   return (
+    <View>
+      <Header
+      backgroundColor='#fff'
+      // leftComponent={<Button title='Add'></Button>}
+  leftComponent={{ icon: 'menu', color: '#BEBEBE', iconStyle: { color: '#BEBEBE' } }}
+  centerComponent={{ text: 'Treasures', style: { color: '#00CCFF' } }}
+  rightComponent={{ icon: 'home', color: '#BEBEBE' }}
+/>
     <View style={styles.container}>
+      
       <AddTreasureModal />
       <View style={styles.listWrapper}>
           <FlatList showsVerticalScrollIndicator={false}
           style={styles.list}
             data={animals}
-            renderItem={ datum => <ListItem text={datum.item}></ListItem>} 
+            renderItem={ datum => <CardItem text={datum.item}></CardItem>} 
             keyExtractor={item => item} 
           />
         </View>
-        
+        </View>
     </View>
 
   );

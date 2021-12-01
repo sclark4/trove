@@ -36,6 +36,7 @@ export default function Navigation() {
               name='treasure-chest'
               type='material-community'
               size={26}
+              color='#BEBEBE'
             /> ;
               }
               else if (route.name === 'Mail') {
@@ -44,31 +45,34 @@ export default function Navigation() {
                       name='mailbox-open'
                       type='material-community'
                       size={26}
+                      color='#BEBEBE'
                   /> ;}
                 else{
                   return  <Icon
                       name='mailbox'
                       type='material-community'
                       size={26}
+                      color='#BEBEBE'
                   /> ;
                 }
               }
               // You can return any component that you like here!
               return  <Icon
               name={icon}
+              color='#BEBEBE'
               type='font-awesome-5'
               size={26}
             /> ;
             },
             tabBarActiveTintColor: 'tomato',
-            tabBarInactiveTintColor: 'gray',
+            tabBarInactiveTintColor: '#BEBEBE',
           })}
         >
-          <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="Treasures" component={TreasuresScreen} />
-          <Tab.Screen name="Vault" component={VaultScreen} />
-          <Tab.Screen name="Mail" component={MailScreen} />
-          <Tab.Screen name="Settings" component={SettingsScreen} />
+          <Tab.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/>
+          <Tab.Screen name="Treasures" component={TreasuresScreen} options={{ headerShown: false }} />
+          <Tab.Screen name="Vault" component={VaultScreen} options={{ headerShown: false }}/>
+          <Tab.Screen name="Mail" component={MailScreen} options={{ headerShown: false }}/>
+          <Tab.Screen name="Settings" component={SettingsScreen} options={{ headerShown: false }}/>
         </Tab.Navigator>
       );
 }

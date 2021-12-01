@@ -261,6 +261,20 @@ const styles = StyleSheet.create({
       height: 90,
       margin: 10,
     },
+    treasureThumbnail:{
+      flex: 1,
+      // resizeMode: 'contain',
+      aspectRatio: 1,
+      // width: '100%',
+      // height: '80%',
+    },
+    treasureCard:{
+      flex: 1,
+      borderRadius: 20,
+      borderWidth: 0,
+      padding: 0,
+      // backgroundColor: '#000000',
+    },
     regularProfile: {
       width: 150,
       height: 150,

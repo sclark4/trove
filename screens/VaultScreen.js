@@ -24,7 +24,6 @@ export default function VaultScreen({navigation}) {
       <TouchableOpacity
         onPress={() => navigation.navigate('VaultsNav', { screen: 'Vault', params: { title: 'Oh Happy Day!' }})}
       > 
-      {/* Update nav to go to single vault screen */}
         <View style={styles.listItem}>
           <Image
             style={styles.smallIcon}
@@ -37,7 +36,15 @@ export default function VaultScreen({navigation}) {
   }
 
   return (
+    
     <View style={styles.container}>
+      <Header
+      backgroundColor='#fff'
+      // leftComponent={<Button title='Add'></Button>}
+  leftComponent={{ icon: 'menu', color: '#BEBEBE', iconStyle: { color: '#BEBEBE' } }}
+  centerComponent={{ text: 'Vault', style: { color: '#00CCFF' } }}
+  rightComponent={{ icon: 'home', color: '#BEBEBE' }}
+/>
       <Text>View All Vaults</Text>
       <Button title='Create New Vault'/>
       <Button title='Sort Filter'/>
