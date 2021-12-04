@@ -9,8 +9,8 @@ const Stack = createStackNavigator()
 export default function VaultsNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Vaults" component={VaultScreen} />
-      <Stack.Screen name="Vault" component={Vault} />
+      <Stack.Screen name="Vaults" component={VaultScreen} options={{headerShown: false}}/>
+      <Stack.Screen name="Vault" component={Vault} options={{headerShown: false}}/>
       <Stack.Screen name="Swipe" component={SwipeList} />
     </Stack.Navigator>
   )

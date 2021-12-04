@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Text, View, Image, Button } from 'react-native';
 import {styles} from '../style/styles';
-import { Icon } from 'react-native-elements';
+import { Icon, Header } from 'react-native-elements';
 
 export default function SettingsScreen({navigation}) {
   return (

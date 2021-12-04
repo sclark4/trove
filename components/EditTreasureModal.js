@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Alert, Button, Modal, StyleSheet, Text, Pressable, View, TextInput, Keyboard,  TouchableWithoutFeedback, Image } from "react-native";
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import DatePicker from 'react-native-date-picker';
 import * as ImagePicker from 'expo-image-picker';
-import DateTimePicker from '@react-native-community/datetimepicker';
 
 
 const DismissKeyboard = ({ children }) => (
@@ -23,24 +21,24 @@ export default function AddTreasureModal() {
     const [modalVisible, setModalVisible] = useState(false);
     const [image, setImage] = useState(null);
   
-    const onChange = (event, selectedDate) => {
-      const currentDate = selectedDate || date;
-      setShow(Platform.OS === 'ios');
-      setDate(currentDate);
-    };
+    // const onChange = (event, selectedDate) => {
+    //   const currentDate = selectedDate || date;
+    //   setShow(Platform.OS === 'ios');
+    //   setDate(currentDate);
+    // };
   
-    const showMode = (currentMode) => {
-      setShow(true);
-      setMode(currentMode);
-    };
+    // const showMode = (currentMode) => {
+    //   setShow(true);
+    //   setMode(currentMode);
+    // };
   
-    const showDatepicker = () => {
-      showMode('date');
-    };
+    // const showDatepicker = () => {
+    //   showMode('date');
+    // };
   
-    const showTimepicker = () => {
-      showMode('time');
-    };
+    // const showTimepicker = () => {
+    //   showMode('time');
+    // };
 
   useEffect(() => {
     (async () => {

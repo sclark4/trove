@@ -6,14 +6,15 @@ import EditTreasureModal from './EditTreasureModal';
 import ShareTreasureModal from './ShareTreasureModal';
 
 export default function Treasure({navigation,route}) {
-
+  
+  const { title } = route.params;
   return (
     <View style={styles.container}>
       <Header
       backgroundColor='#fff'
       // leftComponent={<Button title='Add'></Button>}
   leftComponent={{ icon: 'menu', color: '#BEBEBE', iconStyle: { color: '#BEBEBE' } }}
-  centerComponent={{ text: route.params.title, style: { color: '#00CCFF' } }}
+  centerComponent={{ text: title, style: { color: '#00CCFF' } }}
   rightComponent={{ icon: 'home', color: '#BEBEBE' }}
 />
       {/* <Text style={styles.h1}>{route.params.title}</Text> */}

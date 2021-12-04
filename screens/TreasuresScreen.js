@@ -22,28 +22,29 @@ const animals = [
   'sheep',
 ]
 
-export default function TreasuresScreen({navigation}) {
+export default function TreasuresScreen({navigation, route}) {
   const [selectedMail, setSelectedMail] = useState(null);
-  const ListItem = props => { 
-    return (
-      <TouchableOpacity
-        onPress={() => navigation.navigate('TreasuresNav', { screen: 'Treasure', params: { title: 'Oh Happy Day!' }})}
-      >
-        <View style={styles.listItem}>
-          {/* <Image
-            style={styles.smallImage}
-            source={{uri: 'https://cs.wellesley.edu/~cs/ai2workshop/animals/'
-                         + props.text + '.jpg'}}
-          /> */}
-          <Image
-            style={styles.smallIcon}
-            source={require('../assets/diamond.png')}
-          />
-          <Text style={styles.listItemText}>{props.text}</Text>
-        </View>
-      </TouchableOpacity>
-    );
-  }
+  // const ListItem = props => { 
+  //   return (
+  //     <TouchableOpacity
+  //       onPress={() => navigation.navigate('TreasuresNav', 
+  //       { screen: 'Treasure', params: { title: 'Oh Happy Day!!!' }})}
+  //     >
+  //       <View style={styles.listItem}>
+  //         {/* <Image
+  //           style={styles.smallImage}
+  //           source={{uri: 'https://cs.wellesley.edu/~cs/ai2workshop/animals/'
+  //                        + props.text + '.jpg'}}
+  //         /> */}
+  //         <Image
+  //           style={styles.smallIcon}
+  //           source={require('../assets/diamond.png')}
+  //         />
+  //         <Text style={styles.listItemText}>{props.text}</Text>
+  //       </View>
+  //     </TouchableOpacity>
+  //   );
+  // }
 
   const CardItem = props => {
     return (
@@ -56,7 +57,8 @@ export default function TreasuresScreen({navigation}) {
   <Card.Image style={styles.treasureThumbnail} source={{uri:('https://cdn.pixabay.com/photo/2021/01/21/16/17/english-cocker-spaniel-5937757_1280.jpg')}}>
   </Card.Image>
   <Text style={{margin: 10}}>
-      Super cute picture of a dog I found on the internet <Text style={{color:'blue'}}>#dog </Text>
+    {props.description} <Text style={{color:'blue'}}>#{props.tags} </Text>
+      {/* Super cute picture of a dog I found on the internet <Text style={{color:'blue'}}>#dog </Text> */}
     </Text>
     {/* <Button
       icon={<Icon name='code' color='#ffffff' />}
@@ -65,7 +67,8 @@ export default function TreasuresScreen({navigation}) {
 </Card>
 </TouchableOpacity>)
   }
-
+  console.log("route:",route,"!!!");
+  console.log("navigation", navigation)
   return (
     <View>
       <Header
@@ -77,12 +80,13 @@ export default function TreasuresScreen({navigation}) {
 />
     <View style={styles.container}>
       
-      <AddTreasureModal />
+      {/* <AddTreasureModal /> */}
       <View style={styles.listWrapper}>
+        <Text>{route.params}</Text>
           <FlatList showsVerticalScrollIndicator={false}
           style={styles.list}
             data={animals}
-            renderItem={ datum => <CardItem text={datum.item}></CardItem>} 
+            renderItem={ datum => <CardItem text={datum.title}></CardItem>} 
             keyExtractor={item => item} 
           />
         </View>

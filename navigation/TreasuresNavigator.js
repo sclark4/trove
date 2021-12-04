@@ -10,10 +10,11 @@ import TreasuresScreen from '../screens/TreasuresScreen';
 
 const Stack = createStackNavigator()
 
-export default function TreasuresNavigator() {
+export default function TreasuresNavigator({route}) {
+  console.log("route ab:",route.params.treasures, "123");
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Treasures" component={TreasuresScreen} options={{
+      <Stack.Screen name="Treasures" component={TreasuresScreen} initialParams = {route.params.treasures} options={{
           headerShown: false
         }}/>
       <Stack.Screen name="Treasure" component={Treasure} options={{headerShown: false}}/>

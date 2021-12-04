@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { Text, View, Image, Button, FlatList, TouchableOpacity } from 'react-native';
 import {styles} from '../style/styles';
+import { Card, ListItem, Icon, Header } from 'react-native-elements'
 const animals = [
   'anole',
   'cat',
