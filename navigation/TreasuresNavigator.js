@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from 'react-native-elements';
-import { createStackNavigator } from '@react-navigation/stack'
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+// import { createStackNavigator } from '@react-navigation/stack'
 import AddTreasureModal from '../components/AddTreasureModal';
 import EditTreasureModal from '../components/EditTreasureModal';
 import ShareTreasureModal from '../components/ShareTreasureModal';
@@ -8,7 +9,7 @@ import Treasure from '../components/Treasure';
 import MailScreen from '../screens/MailScreen';
 import TreasuresScreen from '../screens/TreasuresScreen';
 
-const Stack = createStackNavigator()
+const Stack = createNativeStackNavigator()
 
 export default function TreasuresNavigator({route}) {
   console.log("route ab:",route.params.treasures, "123");
