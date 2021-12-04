@@ -69,7 +69,7 @@ const testVaults = ['Arts', 'Crafts', 'Food', 'Gatherings', 'Outdoors'];
 const testTreasures = 
 [
  {'user': 'finz@gmail.com',
-  'date': new Date(2021, 10, 29, 10, 43, 12, 1234), 
+  'date': "12/05/2021",
   'title': 'Taza Chocolate',
   'tags': ['Food', 'chocolate'],
   'description': 'Want to join me for a Taza Chocolate tour next weekend?'
@@ -120,7 +120,8 @@ const testTreasures =
 ];
 
 export default function App() {
-  const [treasures, setTreasures] = useState(testTreasures.map( addTimestamp ));
+  const [treasures, setTreasures] = useState(testTreasures);
+  // const [treasures, setTreasures] = useState(testTreasures.map( addTimestamp ));
   const [loggedInUser, setLoggedInUser] = React.useState('testUser');
 
   function addTimestamp(item) {

@@ -18,7 +18,8 @@ const animals = [
   'sheep',
 ]
 
-export default function VaultScreen({navigation}) {
+export default function VaultScreen({navigation, route}) {
+  console.log(route)
   const [selectedVault, setSelectedVault] = useState(null);
   const ListItem = props => { 
     return (

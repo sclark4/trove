@@ -49,8 +49,10 @@ export default function TreasuresScreen({navigation, route}) {
   const CardItem = props => {
     return (
     <TouchableOpacity
-        onPress={() => navigation.navigate('TreasuresNav', { screen: 'Treasure', params: { title: 'Oh Happy Day!' }})}
-      >
+    // onPress={() => navigation.navigate('TreasuresNav', { screen: 'Treasure', params: { title: 'Oh Happy Day!' }})}
+    onPress={() => navigation.navigate('TreasuresNav', { screen: 'Treasure'})}>
+{/* > */}
+      
     <Card containerStyle={styles.treasureCard}>
   <Card.Title style={{margin: 10}}>{props.text}</Card.Title>
   {/* <Card.Divider/> */}
@@ -68,7 +70,6 @@ export default function TreasuresScreen({navigation, route}) {
 </TouchableOpacity>)
   }
   console.log("route:",route,"!!!");
-  console.log("navigation", navigation)
   return (
     <View>
       <Header

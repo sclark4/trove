@@ -20,7 +20,7 @@ export default function Vault({navigation,route}) {
       <Text style={styles.paragraph}>Description: </Text>
       <Text style={styles.paragraph}>Swipe through contents</Text>
       <Image style={styles.smallIcon} source={require('../assets/chest.png')} />
-      <EditTreasureModal />
+      {/* <EditTreasureModal /> */}
       <ShareTreasureModal />
       <Button title='go back' 
         onPress={() => navigation.goBack()}/>

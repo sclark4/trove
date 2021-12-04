@@ -11,10 +11,11 @@ const DismissKeyboard = ({ children }) => (
     </TouchableWithoutFeedback>
     );
 
-export default function AddTreasureModal() {
-    const [title, onChangeTitle] = React.useState("The Best Monday");
-    const [description, setDescription] = React.useState("I had the best monday ever");
-    const [date, setDate] = React.useState(new Date().toLocaleString());
+export default function EditTreasureModal(props) {
+  console.log(props.treasure)
+    const [title, onChangeTitle] = React.useState(props.treasure.title);
+    const [description, setDescription] = React.useState(props.treasure.description);
+    const [date, setDate] = React.useState(props.treasure.date);
     const [location, setLocation] = React.useState('Lake Waban');
     const [tags, setTags] = React.useState('fun, wellesley');
     

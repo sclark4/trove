@@ -9,10 +9,13 @@ import VaultScreen from '../screens/VaultScreen';
 
 const Tab = createBottomTabNavigator();
 
-export default function Navigation() {
+export default function Navigation({route}) {
+  const treasures = route.params.treasures
+  // console.log(treasures)
     return (
         <Tab.Navigator
         initialRouteName="Home"
+        value = {treasures}
         screenOptions={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
               let icon;
@@ -69,7 +72,7 @@ export default function Navigation() {
           })}
         >
           <Tab.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/>
-          <Tab.Screen name="Treasures" component={TreasuresScreen} options={{ headerShown: false }} />
+          <Tab.Screen name="Treasures" component={TreasuresScreen} options={{ headerShown: false }}  />
           <Tab.Screen name="Vault" component={VaultScreen} options={{ headerShown: false }}/>
           <Tab.Screen name="Mail" component={MailScreen} options={{ headerShown: false }}/>
           <Tab.Screen name="Settings" component={SettingsScreen} options={{ headerShown: false }}/>
