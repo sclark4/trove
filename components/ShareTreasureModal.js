@@ -8,8 +8,8 @@ const DismissKeyboard = ({ children }) => (
     </TouchableWithoutFeedback>
     );
 
-export default function ShareTreasureModal() {
-    const [title, onChangeTitle] = React.useState("The Best Monday");
+export default function ShareTreasureModal(props) {
+  const [title, onChangeTitle] = React.useState(props.treasure.title);
     const [receiver, setReceiver] = React.useState("ww1");
     const [note, setNote] = React.useState("here you go!");
     const [modalVisible, setModalVisible] = useState(false);

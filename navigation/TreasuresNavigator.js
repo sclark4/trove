@@ -12,7 +12,6 @@ import TreasuresScreen from '../screens/TreasuresScreen';
 const Stack = createNativeStackNavigator()
 
 export default function TreasuresNavigator({navigation, route}) {
-  console.log("route ab:",route.params.treasures[1], "omg");
   // navigation.setParams({
   //   query: 'someText',
   // });
@@ -20,8 +19,9 @@ export default function TreasuresNavigator({navigation, route}) {
     <Stack.Navigator>
       <Stack.Screen name="Treasures" component={TreasuresScreen} initialParams = {route.params.treasures} options={{
           headerShown: false
-        }}/>
-      <Stack.Screen name="Treasure" component={Treasure} options={{headerShown: false}} initialParams = {route.params.treasures[0]}/>
+        }}/> 
+      <Stack.Screen name="Treasure" component={Treasure} options={{headerShown: false}} />
+      {/* initialParams = {route.params.treasures[0]} */}
       {/* <Stack.Screen name="AddTreasure" component={AddTreasureModal} />
       <Stack.Screen name="EditTreasure" component={EditTreasureModal} />
       <Stack.Screen name="ShareTreasure" component={ShareTreasureModal} /> */}

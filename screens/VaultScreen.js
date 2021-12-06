@@ -40,6 +40,7 @@ export default function VaultScreen({navigation, route}) {
   return (
     
     <View style={styles.container}>
+
       <Header
       backgroundColor='#fff'
       // leftComponent={<Button title='Add'></Button>}
@@ -47,9 +48,8 @@ export default function VaultScreen({navigation, route}) {
   centerComponent={{ text: 'Vault', style: { color: '#00CCFF' } }}
   rightComponent={{ icon: 'home', color: '#BEBEBE' }}
 />
-      <Text>View All Vaults</Text>
-      <Button title='Create New Vault'/>
-      <Button title='Sort Filter'/>
+      <Button title='Create New Vault' onPress={() => alert("To Be Implemented")}/>
+      <Button title='Sort Filter' onPress={() => alert("To Be Implemented")}/>
       <View style={styles.listWrapper}>
           <FlatList showsVerticalScrollIndicator={false}
           style={styles.list}

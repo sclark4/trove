@@ -12,12 +12,11 @@ const DismissKeyboard = ({ children }) => (
     );
 
 export default function EditTreasureModal(props) {
-  console.log(props.treasure)
     const [title, onChangeTitle] = React.useState(props.treasure.title);
     const [description, setDescription] = React.useState(props.treasure.description);
-    const [date, setDate] = React.useState(props.treasure.date);
+    const [date, setDate] = React.useState(props.treasure.date.toString());
     const [location, setLocation] = React.useState('Lake Waban');
-    const [tags, setTags] = React.useState('fun, wellesley');
+    const [tags, setTags] = React.useState(props.treasure.tags.join());
     
     const [modalVisible, setModalVisible] = useState(false);
     const [image, setImage] = useState(null);
