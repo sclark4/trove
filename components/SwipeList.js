@@ -3,7 +3,21 @@
 import React, {Component} from 'react';
 import {View, Text} from 'react-native';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
-
+const animals = [
+  'anole',
+  'cat',
+  'cow',
+  'dog',
+  'duck',
+  'fish',
+  'goat',
+  'hamster',
+  'horse',
+  'mouse',
+  'pig',
+  'rabbit',
+  'sheep',
+]
 class SwipeList extends Component {
 
   constructor(props) {

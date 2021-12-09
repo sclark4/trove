@@ -250,6 +250,13 @@ const styles = StyleSheet.create({
       marginHorizontal: 1,
       backgroundColor: 'white',
     },
+    mailItem: {
+      // flexDirection: "row",
+      padding: 10,
+      marginVertical: 2,
+      marginHorizontal: 1,
+      backgroundColor: 'white',
+    },
     smallImage: {
       width: 90,
       height: 90,
@@ -287,8 +294,59 @@ const styles = StyleSheet.create({
       width: '55%'
     },
     regularTreasure:{
-      width: '95%',
+      width: 150,
+      height: 150,
+      margin: 10,
     },
+    centeredView: {
+      // flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      marginTop: 22
+    },
+    modalView: {
+      margin: 20,
+      backgroundColor: "white",
+      borderRadius: 20,
+      padding: 35,
+      alignItems: "center",
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 2
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5
+    },
+    button: {
+      borderRadius: 20,
+      padding: 10,
+      elevation: 2,
+      margin: 1,
+    },
+    buttonOpen: {
+      backgroundColor: "#F194FF",
+    },
+    buttonClose: {
+      backgroundColor: "#2196F3",
+    },
+    textStyle: {
+      color: "white",
+      fontWeight: "bold",
+      textAlign: "center"
+    },
+    input: {
+      height: 40,
+      margin: 5,
+      borderWidth: 1,
+      padding: 10,
+    },
+    modalText: {
+      marginBottom: 1,
+      textAlign: "center"
+    }
+    
   });
 
 

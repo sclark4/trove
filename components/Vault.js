@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, Image, Button, FlatList, TouchableOpacity } from 'react-native';
+import { Text, View, Image, Button, FlatList, TouchableOpacity, Pressable } from 'react-native';
 import { Card, ListItem, Icon, Header } from 'react-native-elements';
 import {styles} from '../style/styles';
 import EditTreasureModal from './EditTreasureModal';
@@ -22,10 +22,14 @@ export default function Vault({navigation,route}) {
       <Image style={styles.smallIcon} source={require('../assets/chest.png')} />
       {/* <EditTreasureModal /> */}
       {/* <ShareTreasureModal /> */}
-      <Button title='go back' 
-        onPress={() => navigation.goBack()}/>
-        <Button title='Swipe List' 
-        onPress={() => navigation.navigate('VaultsNav',{screen:'Swipe'})}/>
+      <Pressable style={[styles.button, styles.buttonOpen]} 
+        onPress={() => navigation.goBack()}> 
+        <Text style={styles.textStyle}>Go Back</Text>
+        </Pressable>
+        <Pressable style={[styles.button, styles.buttonOpen]} 
+        onPress={() => navigation.navigate('VaultsNav',{screen:'Swipe'})}> 
+        <Text style={styles.textStyle}>SwipeList</Text>
+        </Pressable>
     </View>
   );
 }

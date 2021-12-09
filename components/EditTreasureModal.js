@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Alert, Button, Modal, StyleSheet, Text, Pressable, View, TextInput, Keyboard,  TouchableWithoutFeedback, Image } from "react-native";
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import * as ImagePicker from 'expo-image-picker';
-
+import {styles} from '../style/styles';
 
 const DismissKeyboard = ({ children }) => (
     <TouchableWithoutFeedback 
@@ -150,53 +150,3 @@ export default function EditTreasureModal(props) {
     
   );
 };
-
-const styles = StyleSheet.create({
-  centeredView: {
-    // flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    // marginTop: 22
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2
-  },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center"
-  },
-  input: {
-    height: 40,
-    margin: 5,
-    borderWidth: 1,
-    padding: 10,
-  },
-  modalText: {
-    marginBottom: 1,
-    textAlign: "center"
-  }
-});

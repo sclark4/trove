@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Alert, Button, Modal, StyleSheet, Text, Pressable, View, TextInput, Keyboard,  TouchableWithoutFeedback, Image } from "react-native";
 import {styles} from '../style/styles';
+
 const DismissKeyboard = ({ children }) => (
     <TouchableWithoutFeedback 
     onPress={() => Keyboard.dismiss()}>
@@ -8,10 +9,10 @@ const DismissKeyboard = ({ children }) => (
     </TouchableWithoutFeedback>
     );
 
-export default function ShareTreasureModal(props) {
+export default function AddToVaultModal(props) {
   const [title, onChangeTitle] = React.useState(props.treasure.title);
-    const [receiver, setReceiver] = React.useState("ww1");
-    const [note, setNote] = React.useState("here you go!");
+    const [vault, setVault] = React.useState("Senior Year");
+    const [note, setNote] = React.useState("Senior Year");
     const [modalVisible, setModalVisible] = useState(false);
 
   return (
@@ -21,7 +22,7 @@ export default function ShareTreasureModal(props) {
         style={[styles.button, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}
       >
-        <Text style={styles.textStyle}>Send Treasure</Text>
+        <Text style={styles.textStyle}>Add Treasure to Vault</Text>
       </Pressable>
       
       <Modal
@@ -37,17 +38,17 @@ export default function ShareTreasureModal(props) {
         <View style={styles.centeredView}>
         <DismissKeyboard>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Treasure to Send:</Text>
+            <Text style={styles.modalText}>Treasure to Add:</Text>
             <TextInput
         style={styles.input}
         onChangeText={onChangeTitle}
         value={title}
       />
-            <Text style={styles.modalText}>Send to:</Text>
+            <Text style={styles.modalText}>Vault:</Text>
             <TextInput
         style={styles.input}
-        onChangeText={setReceiver}
-        value={receiver}
+        onChangeText={setVault}
+        value={vault}
       />
             <Text style={styles.modalText}>Note</Text>
             <TextInput
@@ -60,7 +61,7 @@ export default function ShareTreasureModal(props) {
               style={[styles.button, styles.buttonClose]}
               onPress={() => setModalVisible(!modalVisible)}
             >
-              <Text style={styles.textStyle}>Send Treasure</Text>
+              <Text style={styles.textStyle}>Add to {vault}</Text>
             </Pressable>
           </View>
           </DismissKeyboard>
