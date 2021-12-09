@@ -19,7 +19,6 @@ const animals = [
 ]
 
 export default function VaultScreen({navigation, route}) {
-  console.log(route)
   const [selectedVault, setSelectedVault] = useState(null);
   const ListItem = props => { 
     return (
@@ -45,11 +44,10 @@ export default function VaultScreen({navigation, route}) {
       backgroundColor='#fff'
       // leftComponent={<Button title='Add'></Button>}
   leftComponent={{ icon: 'menu', color: '#BEBEBE', iconStyle: { color: '#BEBEBE' } }}
-  centerComponent={{ text: 'Vault', style: { color: '#00CCFF' } }}
+  centerComponent={{ text: 'Vault', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}
   rightComponent={{ icon: 'home', color: '#BEBEBE' }}
 />
       <Button title='Create New Vault' onPress={() => alert("To Be Implemented")}/>
-      <Button title='Sort Filter' onPress={() => alert("To Be Implemented")}/>
       <View style={styles.listWrapper}>
           <FlatList showsVerticalScrollIndicator={false}
           style={styles.list}

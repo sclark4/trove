@@ -80,7 +80,7 @@ export default function AddTreasureModal() {
         style={[styles.button, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}
       >
-        <Text style={styles.textStyle}>Add Treasure</Text>
+        <Text style={styles.textStyle}>Add</Text>
       </Pressable>
       
       <Modal

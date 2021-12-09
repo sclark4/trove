@@ -130,16 +130,18 @@ export default function TreasuresScreen({navigation, route}) {
     <View>
       <Header
       backgroundColor='#fff'
-      // leftComponent={<Button title='Add'></Button>}
-  leftComponent={{ icon: 'menu', color: '#BEBEBE', iconStyle: { color: '#BEBEBE' } }}
-  centerComponent={{ text: 'Treasures', style: { color: '#00CCFF' } }}
+      leftComponent={<AddTreasureModal />}
+  // leftComponent={{ icon: 'menu', color: '#BEBEBE', iconStyle: { color: '#BEBEBE' } }}
+  centerComponent={{ text: 'Treasures', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}
   rightComponent={{ icon: 'home', color: '#BEBEBE' }}
 />
     <View style={styles.container}>
       
       <AddTreasureModal />
       <View style={styles.listWrapper}>
-        <Text>{route.params}</Text>
+        {/* <Text>{route.params}</Text> */}
+        <Text>Hi</Text>
+
           <FlatList showsVerticalScrollIndicator={false}
           style={styles.list}
             data={testTreasures}

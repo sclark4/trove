@@ -207,6 +207,12 @@ export default () => {
   }
 };
 
+// red:#f26b5b
+// darkpink: #ff7fad
+// light pink: #ffdddd
+// light red: #ffa393
+// yellow: #ffcc77
+// blue: #a5c6ff 
 
 const styles = StyleSheet.create({
     container: {
@@ -320,16 +326,17 @@ const styles = StyleSheet.create({
       elevation: 5
     },
     button: {
+      backgroundColor: "#a5c6ff",
       borderRadius: 20,
       padding: 10,
       elevation: 2,
       margin: 1,
     },
     buttonOpen: {
-      backgroundColor: "#F194FF",
+      backgroundColor: "#a5c6ff",
     },
     buttonClose: {
-      backgroundColor: "#2196F3",
+      backgroundColor: "#ffcc77",
     },
     textStyle: {
       color: "white",

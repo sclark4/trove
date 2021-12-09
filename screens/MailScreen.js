@@ -3,7 +3,7 @@ import { Text, View, Image, Button, FlatList, TouchableOpacity, Pressable } from
 import { Card, ListItem, Icon, Header } from 'react-native-elements'
 import {styles} from '../style/styles';
 
-const animals = 
+const mailData = 
 [
   {'name': 'Abigail', 'note': 'Here you go!', 'accepted':false, 'date':'12/08/2021', 'tid':'1'},
   {'name': 'Bethany', 'note': 'For you!', 'accepted':true, 'date':'12/08/2021', 'tid':'2'},
@@ -32,7 +32,7 @@ export default function MailScreen({navigation}) {
           <Text style={styles.paragraph}>{props.text.item.note}</Text>
           <Text style={styles.paragraph}>{props.text.item.date}</Text>
 
-          {(props.text.item.accepted)?<AcceptButtons/>:<Icon size={50} name='check-circle-o' type='font-awesome' color='pink' />}
+          {(props.text.item.accepted)?<AcceptButtons/>:<Icon size={50} name='check-circle-o' type='font-awesome' color='#ffcc77' />}
         </View>
       </TouchableOpacity>
     );
@@ -42,10 +42,10 @@ export default function MailScreen({navigation}) {
     return (
       <View>
       <Pressable onPress={() => alert("accept mail to be implemented")}>
-        <Icon size={50} name='check' type='font-awesome' color='green' />
+        <Icon size={50} name='check' type='font-awesome' color='#a5c6ff' />
         </Pressable>
         <Pressable onPress={() => alert("are you sure you want to reject this mail? doing so will delete the message.")}>
-        <Icon size={50} name='ban' type='font-awesome' color='red' />
+        <Icon size={50} name='ban' type='font-awesome' color='#f26b5b' />
         </Pressable>
         </View>
     );
@@ -56,13 +56,13 @@ export default function MailScreen({navigation}) {
       <Header
       backgroundColor='#fff'
   leftComponent={{ icon: 'menu', color: '#BEBEBE', iconStyle: { color: '#BEBEBE' } }}
-  centerComponent={{ text: 'Mail', style: { color: '#00CCFF' } }}
+  centerComponent={{ text: 'Mail', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}
   rightComponent={{ icon: 'home', color: '#BEBEBE' }}
 />
       <View style={styles.listWrapper}>
           <FlatList showsVerticalScrollIndicator={false}
           style={styles.list}
-            data={animals}
+            data={mailData}
             renderItem={ datum => <ListItem text={datum}></ListItem>} 
             keyExtractor={item => item.tid} 
           />

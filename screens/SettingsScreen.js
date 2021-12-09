@@ -10,7 +10,7 @@ export default function SettingsScreen({navigation}) {
       backgroundColor='#fff'
       // leftComponent={<Button title='Add'></Button>}
   leftComponent={{ icon: 'menu', color: '#BEBEBE', iconStyle: { color: '#BEBEBE' } }}
-  centerComponent={{ text: 'Settings', style: { color: '#00CCFF' } }}
+  centerComponent={{ text: 'Settings', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}
   rightComponent={{ icon: 'home', color: '#BEBEBE' }}
 />
       <Text style={styles.h1}>
