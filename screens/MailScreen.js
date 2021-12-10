@@ -32,7 +32,7 @@ export default function MailScreen({navigation}) {
           <Text style={styles.paragraph}>{props.text.item.note}</Text>
           <Text style={styles.paragraph}>{props.text.item.date}</Text>
 
-          {(props.text.item.accepted)?<AcceptButtons/>:<Icon size={50} name='check-circle-o' type='font-awesome' color='#ffcc77' />}
+          {(props.text.item.accepted)?<AcceptButtons/>:<Icon size={40} name='check-circle-o' type='font-awesome' color='#ffcc77' />}
         </View>
       </TouchableOpacity>
     );
@@ -42,10 +42,10 @@ export default function MailScreen({navigation}) {
     return (
       <View>
       <Pressable onPress={() => alert("accept mail to be implemented")}>
-        <Icon size={50} name='check' type='font-awesome' color='#a5c6ff' />
+        <Icon size={40} name='check' type='font-awesome' color='#a5c6ff' />
         </Pressable>
         <Pressable onPress={() => alert("are you sure you want to reject this mail? doing so will delete the message.")}>
-        <Icon size={50} name='ban' type='font-awesome' color='#f26b5b' />
+        <Icon size={40} name='ban' type='font-awesome' color='#f26b5b' />
         </Pressable>
         </View>
     );

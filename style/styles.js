@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
       width: 128,
     },
     listWrapper: {
-      height: '80%', 
+      maxHeight: '100%', 
       width: '100%',
     },
     listItem: {

@@ -3,6 +3,8 @@ import { Alert, Button, Modal, StyleSheet, Text, Pressable, View, TextInput, Key
 import {styles} from '../style/styles';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import * as ImagePicker from 'expo-image-picker';
+import { Card, Icon, Header } from 'react-native-elements';
+
 
 
 const DismissKeyboard = ({ children }) => (
@@ -12,7 +14,7 @@ const DismissKeyboard = ({ children }) => (
     </TouchableWithoutFeedback>
     );
 
-export default function AddTreasureModal() {
+export default function AddTreasureModal(props) {
     const [title, onChangeTitle] = React.useState("The Best Monday");
     const [description, setDescription] = React.useState("I had the best monday ever");
     const [date, setDate] = React.useState(new Date().toLocaleString());
@@ -43,9 +45,10 @@ export default function AddTreasureModal() {
     //   showMode('date');
     // };
   
-    // const showTimepicker = () => {
-    //   showMode('time');
-    // };
+    const addAndClose = () => {
+      props.add;
+      setModalVisible(!modalVisible);
+    };
 
   useEffect(() => {
     (async () => {
@@ -80,7 +83,8 @@ export default function AddTreasureModal() {
         style={[styles.button, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}
       >
-        <Text style={styles.textStyle}>Add</Text>
+        <Icon name='add' color='#ffffff' />
+        {/* <Text style={styles.textStyle}>Add</Text> */}
       </Pressable>
       
       <Modal
@@ -169,7 +173,7 @@ export default function AddTreasureModal() {
       />
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
+              onPress={() => addAndClose()}
             >
               <Text style={styles.textStyle}>Add Treasure</Text>
             </Pressable>

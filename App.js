@@ -129,22 +129,16 @@ export default function App() {
   const [treasures, setTreasures] = useState(testTreasures);
   // const [treasures, setTreasures] = useState(testTreasures.map( addTimestamp ));
   const [loggedInUser, setLoggedInUser] = React.useState('testUser');
-  const addTreasure = () => setTreasures(...treasures, {'user': 'sclark4@wellesley.edu',                         
+  const addTreasure = () => 
+  setTreasures({'user': 'sclark4@wellesley.edu',                         
   'date': "12/05/2021",//new Date(2021, 11, 2, 10, 52, 31, 1234), 
   'title': 'pumpkin pie',
   'tags': ['food', 'pumpkin'], 
   'description': "Please work!!!",
   'id': '10',
- });
- const deleteTreasure = () => setTreasures({'user': 'sclark4@wellesley.edu',                         
-  'date': "12/05/2021",//new Date(2021, 11, 2, 10, 52, 31, 1234), 
-  'title': 'pumpkin pie',
-  'tags': ['food', 'pumpkin'], 
-  'description': "Please work!!!",
-  'id': '10',
- });
+ }, ...treasures);
+ const deleteTreasure = () => setTreasures(testTreasures);
 
-  // const reset = () => setCount(0);
   const treasuresProps = { treasures, addTreasure, deleteTreasure };
   function addTimestamp(item) {
     // Add millisecond timestamp field to message 
@@ -155,10 +149,10 @@ export default function App() {
     //   <Navigation />
     // </NavigationContainer>
     <NavigationContainer>
-    <Stack.Navigator screenProps = {{test:'testing 1 2 3'}}>
-      <Stack.Screen name="Main" component={Navigation} options={{ headerShown: false }} initialParams={{treasures: treasures}}/>
+    <Stack.Navigator>
+      <Stack.Screen name="Main" component={Navigation(treasuresProps)} options={{ headerShown: false }}/>
       <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/>
-      <Stack.Screen name="TreasuresNav" component={TreasuresNavigator} options={{ headerShown: false }} initialParams={{data: treasuresProps}} />
+      <Stack.Screen name="TreasuresNav" component={TreasuresNavigator(treasuresProps)} options={{ headerShown: false }}/>
       <Stack.Screen name="VaultsNav" component={VaultsNavigator} options={{ headerShown: false }}/>
     </Stack.Navigator>
         {/* {loggedInUser ? 
