@@ -8,6 +8,7 @@ export default function SettingsScreen({navigation}) {
     <View style={styles.container}>
       <Header
       backgroundColor='#fff'
+      // containerStyle={styles.headerContainer}
       // leftComponent={<Button title='Add'></Button>}
   leftComponent={{ icon: 'menu', color: '#BEBEBE', iconStyle: { color: '#BEBEBE' } }}
   centerComponent={{ text: 'Settings', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}

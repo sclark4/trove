@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useContext} from 'react';
 import { Icon } from 'react-native-elements';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import SettingsScreen from '../screens/SettingsScreen';
@@ -6,14 +6,16 @@ import HomeScreen from '../screens/HomeScreen';
 import TreasuresScreen from '../screens/TreasuresScreen';
 import MailScreen from '../screens/MailScreen';
 import VaultScreen from '../screens/VaultScreen';
-
+import StateContext from '../StateContext';
 const Tab = createBottomTabNavigator();
 
-export default function Navigation(screenProps) {
+export default function Navigation(props) {
   // const treasures = route.params.treasures
   // console.log(treasures)
-  function Nav(props){
+  // function Nav(props){
+    const screenProps = useContext(StateContext);
     return (
+      <StateContext.Provider value={screenProps}>
         <Tab.Navigator
         initialRouteName="Home"
         
@@ -73,12 +75,14 @@ export default function Navigation(screenProps) {
           })}
         >
           {/* <Tab.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/> */}
-          <Tab.Screen name="Treasures" component={TreasuresScreen(props)} options={{ headerShown: false }}  />
+          
+          <Tab.Screen name="Treasures" component={TreasuresScreen} options={{ headerShown: false }}  />
           <Tab.Screen name="Vault" component={VaultScreen} options={{ headerShown: false }}/>
           <Tab.Screen name="Mail" component={MailScreen} options={{ headerShown: false }}/>
           <Tab.Screen name="Settings" component={SettingsScreen} options={{ headerShown: false }}/>
         </Tab.Navigator>
+        </StateContext.Provider>
       );
-    }
-    return (Nav);
+    // }
+    // return (Nav);
 }

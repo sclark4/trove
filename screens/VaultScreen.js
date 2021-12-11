@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { Text, View, Image, Button, FlatList, TouchableOpacity } from 'react-native';
 import {styles} from '../style/styles';
 import { Card, ListItem, Icon, Header } from 'react-native-elements'
+import AddVaultModal from '../components/AddVaultModal';
 const animals = [
   'anole',
   'cat',
@@ -41,9 +42,10 @@ export default function VaultScreen({navigation, route}) {
     <View style={styles.container}>
 
       <Header
+      containerStyle={styles.headerContainer}
       backgroundColor='#fff'
       // leftComponent={<Button title='Add'></Button>}
-  leftComponent={{ icon: 'menu', color: '#BEBEBE', iconStyle: { color: '#BEBEBE' } }}
+  leftComponent= {<AddVaultModal/>}
   centerComponent={{ text: 'Vault', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}
   rightComponent={{ icon: 'home', color: '#BEBEBE' }}
 />

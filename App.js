@@ -1,5 +1,5 @@
 
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import { NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Navigation from './navigation/Navigation';
@@ -8,7 +8,7 @@ import VaultsNavigator from './navigation/VaultsNavigator';
 import HomeScreen from './screens/HomeScreen';
 import VaultScreen from './screens/VaultScreen';
 import TreasuresScreen from './screens/TreasuresScreen';
-
+import StateContext from './StateContext.js';
 
 
 const Stack = createNativeStackNavigator();
@@ -130,16 +130,17 @@ export default function App() {
   // const [treasures, setTreasures] = useState(testTreasures.map( addTimestamp ));
   const [loggedInUser, setLoggedInUser] = React.useState('testUser');
   const addTreasure = () => 
-  setTreasures({'user': 'sclark4@wellesley.edu',                         
+  (setTreasures([{'user': 'sclark4@wellesley.edu',                         
   'date': "12/05/2021",//new Date(2021, 11, 2, 10, 52, 31, 1234), 
-  'title': 'pumpkin pie',
-  'tags': ['food', 'pumpkin'], 
-  'description': "Please work!!!",
+  'title': 'The Best Monday',
+  'tags': ['cs317', 'WeLoveLyn', 'appdevelopment'], 
+  'description': "Today, we successfully demoed trove!",
   'id': '10',
- }, ...treasures);
+ }, ...treasures ]))
  const deleteTreasure = () => setTreasures(testTreasures);
 
   const treasuresProps = { treasures, addTreasure, deleteTreasure };
+  const screenProps = {treasuresProps}
   function addTimestamp(item) {
     // Add millisecond timestamp field to message 
     return {...item, timestamp:item.date.getTime()}
@@ -148,13 +149,15 @@ export default function App() {
     // <NavigationContainer>
     //   <Navigation />
     // </NavigationContainer>
+    <StateContext.Provider value={screenProps}>
     <NavigationContainer>
     <Stack.Navigator>
-      <Stack.Screen name="Main" component={Navigation(treasuresProps)} options={{ headerShown: false }}/>
+      <Stack.Screen name="Main" component={Navigation} options={{ headerShown: false }}/>
       <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/>
-      <Stack.Screen name="TreasuresNav" component={TreasuresNavigator(treasuresProps)} options={{ headerShown: false }}/>
+      <Stack.Screen name="TreasuresNav" component={TreasuresNavigator} options={{ headerShown: false }}/>
       <Stack.Screen name="VaultsNav" component={VaultsNavigator} options={{ headerShown: false }}/>
     </Stack.Navigator>
+    
         {/* {loggedInUser ? 
       (<Stack.Screen name="Main" component={Navigation} options={{ headerShown: false }}/>) : 
         (<>
@@ -165,6 +168,7 @@ export default function App() {
     } */}
     
   </NavigationContainer>
+  </StateContext.Provider>
 
   );
 }

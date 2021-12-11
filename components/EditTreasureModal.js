@@ -136,7 +136,7 @@ export default function EditTreasureModal(props) {
             </Pressable>
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
+              onPress={() => {setModalVisible(!modalVisible); props.delete()}}
             >
               <Text style={styles.textStyle}>Delete Treasure</Text>
             </Pressable>

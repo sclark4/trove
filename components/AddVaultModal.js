@@ -14,16 +14,16 @@ const DismissKeyboard = ({ children }) => (
     </TouchableWithoutFeedback>
     );
 
-export default function AddTreasureModal(props) {
-    const [title, onChangeTitle] = React.useState("The Best Monday");
-    const [description, setDescription] = React.useState("Today, we unsuccessfully demoed trove!");
-    const [date, setDate] = React.useState(new Date().toLocaleString());
-    // const [time, setTime] = React.useState('now');
-    const [location, setLocation] = React.useState('Science Center');
-    const [tags, setTags] = React.useState('cs317, WeLoveLyn, appdevelopment');
+export default function AddVaultModal(props) {
+    // const [title, onChangeTitle] = React.useState("The Best Monday");
+    // const [description, setDescription] = React.useState("Today, we unsuccessfully demoed trove!");
+    // const [date, setDate] = React.useState(new Date().toLocaleString());
+    // // const [time, setTime] = React.useState('now');
+    // const [location, setLocation] = React.useState('Science Center');
+    // const [tags, setTags] = React.useState('cs317, WeLoveLyn, appdevelopment');
     
-    const [modalVisible, setModalVisible] = useState(false);
-    const [image, setImage] = useState(null);
+    // const [modalVisible, setModalVisible] = useState(false);
+    // const [image, setImage] = useState(null);
 
     // const [open, setOpen] = useState(false)
     // const [date, setDate] = useState(new Date(1598051730000));
@@ -45,49 +45,49 @@ export default function AddTreasureModal(props) {
     //   showMode('date');
     // };
   
-    const addAndClose = () => {
-      setModalVisible(!modalVisible);
-      props.add();
-    };
+    // const addAndClose = () => {
+    //   setModalVisible(!modalVisible);
+    //   props.add();
+    // };
 
-  useEffect(() => {
-    (async () => {
-      if (Platform.OS !== 'web') {
-        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status !== 'granted') {
-          alert('Sorry, we need camera roll permissions to make this work!');
-        }
-      }
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     if (Platform.OS !== 'web') {
+  //       const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+  //       if (status !== 'granted') {
+  //         alert('Sorry, we need camera roll permissions to make this work!');
+  //       }
+  //     }
+  //   })();
+  // }, []);
 
-  const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
+  // const pickImage = async () => {
+  //   let result = await ImagePicker.launchImageLibraryAsync({
+  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
+  //     allowsEditing: true,
+  //     aspect: [4, 3],
+  //     quality: 1,
+  //   });
 
-    console.log(result);
+  //   console.log(result);
 
-    if (!result.cancelled) {
-      setImage(result.uri);
-    }
-  };
+  //   if (!result.cancelled) {
+  //     setImage(result.uri);
+  //   }
+  // };
 
   return (
     
     <View style={styles.centeredView}>
         <Pressable
         style={[styles.headerButton, styles.buttonOpen]}
-        onPress={() => setModalVisible(true)}
+        // onPress={() => setModalVisible(true)}
       >
         <Icon name='add' color='#ffffff' />
         {/* <Text style={styles.textStyle}>Add</Text> */}
       </Pressable>
       
-      <Modal
+      {/* <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
@@ -124,38 +124,6 @@ export default function AddTreasureModal(props) {
         onChangeText={setDate}
         value={date}
       />
-        {/* <Button onPress={showDatepicker} title="Show date picker!" />
-        <Button onPress={showTimepicker} title="Show time picker!" /> */}
-      {/* <Text> {show && (
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={date}
-          mode={mode}
-          is24Hour={true}
-          display="default"
-          onChange={onChange}
-        />
-      )}</Text> */}
-            {/* <Button title="Open" onPress={() => setOpen(true)} />
-      <DatePicker
-        modal
-        open={open}
-        date={date}
-        onConfirm={(date) => {
-          setOpen(false)
-          setDate(date)
-        }}
-        onCancel={() => {
-          setOpen(false)
-        }}
-      /> */}
-            {/* <DatePicker date={date} onDateChange={setDate} mode='date' /> */}
-            {/* <Text style={styles.modalText}>Time</Text>
-            <TextInput
-        style={styles.input}
-        onChangeText={setTime}
-        value={time}
-      /> */}
          
             <Text style={styles.modalText}>Location</Text>
             <TextInput
@@ -182,7 +150,7 @@ export default function AddTreasureModal(props) {
         </View>
         
       </Modal>
-      
+       */}
     </View>
     
   );

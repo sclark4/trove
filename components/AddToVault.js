@@ -22,7 +22,7 @@ export default function AddToVaultModal(props) {
         style={[styles.button, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}
       >
-        <Text style={styles.textStyle}>Add Treasure to Vault</Text>
+        <Text style={styles.textStyle}>Add to Vault</Text>
       </Pressable>
       
       <Modal

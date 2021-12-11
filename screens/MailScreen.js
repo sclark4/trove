@@ -28,11 +28,14 @@ export default function MailScreen({navigation}) {
             style={styles.smallImage}
             source={{uri: 'https://cs.wellesley.edu/~cs/ai2workshop/animals/anole.jpg'}}
           />
-          <Text style={styles.paragraph}>{props.text.item.name}</Text>
-          <Text style={styles.paragraph}>{props.text.item.note}</Text>
-          <Text style={styles.paragraph}>{props.text.item.date}</Text>
 
-          {(props.text.item.accepted)?<AcceptButtons/>:<Icon size={40} name='check-circle-o' type='font-awesome' color='#ffcc77' />}
+          <Text>
+          <Text style={styles.paragraph}>From {props.text.item.name}: </Text>
+          <Text style={styles.paragraph}>"{props.text.item.note}"</Text>
+          </Text>
+          <Text style={styles.paragraph}>Received:{props.text.item.date}</Text>
+          {(props.text.item.accepted)?<AcceptButtons/>:<Icon size={40} name='check-circle-o' type='font-awesome' color='#BEBEBE' />}
+
         </View>
       </TouchableOpacity>
     );
@@ -41,12 +44,14 @@ export default function MailScreen({navigation}) {
   const AcceptButtons = () => { 
     return (
       <View>
+        <Text style={{textAlign: 'center'}}>
       <Pressable onPress={() => alert("accept mail to be implemented")}>
         <Icon size={40} name='check' type='font-awesome' color='#a5c6ff' />
         </Pressable>
         <Pressable onPress={() => alert("are you sure you want to reject this mail? doing so will delete the message.")}>
         <Icon size={40} name='ban' type='font-awesome' color='#f26b5b' />
         </Pressable>
+        </Text>
         </View>
     );
   }
@@ -54,6 +59,7 @@ export default function MailScreen({navigation}) {
   return (
     <View style={styles.container}>
       <Header
+      containerStyle={styles.headerContainer}
       backgroundColor='#fff'
   leftComponent={{ icon: 'menu', color: '#BEBEBE', iconStyle: { color: '#BEBEBE' } }}
   centerComponent={{ text: 'Mail', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}
@@ -61,7 +67,6 @@ export default function MailScreen({navigation}) {
 />
       <View style={styles.listWrapper}>
           <FlatList showsVerticalScrollIndicator={false}
-          style={styles.list}
             data={mailData}
             renderItem={ datum => <ListItem text={datum}></ListItem>} 
             keyExtractor={item => item.tid} 

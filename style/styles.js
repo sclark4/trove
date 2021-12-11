@@ -215,6 +215,13 @@ export default () => {
 // blue: #a5c6ff 
 
 const styles = StyleSheet.create({
+    headerContainer:{
+      height: Platform.select({
+        android: 100,
+        default: 110,
+      }),
+      paddingTop:50,
+    },
     container: {
       alignItems: 'center',
       justifyContent: 'center',
@@ -260,7 +267,7 @@ const styles = StyleSheet.create({
       // flexDirection: "row",
       padding: 10,
       marginVertical: 2,
-      marginHorizontal: 1,
+      // marginHorizontal: 1,
       backgroundColor: 'white',
     },
     smallImage: {
@@ -308,7 +315,7 @@ const styles = StyleSheet.create({
       // flex: 1,
       justifyContent: "center",
       alignItems: "center",
-      marginTop: 22
+      // marginTop: 22
     },
     modalView: {
       margin: 20,
@@ -331,6 +338,11 @@ const styles = StyleSheet.create({
       padding: 10,
       elevation: 2,
       margin: 1,
+    },
+    headerButton: {
+      backgroundColor: "#a5c6ff",
+      borderRadius: 20,
+      padding: 2,
     },
     buttonOpen: {
       backgroundColor: "#a5c6ff",
