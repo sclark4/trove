@@ -81,6 +81,7 @@ export default function AddVaultModal(props) {
     <View style={styles.centeredView}>
         <Pressable
         style={[styles.headerButton, styles.buttonOpen]}
+        onPress={() => alert("To Be Implemented")}
         // onPress={() => setModalVisible(true)}
       >
         <Icon name='add' color='#ffffff' />

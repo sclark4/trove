@@ -15,7 +15,7 @@ export default function EditTreasureModal(props) {
     const [title, onChangeTitle] = React.useState(props.treasure.title);
     const [description, setDescription] = React.useState(props.treasure.description);
     const [date, setDate] = React.useState(props.treasure.date.toString());
-    const [location, setLocation] = React.useState('Lake Waban');
+    const [location, setLocation] = React.useState('Science Center');
     const [tags, setTags] = React.useState(props.treasure.tags.join());
     
     const [modalVisible, setModalVisible] = useState(false);

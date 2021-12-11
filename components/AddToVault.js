@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Alert, Button, Modal, StyleSheet, Text, Pressable, View, TextInput, Keyboard,  TouchableWithoutFeedback, Image } from "react-native";
+import { Card, ListItem, Icon, Header } from 'react-native-elements'
 import {styles} from '../style/styles';
 
 const DismissKeyboard = ({ children }) => (
@@ -10,7 +11,7 @@ const DismissKeyboard = ({ children }) => (
     );
 
 export default function AddToVaultModal(props) {
-  const [title, onChangeTitle] = React.useState(props.treasure.title);
+  // const [title, onChangeTitle] = React.useState(props.treasure.title);
     const [vault, setVault] = React.useState("Senior Year");
     const [note, setNote] = React.useState("Senior Year");
     const [modalVisible, setModalVisible] = useState(false);
@@ -19,13 +20,13 @@ export default function AddToVaultModal(props) {
     
     <View style={styles.centeredView}>
         <Pressable
-        style={[styles.button, styles.buttonOpen]}
-        onPress={() => setModalVisible(true)}
+        style={[styles.headerButton, styles.buttonOpen]}
+        onPress={() => alert("To Be Implemented")}
       >
-        <Text style={styles.textStyle}>Add to Vault</Text>
+        <Icon name='add' color='#ffffff' />
       </Pressable>
       
-      <Modal
+      {/* <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
@@ -66,7 +67,7 @@ export default function AddToVaultModal(props) {
           </View>
           </DismissKeyboard>
         </View>
-      </Modal>
+      </Modal> */}
     </View>
     
   );

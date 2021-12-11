@@ -4,19 +4,11 @@ import {styles} from '../style/styles';
 import { Card, ListItem, Icon, Header } from 'react-native-elements'
 import AddVaultModal from '../components/AddVaultModal';
 const animals = [
-  'anole',
-  'cat',
-  'cow',
-  'dog',
-  'duck',
-  'fish',
-  'goat',
-  'hamster',
-  'horse',
-  'mouse',
-  'pig',
-  'rabbit',
-  'sheep',
+  'Senior Year at Wellesley',
+  'Christmas',
+  'Study Abroad',
+  'East Side Schenanigans',
+  'Summer 2019',
 ]
 
 export default function VaultScreen({navigation, route}) {
@@ -47,9 +39,8 @@ export default function VaultScreen({navigation, route}) {
       // leftComponent={<Button title='Add'></Button>}
   leftComponent= {<AddVaultModal/>}
   centerComponent={{ text: 'Vault', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}
-  rightComponent={{ icon: 'home', color: '#BEBEBE' }}
+  // rightComponent={{ icon: 'home', color: '#BEBEBE' }}
 />
-      <Button title='Create New Vault' onPress={() => alert("To Be Implemented")}/>
       <View style={styles.listWrapper}>
           <FlatList showsVerticalScrollIndicator={false}
           style={styles.list}

@@ -275,6 +275,8 @@ const styles = StyleSheet.create({
       height: 90,
       margin: 10,
       borderRadius: 50,
+      flex: 1,
+      marginLeft: "37%"
     },
     smallIcon: {
       width: 90,
@@ -301,7 +303,8 @@ const styles = StyleSheet.create({
       borderRadius: 100,
     },
     listItemText: {
-      fontSize: 30,
+      fontSize: 23,
+      fontWeight: '500',
       marginTop: 10,
       paddingTop: 20,
       width: '55%'

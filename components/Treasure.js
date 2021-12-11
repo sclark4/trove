@@ -17,14 +17,13 @@ export default function Treasure(props) {
       <Header
       backgroundColor='#fff'
       // leftComponent={<Button title='Add'></Button>}
-  leftComponent={{ icon: 'menu', color: '#BEBEBE', iconStyle: { color: '#BEBEBE' } }}
-  centerComponent={{ text: props.route.params.treasure.title, style: { color: '#00CCFF' } }}
-  rightComponent={{ icon: 'home', color: '#BEBEBE' }}
+  leftComponent={<Pressable style={[styles.button, styles.buttonOpen]} 
+  onPress={() => props.navigation.goBack()}> 
+  <Text style={styles.textStyle}>back</Text>
+  </Pressable>}
+  centerComponent={{ text: props.route.params.treasure.title, style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}
+  rightComponent={<AddToVaultModal treasure={props.route.params.treasure}/>}
 />
-<Pressable style={[styles.button, styles.buttonOpen]} 
-        onPress={() => props.navigation.goBack()}> 
-        <Text style={styles.textStyle}>Go Back</Text>
-        </Pressable>
       {/* <Text style={styles.h1}>{route.params.title}</Text> */}
       <Image
             style={styles.regularTreasure}
@@ -38,7 +37,7 @@ export default function Treasure(props) {
       
       <EditTreasureModal treasure={props.route.params.treasure} delete = {deleteAndExit}/>
       <ShareTreasureModal treasure={props.route.params.treasure}/>
-      <AddToVaultModal treasure={props.route.params.treasure}/>
+      
       
     </View>
   );

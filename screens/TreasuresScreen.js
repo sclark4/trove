@@ -50,7 +50,8 @@ export default function TreasuresScreen(props) {
       leftComponent={<AddTreasureModal add={screenProps.addTreasure}/>}
   // leftComponent={{ icon: 'menu', color: '#BEBEBE', iconStyle: { color: '#BEBEBE' } }}
   centerComponent={{ text: 'Treasures', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}
-  rightComponent={{ icon: 'home', color: '#BEBEBE' }}/>
+  // rightComponent={{ icon: 'home', color: '#BEBEBE' }}
+  />
     <View style={styles.container}>
       <View style={styles.listWrapper}>
       {/* <Text>hi{JSON.stringify(props, null, 2)}</Text> */}

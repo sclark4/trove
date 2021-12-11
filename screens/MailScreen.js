@@ -26,9 +26,8 @@ export default function MailScreen({navigation}) {
         <View style={styles.mailItem}>
           <Image
             style={styles.smallImage}
-            source={{uri: 'https://cs.wellesley.edu/~cs/ai2workshop/animals/anole.jpg'}}
+            source={require('../assets/icon.png')}
           />
-
           <Text>
           <Text style={styles.paragraph}>From {props.text.item.name}: </Text>
           <Text style={styles.paragraph}>"{props.text.item.note}"</Text>
@@ -61,9 +60,9 @@ export default function MailScreen({navigation}) {
       <Header
       containerStyle={styles.headerContainer}
       backgroundColor='#fff'
-  leftComponent={{ icon: 'menu', color: '#BEBEBE', iconStyle: { color: '#BEBEBE' } }}
+  // leftComponent={{ icon: 'menu', color: '#BEBEBE', iconStyle: { color: '#BEBEBE' } }}
   centerComponent={{ text: 'Mail', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}
-  rightComponent={{ icon: 'home', color: '#BEBEBE' }}
+  // rightComponent={{ icon: 'home', color: '#BEBEBE' }}
 />
       <View style={styles.listWrapper}>
           <FlatList showsVerticalScrollIndicator={false}
