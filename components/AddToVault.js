@@ -11,7 +11,6 @@ const DismissKeyboard = ({ children }) => (
     );
 
 export default function AddToVaultModal(props) {
-  // const [title, onChangeTitle] = React.useState(props.treasure.title);
     const [vault, setVault] = React.useState("Senior Year");
     const [note, setNote] = React.useState("Senior Year");
     const [modalVisible, setModalVisible] = useState(false);
@@ -25,49 +24,6 @@ export default function AddToVaultModal(props) {
       >
         <Icon name='add' color='#ffffff' />
       </Pressable>
-      
-      {/* <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
-        }}
-      >
-        
-        <View style={styles.centeredView}>
-        <DismissKeyboard>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Treasure to Add:</Text>
-            <TextInput
-        style={styles.input}
-        onChangeText={onChangeTitle}
-        value={title}
-      />
-            <Text style={styles.modalText}>Vault:</Text>
-            <TextInput
-        style={styles.input}
-        onChangeText={setVault}
-        value={vault}
-      />
-            <Text style={styles.modalText}>Note</Text>
-            <TextInput
-        style={styles.input}
-        onChangeText={setNote}
-        value={note}
-        multiline={true}
-      />
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={styles.textStyle}>Add to {vault}</Text>
-            </Pressable>
-          </View>
-          </DismissKeyboard>
-        </View>
-      </Modal> */}
     </View>
     
   );

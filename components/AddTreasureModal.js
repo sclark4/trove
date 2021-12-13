@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Alert, Button, Modal, StyleSheet, Text, Pressable, View, TextInput, Keyboard,  TouchableWithoutFeedback, Image } from "react-native";
+import { Alert, Button, Modal, Text, Pressable, View, TextInput, Keyboard,  TouchableWithoutFeedback, Image } from "react-native";
 import {styles} from '../style/styles';
 import * as ImagePicker from 'expo-image-picker';
-import { Card, Icon, Header } from 'react-native-elements';
+import { Icon } from 'react-native-elements';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 
@@ -17,11 +17,8 @@ export default function AddTreasureModal(props) {
     const [title, onChangeTitle] = React.useState("The Best Monday");
     const [description, setDescription] = React.useState("Today, we unsuccessfully demoed trove!");
     const [date, setDate] = useState(new Date(1598051730000));
-    const [mode, setMode] = useState('date');
-    const [show, setShow] = useState(false);
-  
-    
-    // const [time, setTime] = React.useState('now');
+
+
     const [location, setLocation] = React.useState('Science Center');
     const [tags, setTags] = React.useState('cs317, WeLoveLyn, appdevelopment');
     
@@ -33,20 +30,6 @@ export default function AddTreasureModal(props) {
       setShow(Platform.OS === 'ios');
       setDate(currentDate);
     };
-  
-    const showMode = (currentMode) => {
-      setShow(true);
-      setMode(currentMode);
-    };
-  
-    const showDatepicker = () => {
-      showMode('date');
-    };
-  
-    const showTimepicker = () => {
-      showMode('time');
-    };
-  
     const addAndClose = () => {
       setModalVisible(!modalVisible);
       props.add();
@@ -85,7 +68,6 @@ export default function AddTreasureModal(props) {
         onPress={() => setModalVisible(true)}
       >
         <Icon name='add' color='#ffffff' />
-        {/* <Text style={styles.textStyle}>Add</Text> */}
       </Pressable>
       
       <Modal
@@ -132,7 +114,7 @@ export default function AddTreasureModal(props) {
         />
       </View>
       <View>
-        <Button onPress={showTimepicker} title="Set time" />
+        <Button title="Set time" />
         <DateTimePicker
           testID="dateTimePicker"
           value={date}

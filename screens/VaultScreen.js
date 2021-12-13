@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import { Text, View, Image, Button, FlatList, TouchableOpacity } from 'react-native';
+import { Text, View, Image, FlatList, TouchableOpacity } from 'react-native';
 import {styles} from '../style/styles';
-import { Card, ListItem, Icon, Header } from 'react-native-elements'
+import { Header } from 'react-native-elements'
 import AddVaultModal from '../components/AddVaultModal';
-const animals = [
+const vaults = [
   'Senior Year at Wellesley',
   'Christmas',
   'Study Abroad',
@@ -27,27 +27,23 @@ export default function VaultScreen({navigation, route}) {
         </View>
       </TouchableOpacity>
     );
-  }
+}
 
   return (
-    
-    <View style={styles.container}>
-
+    <View>
       <Header
-      containerStyle={styles.headerContainer}
       backgroundColor='#fff'
-      // leftComponent={<Button title='Add'></Button>}
-  leftComponent= {<AddVaultModal/>}
-  centerComponent={{ text: 'Vault', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}
-  // rightComponent={{ icon: 'home', color: '#BEBEBE' }}
-/>
+      leftComponent= {<AddVaultModal/>}
+      centerComponent={{ text: 'Vault', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}/>
+
       <View style={styles.listWrapper}>
-          <FlatList showsVerticalScrollIndicator={false}
-          style={styles.list}
-            data={animals}
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            style={styles.list}
+            data={vaults}
             renderItem={ datum => <ListItem text={datum.item}></ListItem>} 
-            keyExtractor={item => item} 
-          />
+            keyExtractor={item => item} />
+     
         </View>
     </View>
   );

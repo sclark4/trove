@@ -235,6 +235,13 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       // fontFamily: 'Karla_500Medium',
     },
+    tag:{
+      color:'#a5c6ff',
+      fontWeight: '500',
+      fontSize: 15,
+
+      
+    },
     h1: {
       fontSize: 24,
       margin: 14,

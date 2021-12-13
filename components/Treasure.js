@@ -16,14 +16,14 @@ export default function Treasure(props) {
     <View style={styles.container}>
       <Header
       backgroundColor='#fff'
-      // leftComponent={<Button title='Add'></Button>}
-  leftComponent={<Pressable style={[styles.button, styles.buttonOpen]} 
-  onPress={() => props.navigation.goBack()}> 
-  <Text style={styles.textStyle}>back</Text>
-  </Pressable>}
-  centerComponent={{ text: props.route.params.treasure.title, style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}
-  rightComponent={<AddToVaultModal treasure={props.route.params.treasure}/>}
-/>
+      leftComponent={
+        <Pressable style={[styles.headerButton, styles.buttonOpen, {padding:6}]} 
+        onPress={() => props.navigation.goBack()}> 
+          <Icon name='arrow-left' color='#ffffff' type='font-awesome' size='20' />
+        </Pressable>}
+      centerComponent={{ text: props.route.params.treasure.title, style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}
+      rightComponent={<AddToVaultModal treasure={props.route.params.treasure}/>}
+      />
       {/* <Text style={styles.h1}>{route.params.title}</Text> */}
       <Image
             style={styles.regularTreasure}
@@ -33,7 +33,7 @@ export default function Treasure(props) {
       <Text style={styles.h2}>Date: {props.route.params.treasure.date.toString()}</Text>
       <Text style={styles.paragraph}>Description: {props.route.params.treasure.description}</Text>
       <Text style={styles.paragraph}>Location: Science Center</Text>
-      <Text style={styles.paragraph}>Tags: {props.route.params.treasure.tags.map(tag => '#'+tag+' ')} </Text>
+      <Text style={styles.paragraph, styles.tag}>{props.route.params.treasure.tags.map(tag => '#'+tag+' ')} </Text>
       
       <EditTreasureModal treasure={props.route.params.treasure} delete = {deleteAndExit}/>
       <ShareTreasureModal treasure={props.route.params.treasure}/>

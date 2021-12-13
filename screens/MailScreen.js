@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Text, View, Image, Button, FlatList, TouchableOpacity, Pressable } from 'react-native';
-import { Card, ListItem, Icon, Header } from 'react-native-elements'
+import { Icon, Header } from 'react-native-elements'
 import {styles} from '../style/styles';
 
 const mailData = 
@@ -33,8 +33,9 @@ export default function MailScreen({navigation}) {
           <Text style={styles.paragraph}>"{props.text.item.note}"</Text>
           </Text>
           <Text style={styles.paragraph}>Received:{props.text.item.date}</Text>
-          {(props.text.item.accepted)?<AcceptButtons/>:<Icon size={40} name='check-circle-o' type='font-awesome' color='#BEBEBE' />}
-
+          <View style={styles.container}>
+          {(props.text.item.accepted)?<AcceptButtons/>:<Icon size='20' name='check' type='font-awesome' color='#BEBEBE' />}
+          </View>
         </View>
       </TouchableOpacity>
     );
@@ -45,10 +46,10 @@ export default function MailScreen({navigation}) {
       <View>
         <Text style={{textAlign: 'center'}}>
       <Pressable onPress={() => alert("accept mail to be implemented")}>
-        <Icon size={40} name='check' type='font-awesome' color='#a5c6ff' />
+        <Icon name='check' reverse size='20' type='font-awesome' color='#a5c6ff' />
         </Pressable>
         <Pressable onPress={() => alert("are you sure you want to reject this mail? doing so will delete the message.")}>
-        <Icon size={40} name='ban' type='font-awesome' color='#f26b5b' />
+        <Icon name='ban' reverse size='20' type='font-awesome' color='#f26b5b' />
         </Pressable>
         </Text>
         </View>
@@ -56,14 +57,11 @@ export default function MailScreen({navigation}) {
   }
 
   return (
-    <View style={styles.container}>
+    <View>
       <Header
-      containerStyle={styles.headerContainer}
       backgroundColor='#fff'
-  // leftComponent={{ icon: 'menu', color: '#BEBEBE', iconStyle: { color: '#BEBEBE' } }}
-  centerComponent={{ text: 'Mail', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}
-  // rightComponent={{ icon: 'home', color: '#BEBEBE' }}
-/>
+      centerComponent={{ text: 'Mail', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}
+      />
       <View style={styles.listWrapper}>
           <FlatList showsVerticalScrollIndicator={false}
             data={mailData}
@@ -74,8 +72,7 @@ export default function MailScreen({navigation}) {
       <Button
       title="Send a Treasure"
       onPress={() =>
-        navigation.navigate('Treasures')
-      }
+        navigation.navigate('Treasures')}
     />
     </View>
   );

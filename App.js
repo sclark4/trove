@@ -55,18 +55,7 @@ function emailOf(user) {
   }
 }
 
-// Base Data
-const testVaults = ['Arts', 'Crafts', 'Food', 'Gatherings', 'Outdoors'];
-
-// Individual treasure
-// Date* (* = required)
-// Title*
-// Photo, video, text, link, or audio file*
-// Time
-// Location
-// Description
-// Tags
-
+//Test Data
 
 const testTreasures = 
 [
@@ -127,7 +116,6 @@ const testTreasures =
 
 export default function App() {
   const [treasures, setTreasures] = useState(testTreasures);
-  // const [treasures, setTreasures] = useState(testTreasures.map( addTimestamp ));
   const [loggedInUser, setLoggedInUser] = React.useState('testUser');
   const addTreasure = () => 
   (setTreasures([{'user': 'sclark4@wellesley.edu',                         
@@ -146,9 +134,6 @@ export default function App() {
     return {...item, timestamp:item.date.getTime()}
   } 
   return (
-    // <NavigationContainer>
-    //   <Navigation />
-    // </NavigationContainer>
     <StateContext.Provider value={screenProps}>
     <NavigationContainer>
     <Stack.Navigator>

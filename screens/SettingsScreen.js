@@ -1,44 +1,18 @@
 import * as React from 'react';
 import {useState} from 'react';
-
-import { Text, View, Image, Button } from 'react-native';
+import { Text, View, Image, Button, Pressable } from 'react-native';
 import {styles} from '../style/styles';
 import { Icon, Header } from 'react-native-elements';
-import DateTimePicker from '@react-native-community/datetimepicker';
 
-export default function SettingsScreen({navigation}) {
-  const [date, setDate] = useState(new Date(1598051730000));
-  const [mode, setMode] = useState('date');
-  const [show, setShow] = useState(false);
-
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'ios');
-    setDate(currentDate);
-  };
-
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
-  };
-
-  const showDatepicker = () => {
-    showMode('date');
-  };
-
-  const showTimepicker = () => {
-    showMode('time');
-  };
+export default function SettingsScreen(props) {
   return (
-    <View style={styles.container}>
+    <View>
       <Header
       backgroundColor='#fff'
-      // containerStyle={styles.headerContainer}
-      // leftComponent={<Button title='Add'></Button>}
-  // leftComponent={{ icon: 'menu', color: '#BEBEBE', iconStyle: { color: '#BEBEBE' } }}
-  centerComponent={{ text: 'Settings', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}
-  // rightComponent={{ icon: 'home', color: '#BEBEBE' }}
-/>
+      centerComponent={{ text: 'Settings', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}/>
+
+    <View style={styles.container}>
+
       <Text style={styles.h1}>
       Wendy Wellesley
       </Text>
@@ -55,13 +29,11 @@ export default function SettingsScreen({navigation}) {
       <Text style={styles.paragraph}>
       Email: ww1@wellesley.edu
       </Text>
-      <Button
-      title='Edit Profile'
-      onPress={() =>
-        alert("To Be Implemented")
-      }
-    />
-
+      <Pressable
+    onPress={()=>alert("To Be Implemented")}>
+    <Icon name='edit' raised reverse color='#a5c6ff' />
+  </Pressable>
+  </View>
     </View>
   );
 }
