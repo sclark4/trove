@@ -214,6 +214,13 @@ export default () => {
 // yellow: #ffcc77
 // blue: #a5c6ff 
 
+// const [loaded] = useFonts({
+//   Karla_Regular: require('../assets/fonts/Karla-Regular.ttf'),
+//   Karla_ExtraLight: require('../assets/fonts/Karla-ExtraLight.ttf'),
+//   Grandstander_Bold: require('../assets/fonts/Grandstander-Bold.ttf'),
+//   Grandstander_Medium: require('../assets/fonts/Grandstander-Medium.ttf'),
+// });
+
 const styles = StyleSheet.create({
     headerContainer:{
       height: Platform.select({
@@ -233,7 +240,6 @@ const styles = StyleSheet.create({
       fontSize: 14,
       fontWeight: '300',
       textAlign: 'center',
-      // fontFamily: 'Karla_500Medium',
     },
     tag:{
       color:'#a5c6ff',

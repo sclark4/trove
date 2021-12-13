@@ -20,18 +20,14 @@ export default function MailScreen({navigation}) {
   const [selectedMail, setSelectedMail] = useState('question');
   const ListItem = props => { 
     return (
-      <TouchableOpacity
-        onPress={() => setSelectedMail(props.text.item.title)}
-      >
+      <TouchableOpacity onPress={() => setSelectedMail(props.text.item.title)}>
         <View style={styles.mailItem}>
           <Image
             style={styles.smallImage}
             source={require('../assets/icon.png')}
           />
-          <Text>
-          <Text style={styles.paragraph}>From {props.text.item.name}: </Text>
-          <Text style={styles.paragraph}>"{props.text.item.note}"</Text>
-          </Text>
+          <Text style={styles.paragraph}>Treasure Title: Oh Happy Day!</Text>
+          <Text style={styles.paragraph}>From {props.text.item.name}: "{props.text.item.note}"</Text>
           <Text style={styles.paragraph}>Received:{props.text.item.date}</Text>
           <View style={styles.container}>
           {(props.text.item.accepted)?<AcceptButtons/>:<Icon size='20' name='check' type='font-awesome' color='#BEBEBE' />}
@@ -52,7 +48,7 @@ export default function MailScreen({navigation}) {
         <Icon name='ban' reverse size='20' type='font-awesome' color='#f26b5b' />
         </Pressable>
         </Text>
-        </View>
+      </View>
     );
   }
 

@@ -3,6 +3,9 @@ import { Text, View, Image, FlatList, TouchableOpacity } from 'react-native';
 import {styles} from '../style/styles';
 import { Header } from 'react-native-elements'
 import AddVaultModal from '../components/AddVaultModal';
+
+import {useFonts} from 'expo-font';
+
 const vaults = [
   'Senior Year at Wellesley',
   'Christmas',
@@ -27,6 +30,16 @@ export default function VaultScreen({navigation, route}) {
         </View>
       </TouchableOpacity>
     );
+}
+const [loaded] = useFonts({
+  Karla_Regular: require('../assets/fonts/Karla-Regular.ttf'),
+  Karla_ExtraLight: require('../assets/fonts/Karla-ExtraLight.ttf'),
+  Grandstander_Bold: require('../assets/fonts/Grandstander-Bold.ttf'),
+  Grandstander_Medium: require('../assets/fonts/Grandstander-Medium.ttf'),
+});
+
+if (!loaded) {
+  return null;
 }
 
   return (
