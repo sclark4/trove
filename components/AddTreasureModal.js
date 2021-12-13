@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Alert, Button, Modal, StyleSheet, Text, Pressable, View, TextInput, Keyboard,  TouchableWithoutFeedback, Image } from "react-native";
 import {styles} from '../style/styles';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import * as ImagePicker from 'expo-image-picker';
 import { Card, Icon, Header } from 'react-native-elements';
-
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 
 const DismissKeyboard = ({ children }) => (
@@ -17,7 +16,11 @@ const DismissKeyboard = ({ children }) => (
 export default function AddTreasureModal(props) {
     const [title, onChangeTitle] = React.useState("The Best Monday");
     const [description, setDescription] = React.useState("Today, we unsuccessfully demoed trove!");
-    const [date, setDate] = React.useState(new Date().toLocaleString());
+    const [date, setDate] = useState(new Date(1598051730000));
+    const [mode, setMode] = useState('date');
+    const [show, setShow] = useState(false);
+  
+    
     // const [time, setTime] = React.useState('now');
     const [location, setLocation] = React.useState('Science Center');
     const [tags, setTags] = React.useState('cs317, WeLoveLyn, appdevelopment');
@@ -25,25 +28,24 @@ export default function AddTreasureModal(props) {
     const [modalVisible, setModalVisible] = useState(false);
     const [image, setImage] = useState(null);
 
-    // const [open, setOpen] = useState(false)
-    // const [date, setDate] = useState(new Date(1598051730000));
-    // const [mode, setMode] = useState('date');
-    // const [show, setShow] = useState(false);
+    const onChange = (event, selectedDate) => {
+      const currentDate = selectedDate || date;
+      setShow(Platform.OS === 'ios');
+      setDate(currentDate);
+    };
   
-    // const onChange = (event, selectedDate) => {
-    //   const currentDate = selectedDate || date;
-    //   setShow(Platform.OS === 'ios');
-    //   setDate(currentDate);
-    // };
+    const showMode = (currentMode) => {
+      setShow(true);
+      setMode(currentMode);
+    };
   
-    // const showMode = (currentMode) => {
-    //   setShow(true);
-    //   setMode(currentMode);
-    // };
+    const showDatepicker = () => {
+      showMode('date');
+    };
   
-    // const showDatepicker = () => {
-    //   showMode('date');
-    // };
+    const showTimepicker = () => {
+      showMode('time');
+    };
   
     const addAndClose = () => {
       setModalVisible(!modalVisible);
@@ -77,7 +79,6 @@ export default function AddTreasureModal(props) {
   };
 
   return (
-    
     <View style={styles.centeredView}>
         <Pressable
         style={[styles.headerButton, styles.buttonOpen]}
@@ -113,49 +114,35 @@ export default function AddTreasureModal(props) {
         value={description}
         multiline={true}
       />
-            <Text style={styles.modalText}>Media Upload: </Text>
+            
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button title="Pick an image from camera roll" onPress={pickImage} />
+      <Button title="Upload Image/Video" onPress={pickImage} />
       {image && <Image source={{ uri: image }} style={{ width: 50, height: 50 }} />}
     </View>
-            <Text style={styles.modalText}>Date and Time:</Text>
-            <TextInput
-        style={styles.input}
-        onChangeText={setDate}
-        value={date}
-      />
-        {/* <Button onPress={showDatepicker} title="Show date picker!" />
-        <Button onPress={showTimepicker} title="Show time picker!" /> */}
-      {/* <Text> {show && (
+    <View style={{flexDirection:"row"}} >
+            <View>
+            <Button title="Set date  " />
         <DateTimePicker
           testID="dateTimePicker"
           value={date}
-          mode={mode}
+          mode='date'
           is24Hour={true}
           display="default"
           onChange={onChange}
         />
-      )}</Text> */}
-            {/* <Button title="Open" onPress={() => setOpen(true)} />
-      <DatePicker
-        modal
-        open={open}
-        date={date}
-        onConfirm={(date) => {
-          setOpen(false)
-          setDate(date)
-        }}
-        onCancel={() => {
-          setOpen(false)
-        }}
-      /> */}
-            {/* <DatePicker date={date} onDateChange={setDate} mode='date' /> */}
-            {/* <Text style={styles.modalText}>Time</Text>
-            <TextInput
-        style={styles.input}
-        onChangeText={setTime}
-        value={time}
-      /> */}
+      </View>
+      <View>
+        <Button onPress={showTimepicker} title="Set time" />
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={date}
+          mode='time'
+          is24Hour={true}
+          display="default"
+          onChange={onChange}
+        />
+      </View>
+      </View>
          
             <Text style={styles.modalText}>Location</Text>
             <TextInput

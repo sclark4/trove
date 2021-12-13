@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Alert, Button, Modal, StyleSheet, Text, Pressable, View, TextInput, Keyboard,  TouchableWithoutFeedback, Image } from "react-native";
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import * as ImagePicker from 'expo-image-picker';
 import {styles} from '../style/styles';
 
@@ -14,31 +14,35 @@ const DismissKeyboard = ({ children }) => (
 export default function EditTreasureModal(props) {
     const [title, onChangeTitle] = React.useState(props.treasure.title);
     const [description, setDescription] = React.useState(props.treasure.description);
-    const [date, setDate] = React.useState(props.treasure.date.toString());
+    
+    const [date, setDate] = useState(new Date(1598051730000));
+    const [mode, setMode] = useState('date');
+    const [show, setShow] = useState(false);
+
     const [location, setLocation] = React.useState('Science Center');
     const [tags, setTags] = React.useState(props.treasure.tags.join());
     
     const [modalVisible, setModalVisible] = useState(false);
     const [image, setImage] = useState(null);
   
-    // const onChange = (event, selectedDate) => {
-    //   const currentDate = selectedDate || date;
-    //   setShow(Platform.OS === 'ios');
-    //   setDate(currentDate);
-    // };
+    const onChange = (event, selectedDate) => {
+      const currentDate = selectedDate || date;
+      setShow(Platform.OS === 'ios');
+      setDate(currentDate);
+    };
   
-    // const showMode = (currentMode) => {
-    //   setShow(true);
-    //   setMode(currentMode);
-    // };
+    const showMode = (currentMode) => {
+      setShow(true);
+      setMode(currentMode);
+    };
   
-    // const showDatepicker = () => {
-    //   showMode('date');
-    // };
+    const showDatepicker = () => {
+      showMode('date');
+    };
   
-    // const showTimepicker = () => {
-    //   showMode('time');
-    // };
+    const showTimepicker = () => {
+      showMode('time');
+    };
 
   useEffect(() => {
     (async () => {
@@ -102,17 +106,34 @@ export default function EditTreasureModal(props) {
         value={description}
         multiline={true}
       />
-            <Text style={styles.modalText}>Media Upload: </Text>
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button title="Pick an image from camera roll" onPress={pickImage} />
+      <Button title="Update Image/Video" onPress={pickImage} />
       {image && <Image source={{ uri: image }} style={{ width: 50, height: 50 }} />}
     </View>
-            <Text style={styles.modalText}>Date and Time:</Text>
-            <TextInput
-        style={styles.input}
-        onChangeText={setDate}
-        value={date}
-      />
+    <View style={{flexDirection:"row"}} >
+            <View>
+            <Button title="Set date  " />
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={date}
+          mode='date'
+          is24Hour={true}
+          display="default"
+          onChange={onChange}
+        />
+      </View>
+      <View>
+        <Button onPress={showTimepicker} title="Set time" />
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={date}
+          mode='time'
+          is24Hour={true}
+          display="default"
+          onChange={onChange}
+        />
+      </View>
+      </View>
          
             <Text style={styles.modalText}>Location</Text>
             <TextInput

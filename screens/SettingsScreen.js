@@ -1,9 +1,34 @@
 import * as React from 'react';
+import {useState} from 'react';
+
 import { Text, View, Image, Button } from 'react-native';
 import {styles} from '../style/styles';
 import { Icon, Header } from 'react-native-elements';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default function SettingsScreen({navigation}) {
+  const [date, setDate] = useState(new Date(1598051730000));
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'ios');
+    setDate(currentDate);
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode('date');
+  };
+
+  const showTimepicker = () => {
+    showMode('time');
+  };
   return (
     <View style={styles.container}>
       <Header
@@ -36,7 +61,7 @@ export default function SettingsScreen({navigation}) {
         alert("To Be Implemented")
       }
     />
-      {/* <Image style={styles.logo} source={require('../assets/snack-icon.png')} /> */}
+
     </View>
   );
 }
