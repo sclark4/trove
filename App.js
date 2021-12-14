@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Navigation from './navigation/Navigation';
 import TreasuresNavigator from './navigation/TreasuresNavigator';
 import VaultsNavigator from './navigation/VaultsNavigator';
+import MailNavigator from './navigation/MailNavigator';
 import HomeScreen from './screens/HomeScreen';
 import VaultScreen from './screens/VaultScreen';
 import TreasuresScreen from './screens/TreasuresScreen';
@@ -114,8 +115,22 @@ const testTreasures =
 
 ];
 
+const testMail = 
+[
+  {'name': 'Abigail', 'note': 'Here you go!', 'accepted':false, 'date':'12/08/2021', 'tid':'1'},
+  {'name': 'Bethany', 'note': 'For you!', 'accepted':true, 'date':'12/08/2021', 'tid':'2'},
+  {'name': 'Catherine', 'note': 'I miss you friend!', 'accepted':false, 'date':'12/08/2021', 'tid':'3'},
+  {'name': 'Deborah', 'note': 'What a great day', 'accepted':true, 'date':'12/08/2021', 'tid':'4'},
+  {'name': 'Elizabeth', 'note': 'This one is just for you', 'accepted':false, 'date':'12/08/2021', 'tid':'5'},
+  {'name': 'Frances', 'note': 'Here you go!', 'accepted':false, 'date':'12/08/2021', 'tid':'6'},
+  {'name': 'Georgia', 'note': 'Happy memories from last summer', 'accepted':true, 'date':'12/08/2021', 'tid':'7'},
+  {'name': 'Harriet', 'note': 'one of my favorite moments with you', 'accepted':true, 'date':'12/08/2021', 'tid':'8'}
+];
+
 export default function App() {
   const [treasures, setTreasures] = useState(testTreasures);
+  const [mail, setMail] = useState(testMail);
+
   const [loggedInUser, setLoggedInUser] = React.useState('testUser');
   const addTreasure = () => 
   (setTreasures([{'user': 'sclark4@wellesley.edu',                         
@@ -126,9 +141,13 @@ export default function App() {
   'id': '10',
  }, ...treasures ]))
  const deleteTreasure = () => setTreasures(testTreasures);
+ const acceptMail = () => alert("Accept Mail to be implemented");
+ const rejectMail = () => alert("Reject Mail to be implemented");
+
 
   const treasuresProps = { treasures, addTreasure, deleteTreasure };
-  const screenProps = {treasuresProps}
+  const mailProps = { mail, acceptMail, rejectMail };
+  const screenProps = {treasuresProps, mailProps}
   function addTimestamp(item) {
     // Add millisecond timestamp field to message 
     return {...item, timestamp:item.date.getTime()}
@@ -141,6 +160,7 @@ export default function App() {
       <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="TreasuresNav" component={TreasuresNavigator} options={{ headerShown: false }}/>
       <Stack.Screen name="VaultsNav" component={VaultsNavigator} options={{ headerShown: false }}/>
+      <Stack.Screen name="MailNav" component={MailNavigator} options={{ headerShown: false }}/>
     </Stack.Navigator>
     
         {/* {loggedInUser ? 
