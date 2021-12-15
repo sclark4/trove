@@ -234,6 +234,16 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       padding: 4,
     },
+    treasureContainer: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: 1,
+      margin: 10,
+      width: '100%',
+      flexDirection: "row",
+      marginVertical: 2,
+      marginHorizontal: 1,
+    },
     paragraph: {
       margin: 4,
       marginTop: 0,
@@ -298,8 +308,11 @@ const styles = StyleSheet.create({
     },
     treasureThumbnail:{
       flex: 1,
-      // resizeMode: 'contain',
+      resizeMode: 'cover',
       aspectRatio: 1,
+      height: '100%',
+      // height: '100%',
+
       // width: '100%',
       // height: '80%',
     },
@@ -338,7 +351,7 @@ const styles = StyleSheet.create({
       backgroundColor: "white",
       borderRadius: 20,
       padding: 35,
-      alignItems: "center",
+      // alignItems: "center",
       shadowColor: "#000",
       shadowOffset: {
         width: 0,

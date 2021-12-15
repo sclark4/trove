@@ -18,6 +18,7 @@ export default function AddVaultModal(props) {
   return (
     
     <View style={styles.centeredView}>
+      
         <Pressable
         style={[styles.headerButton, styles.buttonOpen]}
         onPress={() => alert("To Be Implemented")}
