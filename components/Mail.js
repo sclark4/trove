@@ -2,9 +2,6 @@ import React, { useState, useEffect, useCallback } from "react";
 import {Text, View, Image, Linking, Button, FlatList, TouchableOpacity, Pressable } from 'react-native';
 import { Card, ListItem, Icon, Header } from 'react-native-elements'
 import {styles} from '../style/styles';
-import EditTreasureModal from './EditTreasureModal';
-import ShareTreasureModal from './ShareTreasureModal';
-import AddToVaultModal from './AddToVault';
 import {useFonts} from 'expo-font';
 
 const supportedURL = "https://cs.wellesley.edu/~cs317/";
@@ -39,6 +36,24 @@ export default function Mail(props) {
   if (!loaded) {
     return null;
   }
+  const treasure = props.route.params.treasures.find(treasure => treasure.id == props.route.params.mail.tid)
+const TagItem = item => {
+    return (<Text style={{fontFamily:'Karla_Regular'}, styles.tag}>#{item.text} </Text>)
+  }
+  const CardItem = item => {
+    return (
+      <View style={styles.treasureContainer}>
+      <Card containerStyle={styles.treasureCard}>
+      <Card.Title style={{margin: 10, fontFamily:'Grandstander_Bold'}}>{item.text.title}</Card.Title>
+      <Card.Image source={{uri:('https://cdn.pixabay.com/photo/2021/01/21/16/17/english-cocker-spaniel-5937757_1280.jpg')}}>
+      </Card.Image>
+      <Text style={{margin: 10, fontFamily:'Karla_Regular'}}>
+        {item.text.description} <Text> {item.text.tags.map(tag => <TagItem text = {tag}/>)} </Text>
+        </Text>
+  </Card>
+</View>)
+  }
+
   return (
     <View style={styles.container}>
       <Header
@@ -48,15 +63,11 @@ export default function Mail(props) {
         onPress={() => props.navigation.goBack()}> 
           <Icon name='arrow-left' color='#ffffff' type='font-awesome' size={20} />
         </Pressable>}
-      centerComponent={{ text: props.route.params.mail.tid, style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900', fontFamily:'Grandstander_Bold' } }}
+      centerComponent={{ text: 'from '+ props.route.params.mail.sender, style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900', fontFamily:'Grandstander_Bold' } }}
       />
-      <Image
-            style={styles.regularTreasure}
-            source={{uri:('https://cdn.pixabay.com/photo/2021/01/21/16/17/english-cocker-spaniel-5937757_1280.jpg')}}
-          />
-      <Text style={styles.h2, {fontFamily:'Karla_Regular'}}>Date Received: {props.route.params.mail.date.toString()}</Text>
-      <Text style={styles.paragraph, {fontFamily:'Karla_Regular'}}>From: {props.route.params.mail.name}: "{props.route.params.mail.note}"</Text>
-      <Text style={styles.paragraph, {fontFamily:'Karla_Regular'}}>Display rest of treasure here</Text>
+      <CardItem text={treasure} ></CardItem>
+      <Text style={styles.h2, {fontFamily:'Karla_Regular'}}>Date Sent: {props.route.params.mail.date.toString()}</Text>
+      <Text style={styles.paragraph, {fontFamily:'Karla_Regular'}}>Status: Not Accepted</Text>
     </View>
   );
 }

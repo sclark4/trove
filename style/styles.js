@@ -234,6 +234,16 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       padding: 4,
     },
+    treasureContainer: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: 1,
+      margin: 10,
+      width: '100%',
+      flexDirection: "row",
+      marginVertical: 2,
+      marginHorizontal: 1,
+    },
     paragraph: {
       margin: 4,
       marginTop: 0,

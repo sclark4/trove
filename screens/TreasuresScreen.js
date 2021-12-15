@@ -24,7 +24,7 @@ export default function TreasuresScreen(props) {
   const CardItem = item => {
     return (
     <TouchableOpacity
-    onPress={() => props.navigation.navigate('TreasuresNav', { screen: 'Treasure', params: {treasure: item.text.item, delete: screenProps.deleteTreasure}})}>
+    onPress={() => props.navigation.navigate('TreasuresNav', { screen: 'Treasure', params: {treasure: item.text.item, delete: screenProps.deleteTreasure, share: screenProps.shareTreasure}})}>
       <Card containerStyle={styles.treasureCard}>
       <Card.Title style={{margin: 10, fontFamily:'Grandstander_Bold'}}>{item.text.item.title}</Card.Title>
       <Card.Image style={styles.treasureThumbnail} source={{uri:('https://cdn.pixabay.com/photo/2021/01/21/16/17/english-cocker-spaniel-5937757_1280.jpg')}}>

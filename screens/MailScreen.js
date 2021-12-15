@@ -6,18 +6,20 @@ import {styles} from '../style/styles';
 
 export default function MailScreen(props) {
   const screenProps = useContext(StateContext);
-  const [selectedMail, setSelectedMail] = useState('question');
+  const treasures = screenProps.treasuresProps.treasures;
+
   const ListItem = mail => { 
     return (
-      <TouchableOpacity onPress={() => props.navigation.navigate('MailNav', { screen: 'mailItem', params: {mail: mail.text.item}})}>
+      <TouchableOpacity onPress={() => props.navigation.navigate('MailNav', { screen: 'mailItem', params: {mail: mail.text.item, treasures: treasures}})}>
         <View style={styles.mailItem}>
           <Image
             style={styles.smallImage}
             source={require('../assets/icon.png')}
           />
-          <Text style={styles.paragraph}>Treasure Title: Oh Happy Day!</Text>
-          <Text style={styles.paragraph}>From {mail.text.item.name}: "{mail.text.item.note}"</Text>
-          <Text style={styles.paragraph}>Received:{mail.text.item.date}</Text>
+          <Text style={styles.paragraph}>Treasure Title: {((treasures.find(treasure => treasure.id !== mail.text.item.tid)).title)}</Text>
+          {/* Buggy, treasure.id == mail.text.item.tid returns null for whatever reason  */}
+          <Text style={styles.paragraph}>From {mail.text.item.sender}: "{mail.text.item.note}"</Text>
+          <Text style={styles.paragraph}>Sent: {mail.text.item.date}</Text>
           <View style={styles.container}>
           {(mail.text.item.accepted)?<AcceptButtons/>:<Icon size={20} name='check' type='font-awesome' color='#BEBEBE' />}
           </View>
@@ -47,11 +49,12 @@ export default function MailScreen(props) {
       backgroundColor='#fff'
       centerComponent={{ text: 'Mail', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}
       />
+      <Text>{screenProps.mailProps.mail.map(item => {item})}</Text>
       <View style={styles.listWrapper}>
           <FlatList showsVerticalScrollIndicator={false}
             data={screenProps.mailProps.mail}
             renderItem={ datum => <ListItem text={datum}></ListItem>} 
-            keyExtractor={item => item.tid} 
+            keyExtractor={item => item.id} 
           />
         </View>
       <Button

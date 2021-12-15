@@ -121,14 +121,14 @@ const testTreasures =
 
 const testMail = 
 [
-  {'name': 'Abigail', 'note': 'Here you go!', 'accepted':false, 'date':'12/08/2021', 'tid':'1'},
-  {'name': 'Bethany', 'note': 'For you!', 'accepted':true, 'date':'12/08/2021', 'tid':'2'},
-  {'name': 'Catherine', 'note': 'I miss you friend!', 'accepted':false, 'date':'12/08/2021', 'tid':'3'},
-  {'name': 'Deborah', 'note': 'What a great day', 'accepted':true, 'date':'12/08/2021', 'tid':'4'},
-  {'name': 'Elizabeth', 'note': 'This one is just for you', 'accepted':false, 'date':'12/08/2021', 'tid':'5'},
-  {'name': 'Frances', 'note': 'Here you go!', 'accepted':false, 'date':'12/08/2021', 'tid':'6'},
-  {'name': 'Georgia', 'note': 'Happy memories from last summer', 'accepted':true, 'date':'12/08/2021', 'tid':'7'},
-  {'name': 'Harriet', 'note': 'one of my favorite moments with you', 'accepted':true, 'date':'12/08/2021', 'tid':'8'}
+  {'sender': 'Abigail', 'note': 'Here you go!', 'accepted':false, 'date':'12/08/2021', 'tid':'1', 'id':'1', 'receiver':'ww1',},
+  {'sender': 'Bethany', 'note': 'For you!', 'accepted':true, 'date':'12/08/2021', 'tid':'2', 'id':'2', 'receiver':'ww1',},
+  {'sender': 'Catherine', 'note': 'I miss you friend!', 'accepted':false, 'date':'12/08/2021', 'tid':'3', 'id':'3', 'receiver':'ww1',},
+  {'sender': 'Deborah', 'note': 'What a great day', 'accepted':true, 'date':'12/08/2021', 'tid':'4','id':'4', 'receiver':'ww1',},
+  {'sender': 'Elizabeth', 'note': 'This one is just for you', 'accepted':false, 'date':'12/08/2021', 'tid':'5', 'id':'5','receiver':'ww1',},
+  {'sender': 'Frances', 'note': 'Here you go!', 'accepted':false, 'date':'12/08/2021', 'tid':'6', 'id':'6',  'receiver':'ww1',},
+  {'sender': 'Georgia', 'note': 'Happy memories from last summer', 'accepted':true, 'date':'12/08/2021', 'tid':'7', 'id':'7', 'receiver':'ww1',},
+  {'sender': 'Harriet', 'note': 'one of my favorite moments with you', 'accepted':true, 'date':'12/08/2021', 'tid':'8', 'id':'8', 'receiver':'ww1',},
 ];
 
 const testVaults = [
@@ -143,6 +143,7 @@ export default function App() {
   const [treasures, setTreasures] = useState(testTreasures);
   const [vaults, setVaults] = useState(testVaults);
   const [mail, setMail] = useState(testMail);
+  console.log(typeof mail)
 //   {'user': 'sclark4@wellesley.edu',                         
 //   'date': "12/05/2021",//new Date(2021, 11, 2, 10, 52, 31, 1234), 
 //   'title': 'The Best Monday',
@@ -151,16 +152,15 @@ export default function App() {
 //   'id': '10',
 //  }
   const [loggedInUser, setLoggedInUser] = React.useState('testUser');
-  const addTreasure = (newTreasure) => 
-  (setTreasures([newTreasure, ...treasures ]))
-//  const deleteTreasure = (currentId) => setTreasures(treasures.filter(treasure => treasure.id !== currentId).map(treasure => JSON.parse(JSON.stringify(treasure))));
- const deleteTreasure = (currentId) => setTreasures(treasures.filter(treasure => treasure.id !== currentId))
- //works when you put in a random int but not when you put in the variable! bug!
+  const addTreasure = (newTreasure) => setTreasures([newTreasure, ...treasures ])
+  const deleteTreasure = (currentId) => setTreasures(treasures.filter(treasure => treasure.id !== currentId))
+  const shareTreasure = (newMail) => setMail([newMail, ...mail])
+
  const acceptMail = () => alert("Accept Mail to be implemented");
  const rejectMail = () => alert("Reject Mail to be implemented");
 
 
-  const treasuresProps = { treasures, addTreasure, deleteTreasure };
+  const treasuresProps = { treasures, addTreasure, deleteTreasure, shareTreasure };
   const mailProps = { mail, acceptMail, rejectMail };
   const screenProps = {treasuresProps, mailProps}
   function addTimestamp(item) {
