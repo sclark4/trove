@@ -30,7 +30,7 @@ const OpenURLButton = ({ url, children }) => {
 export default function Treasure(props) {
   const deleteAndExit = () => {
     // setModalVisible(!modalVisible);
-    props.route.params.delete();
+    props.route.params.delete(props.route.params.treasure.id);
     props.navigation.goBack()
   };
   const [loaded] = useFonts({
@@ -66,7 +66,7 @@ export default function Treasure(props) {
       <Text style={styles.paragraph, {fontFamily:'Karla_Regular'}}>Location: Science Center</Text>
       <Text style={styles.paragraph, {fontFamily:'Karla_Regular'}, styles.tag}>{props.route.params.treasure.tags.map(tag => '#'+tag+' ')} </Text>
       
-      <EditTreasureModal treasure={props.route.params.treasure} delete = {deleteAndExit}/>
+      <EditTreasureModal treasure={props.route.params.treasure} id ={props.route.params.treasure.id} delete = {deleteAndExit}/>
       <ShareTreasureModal treasure={props.route.params.treasure}/>
       <OpenURLButton url={supportedURL}>External Link (e.g. to a favorite video or song)</OpenURLButton>
 
