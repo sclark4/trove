@@ -36,6 +36,7 @@ export default function Mail(props) {
   if (!loaded) {
     return null;
   }
+  
   const treasure = props.route.params.treasures.find(treasure => treasure.id == props.route.params.mail.tid)
 const TagItem = item => {
     return (<Text style={{fontFamily:'Karla_Regular'}, styles.tag}>#{item.text} </Text>)
@@ -67,7 +68,7 @@ const TagItem = item => {
       />
       <CardItem text={treasure} ></CardItem>
       <Text style={styles.h2, {fontFamily:'Karla_Regular'}}>Date Sent: {props.route.params.mail.date.toString()}</Text>
-      <Text style={styles.paragraph, {fontFamily:'Karla_Regular'}}>Status: Not Accepted</Text>
+      <Text style={styles.paragraph, {fontFamily:'Karla_Regular'}}>Status: {props.route.params.mail.accepted?'Accepted':'Not Accepted'}</Text>
     </View>
   );
 }

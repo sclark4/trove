@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import StateContext from '../StateContext';
-import { Text, View, Image, Button, FlatList, TouchableOpacity, Pressable } from 'react-native';
+import { Alert, Text, View, Image, Button, FlatList, TouchableOpacity, Pressable } from 'react-native';
 import { Icon, Header } from 'react-native-elements'
 import {styles} from '../style/styles';
 
@@ -16,33 +16,63 @@ export default function MailScreen(props) {
             style={styles.smallImage}
             source={require('../assets/icon.png')}
           />
-          <Text style={styles.paragraph}>Treasure Title: {((treasures.find(treasure => treasure.id !== mail.text.item.tid)).title)}</Text>
+          {/* <Text style={styles.paragraph}>Treasure Title: {((treasures.find(treasure => treasure.id !== mail.text.item.tid)).title)}</Text> */}
           {/* Buggy, treasure.id == mail.text.item.tid returns null for whatever reason  */}
           <Text style={styles.paragraph}>From {mail.text.item.sender}: "{mail.text.item.note}"</Text>
           <Text style={styles.paragraph}>Sent: {mail.text.item.date}</Text>
           <View style={styles.container}>
-          {(mail.text.item.accepted)?<AcceptButtons/>:<Icon size={20} name='check' type='font-awesome' color='#BEBEBE' />}
+          {(mail.text.item.accepted)?<Icon size={20} name='check' type='font-awesome' color='#BEBEBE' />:<AcceptButtons item={mail.text.item}/>}
           </View>
         </View>
       </TouchableOpacity>
     );
   }
 
-  const AcceptButtons = () => { 
+  const AcceptButtons = (item) => { 
+    //ALSO need functionality to add to treasure trove
     return (
       <View>
         <Text style={{textAlign: 'center'}}>
-      <Pressable onPress={screenProps.mailProps.acceptMail}>
+      <Pressable onPress={() => acceptAlert(item.item)}>
         <Icon name='check' reverse size={20} type='font-awesome' color='#a5c6ff' />
         </Pressable>
-        <Pressable onPress={screenProps.mailProps.rejectMail}>
+        <Pressable onPress={() => denyAlert(item.item.id)}>
         <Icon name='ban' reverse size={20} type='font-awesome' color='#f26b5b' />
         </Pressable>
         </Text>
       </View>
     );
   }
+  // const acceptedMail = (mailItem) =>
 
+  // return (
+  // {'sender': mailItem.sender, 'note': mailItem.note, 'accepted':true, 'date':mailItem.date, 'tid':mailItem.tid, 'id':mailItem.id, 'receiver':mailItem.receiver,},
+  //   );
+  const denyAlert = (id) => 
+  Alert.alert(
+    "Deny Treasure?",
+    "Are you sure you want to deny this treasure? This action is permanent and cannot be undone. The sender will not be notified if you deny their treasure.",
+    [
+      {
+        text: "Cancel",
+        style: "cancel"
+      },
+      { text: "Deny", onPress: () => screenProps.mailProps.rejectMail(id)}
+    ]
+  );
+
+  const acceptAlert = (mailItem) =>
+  Alert.alert(
+    "Accept Treasure?",
+    "Are you sure you want to acceot this treasure? This will add the treasure to your personal vault. The sender will not be notified if you accept their treasure.",
+    [
+      {
+        text: "Cancel",
+        style: "cancel"
+      },
+      { text: "Accept", onPress: () => screenProps.mailProps.acceptMail({'sender': mailItem.sender, 'note': mailItem.note, 'accepted':true, 'date':mailItem.date, 'tid':mailItem.tid, 'id':mailItem.id, 'receiver':mailItem.receiver})}
+    ]
+  );
   return (
     <View>
       <Header
