@@ -127,19 +127,28 @@ const testMail =
   {'name': 'Harriet', 'note': 'one of my favorite moments with you', 'accepted':true, 'date':'12/08/2021', 'tid':'8'}
 ];
 
+const testVaults = [
+  'Senior Year at Wellesley',
+  'Christmas',
+  'Study Abroad',
+  'East Side Schenanigans',
+  'Summer 2019',
+];
+
 export default function App() {
   const [treasures, setTreasures] = useState(testTreasures);
+  const [vaults, setVaults] = useState(testVaults);
   const [mail, setMail] = useState(testMail);
-
+//   {'user': 'sclark4@wellesley.edu',                         
+//   'date': "12/05/2021",//new Date(2021, 11, 2, 10, 52, 31, 1234), 
+//   'title': 'The Best Monday',
+//   'tags': ['cs317', 'WeLoveLyn', 'appdevelopment'], 
+//   'description': "Today, we successfully demoed trove!",
+//   'id': '10',
+//  }
   const [loggedInUser, setLoggedInUser] = React.useState('testUser');
-  const addTreasure = () => 
-  (setTreasures([{'user': 'sclark4@wellesley.edu',                         
-  'date': "12/05/2021",//new Date(2021, 11, 2, 10, 52, 31, 1234), 
-  'title': 'The Best Monday',
-  'tags': ['cs317', 'WeLoveLyn', 'appdevelopment'], 
-  'description': "Today, we successfully demoed trove!",
-  'id': '10',
- }, ...treasures ]))
+  const addTreasure = (newTreasure) => 
+  (setTreasures([newTreasure, ...treasures ]))
  const deleteTreasure = () => setTreasures(testTreasures);
  const acceptMail = () => alert("Accept Mail to be implemented");
  const rejectMail = () => alert("Reject Mail to be implemented");

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Alert, Button, Modal, StyleSheet, Text, Pressable, View, TextInput, Keyboard,  TouchableWithoutFeedback, Image } from "react-native";
+import { Icon } from 'react-native-elements';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as ImagePicker from 'expo-image-picker';
 import {styles} from '../style/styles';
@@ -58,7 +59,6 @@ export default function EditTreasureModal(props) {
         <Pressable
         style={[styles.button, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}>
-          
         <Text style={styles.textStyle}>Edit Treasure</Text>
       </Pressable>
       
@@ -74,6 +74,9 @@ export default function EditTreasureModal(props) {
         <View style={styles.centeredView}>
         <DismissKeyboard>
           <View style={styles.modalView}>
+            <Pressable onPress={() => setModalVisible(false)}>
+                <Icon name='times-circle' type='font-awesome' color='#ff7fad' size={30} />
+            </Pressable>
             <Text style={styles.modalText}>Title:</Text>
             <TextInput
         style={styles.input}

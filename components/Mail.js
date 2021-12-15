@@ -46,15 +46,12 @@ export default function Mail(props) {
       leftComponent={
         <Pressable style={[styles.headerButton, styles.buttonOpen, {padding:6}]} 
         onPress={() => props.navigation.goBack()}> 
-          <Icon name='arrow-left' color='#ffffff' type='font-awesome' size='20' />
+          <Icon name='arrow-left' color='#ffffff' type='font-awesome' size={20} />
         </Pressable>}
       centerComponent={{ text: props.route.params.mail.tid, style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900', fontFamily:'Grandstander_Bold' } }}
-    //   rightComponent={<AddToVaultModal treasure={props.route.params.mail}/>}
       />
-      {/* <Text style={styles.h1}>{route.params.title}</Text> */}
       <Image
             style={styles.regularTreasure}
-            // source={require('../assets/diamond.png')}
             source={{uri:('https://cdn.pixabay.com/photo/2021/01/21/16/17/english-cocker-spaniel-5937757_1280.jpg')}}
           />
       <Text style={styles.h2, {fontFamily:'Karla_Regular'}}>Date Received: {props.route.params.mail.date.toString()}</Text>

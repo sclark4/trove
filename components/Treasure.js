@@ -50,7 +50,7 @@ export default function Treasure(props) {
       leftComponent={
         <Pressable style={[styles.headerButton, styles.buttonOpen, {padding:6}]} 
         onPress={() => props.navigation.goBack()}> 
-          <Icon name='arrow-left' color='#ffffff' type='font-awesome' size='20' />
+          <Icon name='arrow-left' color='#ffffff' type='font-awesome' size={20} />
         </Pressable>}
       centerComponent={{ text: props.route.params.treasure.title, style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900', fontFamily:'Grandstander_Bold' } }}
       rightComponent={<AddToVaultModal treasure={props.route.params.treasure}/>}
