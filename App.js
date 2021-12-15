@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Navigation from './navigation/Navigation';
 import TreasuresNavigator from './navigation/TreasuresNavigator';
 import VaultsNavigator from './navigation/VaultsNavigator';
+import MailNavigator from './navigation/MailNavigator';
 import HomeScreen from './screens/HomeScreen';
 import VaultScreen from './screens/VaultScreen';
 import TreasuresScreen from './screens/TreasuresScreen';
@@ -59,46 +60,50 @@ function emailOf(user) {
 
 const testTreasures = 
 [
- {'user': 'finz@gmail.com', 'id': '7',
+ {'user': 'finz@gmail.com',
+  'id': 7,
   'date': "12/05/2021",
   'title': 'Taza Chocolate',
   'tags': ['Food', 'chocolate'],
   'description': 'Want to join me for a Taza Chocolate tour next weekend?'
  },
- {'user': 'aardvark@gmail.com','id': '6',                         
+ {'user': 'aardvark@gmail.com',
+  'id': 6,                         
   'date': "12/05/2021", //new Date(2021, 10, 29, 13, 12, 46, 1234), 
   'title': 'Taza Chocolate 2',
   'tags': ['Food', 'chocolate'], 
   'description': "I'm up for the chocolate tour!"
  }, 
- {'user': 'emerm@yahoo.com','id': '5',             
+ {'user': 'emerm@yahoo.com',
+  'id': 5,             
   'date': "12/05/2021",//new Date(2021, 10, 29, 17, 33, 52, 1234), 
   'title': 'friday night',
   'tags': ['gatherings', 'friday'], 
   'description': 'Anyone want to play whist on Friday night?', 
  }, 
- {'user': 'ccameronk@gmail.com', 'id': '4',                        
+ {'user': 'ccameronk@gmail.com',
+ 'id': 4,                        
   'date': "12/05/2021",//new Date(2021, 10, 30, 8, 7, 24, 1234), 
   'title': 'Chocolate',
   'tags': ['food', 'chocolate'],
   'description': '+1 for Taza'
  }, 
  {'user': 'flyer@gmail.com',
-  'id': '3',                  
+  'id': 3,                  
   'date': "12/05/2021",//new Date(2021, 11, 1, 20, 9, 37, 1234), 
   'title': 'blue hills hiking',
   'tags': ['hiking', 'outdoors'],
   'description': "I know it's cold, but it's still a great time for a Blue Hills hike. Anyone want to join me on Sunday morning?"
  }, 
  {'user': 'emerm@yahoo.com',
-  'id': '2',                    
+  'id': 2,                    
   'date': "12/05/2021",//new Date(2021, 11, 1, 20, 10, 14, 1234), 
   'title': 'forest nuts', 
   'tags': ['foraging', 'outdoors'],
   'description': 'Late fall is a great time to go foraging for forest nuts. Who wants to act like a squirrel with me?'
  }, 
  {'user': 'aa108@wellesley.edu',  
-  'id': '1',                       
+  'id': 1,                       
   'date': "12/05/2021",//new Date(2021, 11, 2, 9, 47, 18, 1234), 
   'title': 'thanksgiving', 
   'tags': ['food', 'pumpkin'],
@@ -109,26 +114,55 @@ const testTreasures =
   'title': 'pumpkin pie',
   'tags': ['food', 'pumpkin'], 
   'description': "I *love* pumpkin. Count me in!!!",
-  'id': '0',
+  'id': 0,
  },
 
 ];
 
+const testMail = 
+[
+  {'sender': 'Abigail', 'note': 'Here you go!', 'accepted':false, 'date':'12/08/2021', 'tid':'1', 'id':'1', 'receiver':'ww1',},
+  {'sender': 'Bethany', 'note': 'For you!', 'accepted':true, 'date':'12/08/2021', 'tid':'2', 'id':'2', 'receiver':'ww1',},
+  {'sender': 'Catherine', 'note': 'I miss you friend!', 'accepted':false, 'date':'12/08/2021', 'tid':'3', 'id':'3', 'receiver':'ww1',},
+  {'sender': 'Deborah', 'note': 'What a great day', 'accepted':true, 'date':'12/08/2021', 'tid':'4','id':'4', 'receiver':'ww1',},
+  {'sender': 'Elizabeth', 'note': 'This one is just for you', 'accepted':false, 'date':'12/08/2021', 'tid':'5', 'id':'5','receiver':'ww1',},
+  {'sender': 'Frances', 'note': 'Here you go!', 'accepted':false, 'date':'12/08/2021', 'tid':'6', 'id':'6',  'receiver':'ww1',},
+  {'sender': 'Georgia', 'note': 'Happy memories from last summer', 'accepted':true, 'date':'12/08/2021', 'tid':'7', 'id':'7', 'receiver':'ww1',},
+  {'sender': 'Harriet', 'note': 'one of my favorite moments with you', 'accepted':true, 'date':'12/08/2021', 'tid':'8', 'id':'8', 'receiver':'ww1',},
+];
+
+const testVaults = [
+  'Senior Year at Wellesley',
+  'Christmas',
+  'Study Abroad',
+  'East Side Schenanigans',
+  'Summer 2019',
+];
+
 export default function App() {
   const [treasures, setTreasures] = useState(testTreasures);
+  const [vaults, setVaults] = useState(testVaults);
+  const [mail, setMail] = useState(testMail);
+  console.log(typeof mail)
+//   {'user': 'sclark4@wellesley.edu',                         
+//   'date': "12/05/2021",//new Date(2021, 11, 2, 10, 52, 31, 1234), 
+//   'title': 'The Best Monday',
+//   'tags': ['cs317', 'WeLoveLyn', 'appdevelopment'], 
+//   'description': "Today, we successfully demoed trove!",
+//   'id': '10',
+//  }
   const [loggedInUser, setLoggedInUser] = React.useState('testUser');
-  const addTreasure = () => 
-  (setTreasures([{'user': 'sclark4@wellesley.edu',                         
-  'date': "12/05/2021",//new Date(2021, 11, 2, 10, 52, 31, 1234), 
-  'title': 'The Best Monday',
-  'tags': ['cs317', 'WeLoveLyn', 'appdevelopment'], 
-  'description': "Today, we successfully demoed trove!",
-  'id': '10',
- }, ...treasures ]))
- const deleteTreasure = () => setTreasures(testTreasures);
+  const addTreasure = (newTreasure) => setTreasures([newTreasure, ...treasures ])
+  const deleteTreasure = (currentId) => setTreasures(treasures.filter(treasure => treasure.id !== currentId))
+  const shareTreasure = (newMail) => setMail([newMail, ...mail])
 
-  const treasuresProps = { treasures, addTreasure, deleteTreasure };
-  const screenProps = {treasuresProps}
+ const acceptMail = () => alert("Accept Mail to be implemented");
+ const rejectMail = () => alert("Reject Mail to be implemented");
+
+
+  const treasuresProps = { treasures, addTreasure, deleteTreasure, shareTreasure };
+  const mailProps = { mail, acceptMail, rejectMail };
+  const screenProps = {treasuresProps, mailProps}
   function addTimestamp(item) {
     // Add millisecond timestamp field to message 
     return {...item, timestamp:item.date.getTime()}
@@ -141,6 +175,7 @@ export default function App() {
       <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="TreasuresNav" component={TreasuresNavigator} options={{ headerShown: false }}/>
       <Stack.Screen name="VaultsNav" component={VaultsNavigator} options={{ headerShown: false }}/>
+      <Stack.Screen name="MailNav" component={MailNavigator} options={{ headerShown: false }}/>
     </Stack.Navigator>
     
         {/* {loggedInUser ? 

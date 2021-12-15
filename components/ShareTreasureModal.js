@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Alert, Button, Modal, StyleSheet, Text, Pressable, View, TextInput, Keyboard,  TouchableWithoutFeedback, Image } from "react-native";
+import { Icon } from 'react-native-elements';
 import {styles} from '../style/styles';
 const DismissKeyboard = ({ children }) => (
     <TouchableWithoutFeedback 
@@ -9,10 +10,36 @@ const DismissKeyboard = ({ children }) => (
     );
 
 export default function ShareTreasureModal(props) {
-  const [title, onChangeTitle] = React.useState(props.treasure.title);
-    const [receiver, setReceiver] = React.useState("ww1");
-    const [note, setNote] = React.useState("here you go!");
+  // const [title, onChangeTitle] = React.useState(props.treasure.title);
+    const [receiver, setReceiver] = React.useState();
+    const [note, setNote] = React.useState();
     const [modalVisible, setModalVisible] = useState(false);
+    const currentDate = (new Date()).toDateString();
+    const currentUser = 'ww1';
+    const [id, setId] =  React.useState(9);
+
+    const newMail = {'receiver': receiver, 
+    'sender': currentUser,                     
+    'date': currentDate,
+    'note': note,
+    'tid': props.treasure.id,
+    'id': id,
+    'accepted': false,
+   };
+
+   const shareAndClose = () => {
+    if (receiver == null){
+      alert('Please add a receipient to your mail')
+    }
+    else if (note == null){
+      alert('Please add a note to your mail')
+    }
+    else {props.share(newMail);
+    setModalVisible(!modalVisible);
+
+    }
+    setId(id+1);
+  };
 
   return (
     
@@ -37,29 +64,26 @@ export default function ShareTreasureModal(props) {
         <View style={styles.centeredView}>
         <DismissKeyboard>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Treasure to Send:</Text>
-            <TextInput
-        style={styles.input}
-        onChangeText={onChangeTitle}
-        value={title}
-      />
+            <Pressable onPress={() => setModalVisible(false)}>
+                <Icon name='times-circle' type='font-awesome' color='#ff7fad' size={30} />
+            </Pressable>
+            <Text style={styles.modalText}>Treasure to Send: {props.treasure.title}</Text>
             <Text style={styles.modalText}>Send to:</Text>
             <TextInput
         style={styles.input}
         onChangeText={setReceiver}
-        value={receiver}
+        placeholder='Username of receiptent'
       />
-            <Text style={styles.modalText}>Note</Text>
+            <Text style={styles.modalText}>Note:</Text>
             <TextInput
         style={styles.input}
         onChangeText={setNote}
-        value={note}
+        placeholder='Write a brief note'
         multiline={true}
       />
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
+    onPress={shareAndClose}>
               <Text style={styles.textStyle}>Send Treasure</Text>
             </Pressable>
           </View>

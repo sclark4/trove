@@ -14,11 +14,17 @@ export default function TreasuresScreen(props) {
   const TagItem = item => {
     return (<Text style={{fontFamily:'Karla_Regular'}, styles.tag}>#{item.text} </Text>)
   }
-
+  const newItem = {'user': 'sclark4@wellesley.edu',                         
+    'date': "12/05/2021",//new Date(2021, 11, 2, 10, 52, 31, 1234), 
+    'title': 'The Best Monday',
+    'tags': ['cs317', 'WeLoveLyn', 'appdevelopment'], 
+    'description': "Today, we successfully demoed trove!",
+    'id': '10',
+   };
   const CardItem = item => {
     return (
     <TouchableOpacity
-    onPress={() => props.navigation.navigate('TreasuresNav', { screen: 'Treasure', params: {treasure: item.text.item, delete: screenProps.deleteTreasure}})}>
+    onPress={() => props.navigation.navigate('TreasuresNav', { screen: 'Treasure', params: {treasure: item.text.item, delete: screenProps.deleteTreasure, share: screenProps.shareTreasure}})}>
       <Card containerStyle={styles.treasureCard}>
       <Card.Title style={{margin: 10, fontFamily:'Grandstander_Bold'}}>{item.text.item.title}</Card.Title>
       <Card.Image style={styles.treasureThumbnail} source={{uri:('https://cdn.pixabay.com/photo/2021/01/21/16/17/english-cocker-spaniel-5937757_1280.jpg')}}>
@@ -47,14 +53,14 @@ export default function TreasuresScreen(props) {
       backgroundColor='#fff'
       leftComponent={<AddTreasureModal add={screenProps.addTreasure}/>}
       centerComponent={{ text: 'Treasures', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900', fontFamily:'Grandstander_Bold' } }}
-  />
+        />
     <View style={styles.container}>
       <View style={styles.listWrapper}>
           <FlatList showsVerticalScrollIndicator={false}
           style={styles.list}
             data={screenProps.treasures}
-            renderItem={ datum => <CardItem id={datum.id} text={datum} title={datum.title} description={datum.description} tags={datum.tags}></CardItem>} 
-            keyExtractor={id => id} />
+            renderItem={ datum => <CardItem id={datum.id} text={datum} title={datum.title} description={datum.description} tags={datum.tags} location={datum.location}></CardItem>} 
+            keyExtractor={item => item.id} />
         </View>
         </View>
     </View>

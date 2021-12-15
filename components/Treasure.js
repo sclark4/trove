@@ -29,9 +29,13 @@ const OpenURLButton = ({ url, children }) => {
 
 export default function Treasure(props) {
   const deleteAndExit = () => {
-    // setModalVisible(!modalVisible);
-    props.route.params.delete();
+
+    props.route.params.delete(props.route.params.treasure.id);
     props.navigation.goBack()
+  };
+  const shareAndExit = (newMail) => {
+    props.route.params.share(newMail);
+    alert("Treasure successfully sent to: " + newMail.receiver);
   };
   const [loaded] = useFonts({
     Karla_Regular: require('../assets/fonts/Karla-Regular.ttf'),
@@ -50,7 +54,7 @@ export default function Treasure(props) {
       leftComponent={
         <Pressable style={[styles.headerButton, styles.buttonOpen, {padding:6}]} 
         onPress={() => props.navigation.goBack()}> 
-          <Icon name='arrow-left' color='#ffffff' type='font-awesome' size='20' />
+          <Icon name='arrow-left' color='#ffffff' type='font-awesome' size={20} />
         </Pressable>}
       centerComponent={{ text: props.route.params.treasure.title, style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900', fontFamily:'Grandstander_Bold' } }}
       rightComponent={<AddToVaultModal treasure={props.route.params.treasure}/>}
@@ -66,8 +70,8 @@ export default function Treasure(props) {
       <Text style={styles.paragraph, {fontFamily:'Karla_Regular'}}>Location: Science Center</Text>
       <Text style={styles.paragraph, {fontFamily:'Karla_Regular'}, styles.tag}>{props.route.params.treasure.tags.map(tag => '#'+tag+' ')} </Text>
       
-      <EditTreasureModal treasure={props.route.params.treasure} delete = {deleteAndExit}/>
-      <ShareTreasureModal treasure={props.route.params.treasure}/>
+      <EditTreasureModal treasure={props.route.params.treasure} id ={props.route.params.treasure.id} delete = {deleteAndExit}/>
+      <ShareTreasureModal treasure={props.route.params.treasure} share = {shareAndExit}/>
       <OpenURLButton url={supportedURL}>External Link (e.g. to a favorite video or song)</OpenURLButton>
 
     </View>
