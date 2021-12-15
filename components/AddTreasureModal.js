@@ -14,25 +14,56 @@ const DismissKeyboard = ({ children }) => (
     );
 
 export default function AddTreasureModal(props) {
-    const [title, onChangeTitle] = React.useState("The Best Monday");
-    const [description, setDescription] = React.useState("Today, we unsuccessfully demoed trove!");
-    const [date, setDate] = useState(new Date(1598051730000));
-
-
-    const [location, setLocation] = React.useState('Science Center');
-    const [tags, setTags] = React.useState('cs317, WeLoveLyn, appdevelopment');
+    const nextId = 20
+    const [title, setTitle] = React.useState();
+    const [description, setDescription] = React.useState();
+    const [date, setDate] = useState(new Date());
+    const [id, setId] = useState(nextId)
+    const [location, setLocation] = React.useState();
+    const [tags, setTags] = React.useState();
     
+    const newItem = {'user': 'currentUser',                         
+    'date': date,//new Date(2021, 11, 2, 10, 52, 31, 1234), 
+    'title': title,
+    'tags': (tags ? tags.split(",") : ""), 
+    'description': description,
+    'id': id,
+    'image': image,
+   };
+
     const [modalVisible, setModalVisible] = useState(false);
     const [image, setImage] = useState(null);
-
-    const onChange = (event, selectedDate) => {
+    const onChangeTitle = (event, title) => {
+      setTitle(title);
+    };
+    const onChangeDescription = (event, description) => {
+      setDescription(description);
+    };
+    const onChangeTime = (event, selectedTime) => {
+      // const currentTime = selectedTime || time;
+      // setShow(Platform.OS === 'ios');
+      // setDate(currentDate);
+      console.log("potentially unnecessary")
+    };
+    const onChangeDate = (event, selectedDate) => {
       const currentDate = selectedDate || date;
-      setShow(Platform.OS === 'ios');
       setDate(currentDate);
     };
     const addAndClose = () => {
+      if (title == null){
+        alert('Please add a title to your treasure')
+      }
+      else if (description == null){
+        alert('Please add a description to your treasure')
+      }
+      else if (tags == null){
+        alert('Please add tags  to your treasure')
+      }
+      else {props.add(newItem);
       setModalVisible(!modalVisible);
-      props.add();
+
+      }
+      setId(id+1);
     };
 
   useEffect(() => {
@@ -80,24 +111,30 @@ export default function AddTreasureModal(props) {
         }}
       >
         
-        <View style={styles.centeredView}>
+        <View>
         <DismissKeyboard>
           <View style={styles.modalView}>
+            <Pressable onPress={() => setModalVisible(false)}>
+                <Icon name='times-circle' type='font-awesome' color='#ff7fad' size={30} />
+            </Pressable>
+      <View style={{alignItems:'center'}}>
             <Text style={styles.modalText}>Title:</Text>
             <TextInput
+        required
         style={styles.input}
-        onChangeText={onChangeTitle}
-        value={title}
+        placeholder="Treasure Title"
+        onChangeText={setTitle}
       />
             <Text style={styles.modalText}>Description</Text>
             <TextInput
+        required
         style={styles.input}
+        placeholder="Treasure Description"
         onChangeText={setDescription}
-        value={description}
         multiline={true}
       />
             
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
       <Button title="Upload Image/Video" onPress={pickImage} />
       {image && <Image source={{ uri: image }} style={{ width: 50, height: 50 }} />}
     </View>
@@ -108,9 +145,10 @@ export default function AddTreasureModal(props) {
           testID="dateTimePicker"
           value={date}
           mode='date'
-          is24Hour={true}
+          // is24Hour={true}
+          required
           display="default"
-          onChange={onChange}
+          onChange={onChangeDate}
         />
       </View>
       <View>
@@ -121,7 +159,7 @@ export default function AddTreasureModal(props) {
           mode='time'
           is24Hour={true}
           display="default"
-          onChange={onChange}
+          onChange={onChangeTime}
         />
       </View>
       </View>
@@ -129,6 +167,7 @@ export default function AddTreasureModal(props) {
             <Text style={styles.modalText}>Location</Text>
             <TextInput
         style={styles.input}
+        placeholder="Treasure Location"
         onChangeText={setLocation}
         value={location}
       />
@@ -136,16 +175,19 @@ export default function AddTreasureModal(props) {
             <Text style={styles.modalText}>Tags</Text>
             <TextInput
         style={styles.input}
+        placeholder="Treasure, Tags, formatted, like, this"
         onChangeText={setTags}
-        value={tags}
         multiline={true}
       />
+      <View style={{flexDirection: 'row'}}>
             <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={addAndClose}
             >
               <Text style={styles.textStyle}>Add Treasure</Text>
             </Pressable>
+      </View>
+          </View>
           </View>
           </DismissKeyboard>
         </View>

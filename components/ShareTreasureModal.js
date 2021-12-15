@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Alert, Button, Modal, StyleSheet, Text, Pressable, View, TextInput, Keyboard,  TouchableWithoutFeedback, Image } from "react-native";
+import { Icon } from 'react-native-elements';
 import {styles} from '../style/styles';
 const DismissKeyboard = ({ children }) => (
     <TouchableWithoutFeedback 
@@ -37,6 +38,9 @@ export default function ShareTreasureModal(props) {
         <View style={styles.centeredView}>
         <DismissKeyboard>
           <View style={styles.modalView}>
+            <Pressable onPress={() => setModalVisible(false)}>
+                <Icon name='times-circle' type='font-awesome' color='#ff7fad' size={30} />
+            </Pressable>
             <Text style={styles.modalText}>Treasure to Send:</Text>
             <TextInput
         style={styles.input}

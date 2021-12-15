@@ -19,7 +19,7 @@ export default function MailScreen(props) {
           <Text style={styles.paragraph}>From {mail.text.item.name}: "{mail.text.item.note}"</Text>
           <Text style={styles.paragraph}>Received:{mail.text.item.date}</Text>
           <View style={styles.container}>
-          {(mail.text.item.accepted)?<AcceptButtons/>:<Icon size='20' name='check' type='font-awesome' color='#BEBEBE' />}
+          {(mail.text.item.accepted)?<AcceptButtons/>:<Icon size={20} name='check' type='font-awesome' color='#BEBEBE' />}
           </View>
         </View>
       </TouchableOpacity>
@@ -31,10 +31,10 @@ export default function MailScreen(props) {
       <View>
         <Text style={{textAlign: 'center'}}>
       <Pressable onPress={screenProps.mailProps.acceptMail}>
-        <Icon name='check' reverse size='20' type='font-awesome' color='#a5c6ff' />
+        <Icon name='check' reverse size={20} type='font-awesome' color='#a5c6ff' />
         </Pressable>
         <Pressable onPress={screenProps.mailProps.rejectMail}>
-        <Icon name='ban' reverse size='20' type='font-awesome' color='#f26b5b' />
+        <Icon name='ban' reverse size={20} type='font-awesome' color='#f26b5b' />
         </Pressable>
         </Text>
       </View>
