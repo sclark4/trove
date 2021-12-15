@@ -4,7 +4,7 @@
 
 # ALPHA WRITE UP
 ## Overview of Implementation State
-All displays added, in process of implementing functionality
+All displays have been added, in process of implementing functionality
 - Treasures
   - Complete: Display and front end (except for reformatting of images)
   - In Progress: Functionality for add, delete, update, add to vault, and share treasure features
