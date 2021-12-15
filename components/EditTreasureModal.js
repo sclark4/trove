@@ -13,17 +13,42 @@ const DismissKeyboard = ({ children }) => (
     );
 
 export default function EditTreasureModal(props) {
-    const [title, onChangeTitle] = React.useState(props.treasure.title);
+    const [title, setTitle] = React.useState(props.treasure.title);
     const [description, setDescription] = React.useState(props.treasure.description);
     const [date, setDate] = useState(new Date(1598051730000));
     const [location, setLocation] = React.useState('Science Center');
     const [tags, setTags] = React.useState(props.treasure.tags.join());
     const [modalVisible, setModalVisible] = useState(false);
     const [image, setImage] = useState(null);
+
+    const updatedItem = {'user': props.treasure.user,                         
+    'date': date,//new Date(2021, 11, 2, 10, 52, 31, 1234), 
+    'title': title,
+    'tags': (tags ? tags.split(",") : ""), 
+    'description': description,
+    'id': props.treasure.id,
+    'image': image,
+   };
+
+    const updateAndClose = () => {
+      if (title == null){
+        alert('Please add a title to your treasure')
+      }
+      else if (description == null){
+        alert('Please add a description to your treasure')
+      }
+      else if (tags == null){
+        alert('Please add tags to your treasure')
+      }
+      else {
+      props.update(updatedItem);
+      setModalVisible(!modalVisible);
+      alert("Successfully updated treasure")
+      }
+    };
   
     const onChange = (event, selectedDate) => {
       const currentDate = selectedDate || date;
-      setShow(Platform.OS === 'ios');
       setDate(currentDate);
     };
 
@@ -80,7 +105,7 @@ export default function EditTreasureModal(props) {
             <Text style={styles.modalText}>Title:</Text>
             <TextInput
         style={styles.input}
-        onChangeText={onChangeTitle}
+        onChangeText={setTitle}
         value={title}
       />
             <Text style={styles.modalText}>Description</Text>
@@ -113,7 +138,7 @@ export default function EditTreasureModal(props) {
               mode='time'
               is24Hour={true}
               display="default"
-              onChange={onChange}
+              // onChange={onChange}
             />
           </View>
         </View>
@@ -134,12 +159,12 @@ export default function EditTreasureModal(props) {
 
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}>
+              onPress={updateAndClose}>
               <Text style={styles.textStyle}>Update Treasure</Text>
             </Pressable>
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => {setModalVisible(!modalVisible); props.delete();}}>
+              onPress={() => {setModalVisible(!modalVisible); props.delete()}}>
               <Text style={styles.textStyle}>Delete Treasure</Text>
             </Pressable>
           </View>

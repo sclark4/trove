@@ -33,9 +33,6 @@ export default function AddTreasureModal(props) {
 
     const [modalVisible, setModalVisible] = useState(false);
     const [image, setImage] = useState(null);
-    const onChangeTitle = (event, title) => {
-      setTitle(title);
-    };
     const onChangeDescription = (event, description) => {
       setDescription(description);
     };
