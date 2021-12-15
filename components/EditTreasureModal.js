@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Alert, Button, Modal, StyleSheet, Text, Pressable, View, TextInput, Keyboard,  TouchableWithoutFeedback, Image } from "react-native";
+import { Alert, Button, Modal,Text, Pressable, View, TextInput, Keyboard,  TouchableWithoutFeedback, Image } from "react-native";
 import { Icon } from 'react-native-elements';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as ImagePicker from 'expo-image-picker';
@@ -51,6 +51,20 @@ export default function EditTreasureModal(props) {
       const currentDate = selectedDate || date;
       setDate(currentDate);
     };
+
+    const createTwoButtonAlert = () =>
+    Alert.alert(
+      "Delete Treasure?",
+      "Are you sure you want to delete this treasure? This action is permanent and cannot be undone.",
+      [
+        {
+          text: "Cancel",
+          onPress: setModalVisible(!modalVisible),
+          style: "cancel"
+        },
+        { text: "Delete", onPress: () => {setModalVisible(!modalVisible); props.delete()}}
+      ]
+    );
 
   useEffect(() => {
     (async () => {
@@ -164,7 +178,7 @@ export default function EditTreasureModal(props) {
             </Pressable>
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => {setModalVisible(!modalVisible); props.delete()}}>
+              onPress={createTwoButtonAlert}>
               <Text style={styles.textStyle}>Delete Treasure</Text>
             </Pressable>
           </View>
