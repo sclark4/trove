@@ -150,7 +150,7 @@ export default function App() {
   const updateTreasure = (updated) => setTreasures([updated, ...(treasures.filter(treasure => treasure.id !== updated.id))]);
 
 // TO DO: implement add accepted mail to trove
- const acceptMail = (accepted) => setMail([accepted, ...(mail.filter(treasure => treasure.id !== accepted.id))]);
+ const acceptMail = (accepted) => setMail([...(mail.filter(treasure => treasure.id !== accepted.id)), accepted]);
 
  const rejectMail = (currentId) => setMail(mail.filter(mail => mail.id != currentId));
 
