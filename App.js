@@ -158,18 +158,11 @@ export default function App() {
   const [treasures, setTreasures] = useState(testTreasures);
   const [vaults, setVaults] = useState(testVaults);
   const [mail, setMail] = useState(testMail);
-  console.log(typeof mail)
-//   {'user': 'sclark4@wellesley.edu',                         
-//   'date': "12/05/2021",//new Date(2021, 11, 2, 10, 52, 31, 1234), 
-//   'title': 'The Best Monday',
-//   'tags': ['cs317', 'WeLoveLyn', 'appdevelopment'], 
-//   'description': "Today, we successfully demoed trove!",
-//   'id': '10',
-//  }
   const [loggedInUser, setLoggedInUser] = React.useState('testUser');
   const addTreasure = (newTreasure) => setTreasures([newTreasure, ...treasures ])
   const deleteTreasure = (currentId) => setTreasures(treasures.filter(treasure => treasure.id !== currentId))
   const shareTreasure = (newMail) => setMail([newMail, ...mail])
+  const updateTreasure = (updated) => setTreasures([updated, ...(treasures.filter(treasure => treasure.id !== updated.id))]);
 
   const addVault = (newVault) => setVaults([newVault, ...vaults ])
 
@@ -177,9 +170,8 @@ export default function App() {
  const rejectMail = () => alert("Reject Mail to be implemented");
 
 
-  const treasuresProps = { treasures, addTreasure, deleteTreasure, shareTreasure };
+  const treasuresProps = { treasures, addTreasure, deleteTreasure, shareTreasure, updateTreasure };
   const vaultProps = { vaults, addVault};
-
   const mailProps = { mail, acceptMail, rejectMail };
   const screenProps = {treasuresProps, vaultProps, mailProps}
   function addTimestamp(item) {
