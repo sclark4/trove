@@ -132,11 +132,26 @@ const testMail =
 ];
 
 const testVaults = [
-  'Senior Year at Wellesley',
-  'Christmas',
-  'Study Abroad',
-  'East Side Schenanigans',
-  'Summer 2019',
+  {'user': 'wendy@wellesley.edu',
+   'id': 1,
+   'title': 'Senior Year at Wellesley'
+  },
+  {'user': 'wendy@wellesley.edu',
+   'id': 2,
+   'title': 'Christmas'
+  },
+  {'user': 'wendy@wellesley.edu',
+   'id': 3,
+   'title': 'Study Abroad'
+  },
+  {'user': 'wendy@wellesley.edu',
+   'id': 4,
+   'title': 'East Side Schenanigans'
+  },
+  {'user': 'wendy@wellesley.edu',
+   'id': 5,
+   'title': 'Holiday Festivities 2021'
+  },
 ];
 
 export default function App() {
@@ -156,13 +171,17 @@ export default function App() {
   const deleteTreasure = (currentId) => setTreasures(treasures.filter(treasure => treasure.id !== currentId))
   const shareTreasure = (newMail) => setMail([newMail, ...mail])
 
+  const addVault = (newVault) => setVaults([newVault, ...vaults ])
+
  const acceptMail = () => alert("Accept Mail to be implemented");
  const rejectMail = () => alert("Reject Mail to be implemented");
 
 
   const treasuresProps = { treasures, addTreasure, deleteTreasure, shareTreasure };
+  const vaultProps = { vaults, addVault};
+
   const mailProps = { mail, acceptMail, rejectMail };
-  const screenProps = {treasuresProps, mailProps}
+  const screenProps = {treasuresProps, vaultProps, mailProps}
   function addTimestamp(item) {
     // Add millisecond timestamp field to message 
     return {...item, timestamp:item.date.getTime()}
