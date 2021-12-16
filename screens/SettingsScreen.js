@@ -16,23 +16,35 @@ export default function SettingsScreen(props) {
       <Text style={styles.h1}>
       Wendy Wellesley
       </Text>
+
       <Image
             style={styles.regularProfile}
             source={require('../assets/icon.png')}
           />
+
       <Text style={styles.h2}>
       @wwwendy
       </Text>
+
       <Text style={styles.paragraph}>
       Birthday: 11/29/2021
       </Text>
+
       <Text style={styles.paragraph}>
       Email: ww1@wellesley.edu
       </Text>
+
       <Pressable
-    onPress={()=>alert("To Be Implemented")}>
-    <Icon name='edit' raised reverse color='#a5c6ff' />
-  </Pressable>
+        onPress={()=>alert("To Be Implemented")}>
+        <Icon name='edit' raised reverse color='#a5c6ff' />
+      </Pressable>
+
+      <Pressable
+        style={[styles.buttonLog]}
+        onPress={() => alert("To Be Implemented")}>
+        <Text style={styles.textLog}>LOGOUT</Text>      
+      </Pressable>
+
   </View>
     </View>
   );

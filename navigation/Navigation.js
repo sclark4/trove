@@ -2,6 +2,7 @@ import React, {useContext} from 'react';
 import { Icon } from 'react-native-elements';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import SettingsScreen from '../screens/SettingsScreen';
+import HomeScreen from '../screens/HomeScreen';
 import TreasuresScreen from '../screens/TreasuresScreen';
 import MailScreen from '../screens/MailScreen';
 import VaultScreen from '../screens/VaultScreen';
@@ -69,6 +70,7 @@ export default function Navigation(props) {
             tabBarInactiveTintColor: '#BEBEBE',
           })}
         >
+          <Tab.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}  />
           <Tab.Screen name="Treasures" component={TreasuresScreen} options={{ headerShown: false }}  />
           <Tab.Screen name="Vault" component={VaultScreen} options={{ headerShown: false }}/>
           <Tab.Screen name="Mail" component={MailScreen} options={{ headerShown: false, tabBarBadge: 4 }}/>

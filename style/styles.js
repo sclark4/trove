@@ -379,6 +379,18 @@ const styles = StyleSheet.create({
     buttonClose: {
       backgroundColor: "#ffcc77",
     },
+    buttonLog: {
+      backgroundColor: "pink",
+      borderRadius: 30,
+      padding: 20,
+      marginTop: 20
+    },
+    textLog: {
+      color: "white",
+      fontWeight: "bold",
+      textAlign: "center",
+      fontSize: 20
+    },
     textStyle: {
       color: "white",
       fontWeight: "bold",
