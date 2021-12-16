@@ -1,5 +1,6 @@
 
 import React, {useState, useContext} from 'react';
+import { LogBox } from 'react-native';
 import { NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Navigation from './navigation/Navigation';
@@ -10,6 +11,7 @@ import HomeScreen from './screens/HomeScreen';
 import VaultScreen from './screens/VaultScreen';
 import TreasuresScreen from './screens/TreasuresScreen';
 import StateContext from './StateContext.js';
+
 
 
 const Stack = createNativeStackNavigator();
@@ -140,6 +142,11 @@ const testVaults = [
 ];
 
 export default function App() {
+  LogBox.ignoreLogs([
+    'Setting a timer',
+    'AsyncStorage',                                	 
+]);
+
   const [treasures, setTreasures] = useState(testTreasures);
   const [vaults, setVaults] = useState(testVaults);
   const [mail, setMail] = useState(testMail);
