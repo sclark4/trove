@@ -397,7 +397,7 @@ const styles = StyleSheet.create({
     buttonClose: {
       backgroundColor: "#ffcc77",
     },
-    buttonLog: {
+    logButton: {
       backgroundColor: "pink",
       borderRadius: 30,
       padding: 15,
@@ -420,6 +420,18 @@ const styles = StyleSheet.create({
       margin: 5,
       borderWidth: 1,
       padding: 10,
+      borderRadius: 20
+    },
+    loginInput: {
+      height: 50,
+      width: 250,
+      margin: 10,
+      borderWidth: 1,
+      padding: 10,
+      borderRadius: 25,
+      paddingTop: 13,
+      backgroundColor: 'white',
+      borderColor: 'white'
     },
     modalText: {
       marginBottom: 1,

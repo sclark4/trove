@@ -40,7 +40,7 @@ export default function SettingsScreen(props) {
       </Pressable>
 
       <Pressable
-        style={[styles.buttonLog]}
+        style={[styles.logButton]}
         onPress={() => alert("To Be Implemented")}>
         <Text style={styles.textLog}>LOGOUT</Text>      
       </Pressable>
