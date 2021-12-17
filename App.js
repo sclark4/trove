@@ -214,3 +214,116 @@ export default function App() {
 
   );
 }
+
+ /***************************************************************************
+   FIREBASE INTEGRATION CODE
+  ***************************************************************************/
+
+  // // Update data when loggedInUser
+  // useEffect(
+  //   () => { 
+  //     getDataForUser(loggedInUser); 
+  //   },
+  //   // [selectedChannel, localMessageDB]
+  // ); 
+
+  // function toggleStorageMode() {
+  //   setUsingFirestore(!usingFirestore);
+  // }
+
+  // /* 
+  //  import { collection, query, where, getDocs } 
+  //  const q = query(collection(db, "cities"), where("capital", "==", true));
+  //  const querySnapshot = await getDocs(q);
+  // */ 
+
+  // async function getMessagesForChannel(chan) {
+  //   console.log(`getMessagesForChannel(${chan}); usingFirestore=${usingFirestore}`);
+  //   if (usingFirestore) {
+  //     firebaseGetMessagesForChannel(chan); 
+  //   } else {
+  //     setSelectedMessages(localMessageDB.filter( msg => msg.channel === chan));
+  //   }
+  // }
+
+  // function docToMessage(msgDoc) {
+  //   // msgDoc has the form {id: timestampetring, 
+  //   //                   data: {timestamp: ..., 
+  //   //                          author: ..., 
+  //   //                          channel: ..., 
+  //   //                          content: ...}
+  //   // Need to add missing date field to data portion, reconstructed from timestamp
+  //   console.log('docToMessage');
+  //   const data = msgDoc.data();
+  //   console.log(msgDoc.id, " => ", data);
+  //   return {...data, date: new Date(data.timestamp)}
+  // }
+
+  // async function firebaseGetTreasures(chan) {
+  //   const q = query(collection(db, 'messages'), where('channel', '==', chan));
+  //   const querySnapshot = await getDocs(q);
+  //   // const messages = Array.from(querySnapshot).map( docToMessage );
+  //   let messages = []; 
+  //   querySnapshot.forEach(doc => {
+  //       messages.push(docToMessage(doc));
+  //   });
+  //   setSelectedMessages( messages );
+  // }
+
+
+  // function postMessage() {
+  //   console.log(`postMessage; usingFirestore=${usingFirestore}`);
+  //   const now = new Date();
+  //   const newMessage = {
+  //     'author': loggedInUser.email, 
+  //     'date': now, 
+  //     'timestamp': now.getTime(), // millsecond timestamp
+  //     'channel': selectedChannel, 
+  //     'content': textInputValue, 
+  //   }
+  //   if (usingFirestore) {
+  //     firebasePostMessage(newMessage);
+  //   } else {
+  //     setLocalMessageDB([...localMessageDB, newMessage]);
+  //     setIsComposingMessage(false);
+  //   }
+  //   setTextInputValue('');
+  // }
+
+  // async function firebasePostMessage(msg) {
+  //   // Add a new document in collection "messages"
+  //   const timestampString = msg.timestamp.toString();
+  //   await setDoc(doc(db, "messages", timestampString), 
+  //       {
+  //         'timestamp': msg.timestamp, 
+  //         'author': msg.author, 
+  //         'channel': msg.channel, 
+  //         'content': msg.content, 
+  //       }
+  //     );
+  // }
+
+  // async function populateFirestoreDB(messages) {
+
+  //   // Returns a promise to add message to firestore
+  //   async function addMessageToDB(message) {
+  //     const timestamp = message.date.getTime(); // millsecond timestamp
+  //     const timestampString = timestamp.toString();
+
+  //     // Add a new document in collection "messages"
+  //     return setDoc(doc(db, "messages", timestampString), 
+  //       {
+  //         'timestamp': timestamp, 
+  //         'author': message.author, 
+  //         'channel': message.channel, 
+  //         'content': message.content, 
+  //       }
+  //     );
+  //   }
+
+  //   // Peform one await for all the promises. 
+  //   await Promise.all(
+  //     messages.map( addMessageToDB ) 
+  //   );
+
+  // }
