@@ -15,14 +15,14 @@ const DismissKeyboard = ({ children }) => (
 export default function EditTreasureModal(props) {
     const [title, setTitle] = React.useState(props.treasure.title);
     const [description, setDescription] = React.useState(props.treasure.description);
-    const [date, setDate] = useState(new Date(1598051730000));
+    const [date, setDate] = useState(new Date());
     const [location, setLocation] = React.useState('Science Center');
     const [tags, setTags] = React.useState(props.treasure.tags.join());
     const [modalVisible, setModalVisible] = useState(false);
     const [image, setImage] = useState(null);
 
     const updatedItem = {'user': props.treasure.user,                         
-    'date': date,//new Date(2021, 11, 2, 10, 52, 31, 1234), 
+    'date': date.toDateString(),
     'title': title,
     'tags': (tags ? tags.split(",") : ""), 
     'description': description,

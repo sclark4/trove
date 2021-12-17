@@ -10,7 +10,9 @@ import {useFonts} from 'expo-font';
 export default function TreasuresScreen(props) {
   const Props = useContext(StateContext);
   const screenProps = Props.treasuresProps;
-    
+  const titleSortedTreasures = [...screenProps.treasures].sort((a, b) => (a.title.toLowerCase()<b.title.toLowerCase())? -1:1);
+  const dateSortedTreasures = [...screenProps.treasures].sort((a, b) => (new Date(b.date)-new Date(a.date)));
+
   const TagItem = item => {
     return (<Text style={{fontFamily:'Karla_Regular'}, styles.tag}>#{item.text} </Text>)
   }
@@ -58,7 +60,7 @@ export default function TreasuresScreen(props) {
       <View style={styles.listWrapper}>
           <FlatList showsVerticalScrollIndicator={false}
           style={styles.list}
-            data={screenProps.treasures}
+            data={dateSortedTreasures}
             renderItem={ datum => <CardItem id={datum.id} text={datum} title={datum.title} description={datum.description} tags={datum.tags} location={datum.location}></CardItem>} 
             keyExtractor={item => item.id} />
         </View>

@@ -7,6 +7,7 @@ import {styles} from '../style/styles';
 export default function MailScreen(props) {
   const screenProps = useContext(StateContext);
   const treasures = screenProps.treasuresProps.treasures;
+  const dateSortedMail = [...screenProps.mailProps.mail].sort((a, b) => (new Date(b.date)-new Date(a.date)));
 
   const ListItem = mail => { 
     return (
@@ -79,10 +80,9 @@ export default function MailScreen(props) {
       backgroundColor='#fff'
       centerComponent={{ text: 'Mail', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}
       />
-      <Text>{screenProps.mailProps.mail.map(item => {item})}</Text>
       <View style={styles.listWrapper}>
           <FlatList showsVerticalScrollIndicator={false}
-            data={screenProps.mailProps.mail}
+            data={dateSortedMail}
             renderItem={ datum => <ListItem text={datum}></ListItem>} 
             keyExtractor={item => item.id} 
           />

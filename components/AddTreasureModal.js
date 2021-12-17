@@ -23,7 +23,7 @@ export default function AddTreasureModal(props) {
     const [tags, setTags] = React.useState();
     
     const newItem = {'user': 'currentUser',                         
-    'date': date,//new Date(2021, 11, 2, 10, 52, 31, 1234), 
+    'date': date.toDateString(),//new Date(2021, 11, 2, 10, 52, 31, 1234), 
     'title': title,
     'tags': (tags ? tags.split(",") : ""), 
     'description': description,

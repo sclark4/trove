@@ -1,4 +1,3 @@
-
 import React, {useState, useContext} from 'react';
 import { LogBox } from 'react-native';
 import { NavigationContainer} from '@react-navigation/native';
@@ -8,15 +7,15 @@ import TreasuresNavigator from './navigation/TreasuresNavigator';
 import VaultsNavigator from './navigation/VaultsNavigator';
 import MailNavigator from './navigation/MailNavigator';
 import LoginNavigator from './navigation/LoginNavigator';
+
 import LoginScreen from './screens/LoginScreen';
+import NotificationScreen from './screens/NotificationScreen';
+
 import VaultScreen from './screens/VaultScreen';
 import TreasuresScreen from './screens/TreasuresScreen';
 import StateContext from './StateContext.js';
 
-
-
 const Stack = createNativeStackNavigator();
-
 
 import { initializeApp } from "firebase/app";
 import { // access to authentication features:
@@ -188,7 +187,8 @@ export default function App() {
   function addTimestamp(item) {
     // Add millisecond timestamp field to message 
     return {...item, timestamp:item.date.getTime()}
-  } 
+  }
+
   return (
     <StateContext.Provider value={screenProps}>
     <NavigationContainer>
