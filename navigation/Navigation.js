@@ -20,12 +20,7 @@ export default function Navigation(props) {
         screenOptions={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
               let icon;
-  
-              if (route.name === 'Login') {
-                icon = focused
-                  ? 'home'
-                  : 'home';
-              } else if (route.name === 'Settings') {
+              if (route.name === 'Settings') {
                 icon = focused ? 
                 'cog' : 
             'cog'
@@ -71,7 +66,7 @@ export default function Navigation(props) {
             tabBarInactiveTintColor: '#BEBEBE',
           })}
         >
-          <Tab.Screen name="Login" component={LoginScreen} options={{ headerShown: false }}  />
+          {/* <Tab.Screen name="Login" component={LoginScreen} options={{ headerShown: false }}  /> */}
           {/* <Tab.Screen name="Login" component={NotificationScreen} options={{ headerShown: false }}  /> */}
 
           <Tab.Screen name="Treasures" component={TreasuresScreen} options={{ headerShown: false }}  />

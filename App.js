@@ -170,7 +170,7 @@ export default function App() {
   const [treasures, setTreasures] = useState(testTreasures);
   const [vaults, setVaults] = useState(testVaults);
   const [mail, setMail] = useState(testMail);
-  const [loggedInUser, setLoggedInUser] = React.useState('testUser');
+  const [loggedInUser, setLoggedInUser] = React.useState(null);
   const addTreasure = (newTreasure) => setTreasures([newTreasure, ...treasures ])
   const deleteTreasure = (currentId) => setTreasures(treasures.filter(treasure => treasure.id !== currentId))
   const shareTreasure = (newMail) => setMail([newMail, ...mail])
@@ -198,21 +198,23 @@ export default function App() {
     <StateContext.Provider value={screenProps}>
     <NavigationContainer>
     <Stack.Navigator>
+    {(loggedInUser === null) ? 
+      <Stack.Screen name="LoginNav" component={LoginNavigator} options={{ headerShown: false }}/> : 
+        (<>
       <Stack.Screen name="Main" component={Navigation} options={{ headerShown: false }}/>
-      <Stack.Screen name="LoginNav" component={LoginNavigator} options={{ headerShown: false }}/>
       <Stack.Screen name="TreasuresNav" component={TreasuresNavigator} options={{ headerShown: false }}/>
       <Stack.Screen name="VaultsNav" component={VaultsNavigator} options={{ headerShown: false }}/>
       <Stack.Screen name="MailNav" component={MailNavigator} options={{ headerShown: false }}/>
+      </>)
+    }
+      {/* <Stack.Screen name="Main" component={Navigation} options={{ headerShown: false }}/>
+      <Stack.Screen name="LoginNav" component={LoginNavigator} options={{ headerShown: false }}/>
+      <Stack.Screen name="TreasuresNav" component={TreasuresNavigator} options={{ headerShown: false }}/>
+      <Stack.Screen name="VaultsNav" component={VaultsNavigator} options={{ headerShown: false }}/>
+      <Stack.Screen name="MailNav" component={MailNavigator} options={{ headerShown: false }}/> */}
     </Stack.Navigator>
     
-        {/* {loggedInUser ? 
-      (<Stack.Screen name="Main" component={Navigation} options={{ headerShown: false }}/>) : 
-        (<>
-      <Stack.Screen name="Main" component={Navigation} options={{ headerShown: false }}/>
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="TreasuresNav" component={TreasuresNavigator} options={{ headerShown: false }}/>
-      <Stack.Screen name="VaultsNav" component={VaultsNavigator} options={{ headerShown: false }}/> </>)
-    } */}
+        
     
   </NavigationContainer>
   </StateContext.Provider>

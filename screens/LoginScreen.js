@@ -7,12 +7,9 @@ import { Header } from 'react-native-elements';
 export default function LoginScreen(props) {
   return ( 
     <View style={styles.container}>
-      <Header
-        backgroundColor='#fff'
-        centerComponent={{ text: 'Login/Sign Up', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}
-      />
 
-      <Text style={styles.h1}>{'\n'}Welcome Back!</Text>
+      <Text style={styles.h1}>{'\n'}Welcome!</Text>
+      <Image style={styles.gifIcon} source={require('../assets/goldCoin.gif')} />
       <Text style={styles.h2}>Login to see your treasures</Text>
       
       <TextInput
@@ -32,12 +29,11 @@ export default function LoginScreen(props) {
       <Pressable
         style={[styles.logButton]}
         onPress={() => alert("To Be Implemented")}>
-        <Text style={styles.textLog}>LOGIN</Text>      
+        <Text style={styles.textLog}>Login</Text>      
       </Pressable>
 
-      <Image style={styles.gifIcon} source={require('../assets/goldCoin.gif')} />
 
-      <Text style={[styles.paragraph, {marginTop: 60}]}>Don't have an account?</Text>
+      <Text style={[styles.paragraph, {marginTop: 10}]}>Don't have an account?</Text>
       <Pressable
         style={[styles.logButton, {backgroundColor: "#a5c6ff"}]}
         onPress={() => alert("To Be Implemented")}>      
