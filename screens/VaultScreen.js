@@ -7,7 +7,7 @@ import AddVaultModal from '../components/AddVaultModal';
 import StateContext from '../StateContext';
 import {useFonts} from 'expo-font';
 
-export default function VaultScreen({props}) {
+export default function VaultScreen(props) {
   const Props = useContext(StateContext);
   const screenProps = Props.vaultProps;
 
@@ -19,8 +19,7 @@ export default function VaultScreen({props}) {
   const ListItem = item => { 
     return (
       <TouchableOpacity
-        onPress={() => props.navigation.navigate('VaultsNav', { screen: 'Vault', params: { vault: item.text.item }})}
-      > 
+        onPress={() => props.navigation.navigate('VaultsNav', { screen: 'Vault', params: {vault: item.text.item, update: screenProps.updateVault, delete: screenProps.deleteVault }})}> 
         <View style={styles.listItem}>
           <Image
             style={styles.smallIcon}
@@ -29,7 +28,7 @@ export default function VaultScreen({props}) {
           <Text style={styles.listItemText}>{item.text.item.title}</Text>
         </View>
       </TouchableOpacity>
-    );
+    )
   }
   const [loaded] = useFonts({
     Karla_Regular: require('../assets/fonts/Karla-Regular.ttf'),
