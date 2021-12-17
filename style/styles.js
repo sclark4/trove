@@ -251,12 +251,24 @@ const styles = StyleSheet.create({
       fontWeight: '300',
       textAlign: 'center',
     },
+    descText: {
+      margin: 5,
+      fontSize: 20,
+      fontWeight: '300',
+      fontFamily:'Karla_Regular',
+      textAlign: 'center'
+    },
+    descContainer: {
+      margin: 20,
+      marginTop: 0,
+      backgroundColor: '#ccdaff',
+      borderRadius: 40,
+      padding: 20
+    },
     tag:{
       color:'#a5c6ff',
       fontWeight: '500',
       fontSize: 15,
-
-      
     },
     h1: {
       fontSize: 24,
@@ -305,6 +317,12 @@ const styles = StyleSheet.create({
       width: 90,
       height: 90,
       margin: 10,
+    },
+    gifIcon: {
+      width: 100,
+      height: 100,
+      margin: 10,
+      borderRadius: 30
     },
     treasureThumbnail:{
       flex: 1,
@@ -382,7 +400,7 @@ const styles = StyleSheet.create({
     buttonLog: {
       backgroundColor: "pink",
       borderRadius: 30,
-      padding: 20,
+      padding: 15,
       marginTop: 20
     },
     textLog: {

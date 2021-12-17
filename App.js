@@ -6,7 +6,8 @@ import Navigation from './navigation/Navigation';
 import TreasuresNavigator from './navigation/TreasuresNavigator';
 import VaultsNavigator from './navigation/VaultsNavigator';
 import MailNavigator from './navigation/MailNavigator';
-import HomeScreen from './screens/HomeScreen';
+import LoginNavigator from './navigation/LoginNavigator';
+import LoginScreen from './screens/LoginScreen';
 import VaultScreen from './screens/VaultScreen';
 import TreasuresScreen from './screens/TreasuresScreen';
 import StateContext from './StateContext.js';
@@ -164,14 +165,16 @@ export default function App() {
   const shareTreasure = (newMail) => setMail([newMail, ...mail])
   const updateTreasure = (updated) => setTreasures([updated, ...(treasures.filter(treasure => treasure.id !== updated.id))]);
 
-  const addVault = (newVault) => setVaults([newVault, ...vaults ])
+  const addVault = (newVault) => setVaults([newVault, ...vaults ]);
+  const updateVault = (updated) => setVaults([updated, ...(vaults.filter(vault => vault.id !== updated.id))]);
+  const deleteVault = (currentId) => setVaults(vaults.filter(vault => vault.id !== currentId));
 
- const acceptMail = () => alert("Accept Mail to be implemented");
- const rejectMail = () => alert("Reject Mail to be implemented");
+  const acceptMail = () => alert("Accept Mail to be implemented");
+  const rejectMail = () => alert("Reject Mail to be implemented");
 
 
   const treasuresProps = { treasures, addTreasure, deleteTreasure, shareTreasure, updateTreasure };
-  const vaultProps = { vaults, addVault};
+  const vaultProps = { vaults, addVault, updateVault, deleteVault};
   const mailProps = { mail, acceptMail, rejectMail };
   const screenProps = {treasuresProps, vaultProps, mailProps}
   function addTimestamp(item) {
@@ -183,7 +186,7 @@ export default function App() {
     <NavigationContainer>
     <Stack.Navigator>
       <Stack.Screen name="Main" component={Navigation} options={{ headerShown: false }}/>
-      <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="LoginNav" component={LoginNavigator} options={{ headerShown: false }}/>
       <Stack.Screen name="TreasuresNav" component={TreasuresNavigator} options={{ headerShown: false }}/>
       <Stack.Screen name="VaultsNav" component={VaultsNavigator} options={{ headerShown: false }}/>
       <Stack.Screen name="MailNav" component={MailNavigator} options={{ headerShown: false }}/>
