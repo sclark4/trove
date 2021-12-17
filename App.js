@@ -135,23 +135,28 @@ const testMail =
 const testVaults = [
   {'user': 'wendy@wellesley.edu',
    'id': 1,
-   'title': 'Senior Year at Wellesley'
+   'title': 'Senior Year at Wellesley',
+   'treasures': []
   },
   {'user': 'wendy@wellesley.edu',
    'id': 2,
-   'title': 'Christmas'
+   'title': 'Christmas',
+   'treasures': []
   },
   {'user': 'wendy@wellesley.edu',
    'id': 3,
-   'title': 'Study Abroad'
+   'title': 'Study Abroad',
+   'treasures': []
   },
   {'user': 'wendy@wellesley.edu',
    'id': 4,
-   'title': 'East Side Schenanigans'
+   'title': 'East Side Schenanigans',
+   'treasures': []
   },
   {'user': 'wendy@wellesley.edu',
    'id': 5,
-   'title': 'Holiday Festivities 2021'
+   'title': 'Holiday Festivities 2021',
+   'treasures': []
   },
 ];
 

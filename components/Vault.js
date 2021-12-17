@@ -36,7 +36,7 @@ export default function Vault(props) {
         </Pressable>}/>
       <Image style={styles.gifIcon} source={require('../assets/diamond.gif')} />
       <View style={styles.descContainer}>
-        <Text style={styles.descText}>Wowza! Here are your gems from the vault "{props.route.params.vault.title}". {"\n"}Swipe to see them!</Text>
+        <Text style={styles.descText}>Wowza! Here are your gems from the vault "{props.route.params.vault.title}". {"\n"}Click "Open Vault" to see them!</Text>
       </View>
       <Image style={styles.smallIcon} source={require('../assets/chest.png')} />
       <EditVaultModal vault={props.route.params.vault} id ={props.route.params.vault.id} delete = {deleteAndExit} update = {updateAndExit}/>
