@@ -5,7 +5,6 @@ import * as ImagePicker from 'expo-image-picker';
 import { Icon } from 'react-native-elements';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-
 const DismissKeyboard = ({ children }) => (
     <TouchableWithoutFeedback 
     onPress={() => Keyboard.dismiss()}>

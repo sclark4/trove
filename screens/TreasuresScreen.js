@@ -1,18 +1,19 @@
 import * as React from 'react';
 import { useContext } from "react";
-import { Text, View, FlatList, TouchableOpacity } from 'react-native';
+import { Text, View, FlatList, TouchableOpacity, Pressable } from 'react-native';
 import {styles} from '../style/styles';
 import AddTreasureModal from '../components/AddTreasureModal';
-import { Card, Header } from 'react-native-elements';
+import { Card, Header, Icon } from 'react-native-elements';
 import StateContext from '../StateContext';
 import {useFonts} from 'expo-font';
 
 export default function TreasuresScreen(props) {
   const Props = useContext(StateContext);
   const screenProps = Props.treasuresProps;
+  console.log(screenProps.treasures)
   const titleSortedTreasures = [...screenProps.treasures].sort((a, b) => (a.title.toLowerCase()<b.title.toLowerCase())? -1:1);
   const dateSortedTreasures = [...screenProps.treasures].sort((a, b) => (new Date(b.date)-new Date(a.date)));
-
+  console.log(dateSortedTreasures)
   const TagItem = item => {
     return (<Text style={{fontFamily:'Karla_Regular'}, styles.tag}>#{item.text} </Text>)
   }
@@ -57,7 +58,14 @@ export default function TreasuresScreen(props) {
       centerComponent={{ text: 'Treasures', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900', fontFamily:'Grandstander_Bold' } }}
         />
     <View style={styles.container}>
+    
       <View style={styles.listWrapper}>
+      <Pressable
+        style={[styles.headerButton, styles.buttonOpen]}
+        onPress={screenProps.getFirebaseData}
+      >
+        <Text style={styles.paragraph}>Import Firebase Data</Text>
+      </Pressable>
           <FlatList showsVerticalScrollIndicator={false}
           style={styles.list}
             data={dateSortedTreasures}

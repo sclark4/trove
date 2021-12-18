@@ -176,14 +176,15 @@ export default function App() {
     'Setting a timer',
     'AsyncStorage',                                	 
 ]);
-  // const firebaseTreasures = getTreasures();
-  const [treasures, setTreasures] = useState([...testTreasures]);
+  const [treasures, setTreasures] = useState(testTreasures);
+  console.log("hey", treasures)
+
   const [vaults, setVaults] = useState(testVaults);
   const [mail, setMail] = useState(testMail);
   const [loggedInUser, setLoggedInUser] = React.useState("ww1@wellesley.edu");
 
   //probably also buggy
-  const [currentUserInfo, setCurrentUserInfo] = React.useState(getUserData(loggedInUser));
+  const [currentUserInfo, setCurrentUserInfo] = React.useState();
 
   const addTreasure = (newTreasure) => setTreasures([newTreasure, ...treasures ])
   const deleteTreasure = (currentId) => setTreasures(treasures.filter(treasure => treasure.id !== currentId))
@@ -197,16 +198,22 @@ export default function App() {
   const addVault = (newVault) => setVaults([newVault, ...vaults ]);
   const updateVault = (updated) => setVaults([updated, ...(vaults.filter(vault => vault.id !== updated.id))]);
   const deleteVault = (currentId) => setVaults(vaults.filter(vault => vault.id !== currentId));
-
-  const treasuresProps = { treasures, addTreasure, deleteTreasure, shareTreasure, updateTreasure };
+  const getFirebaseData = () => loadFirebaseData()
+  const treasuresProps = { getFirebaseData, treasures, addTreasure, deleteTreasure, shareTreasure, updateTreasure };
   const vaultProps = { vaults, addVault, updateVault, deleteVault};
   const mailProps = { mail, acceptMail, rejectMail };
   const screenProps = {treasuresProps, vaultProps, mailProps}
+  
   function addTimestamp(item) {
     // Add millisecond timestamp field to message 
     return {...item, timestamp:item.date.getTime()}
   }
-
+  function loadFirebaseData() {
+    getUserData(loggedInUser);
+    getTreasures();
+    console.log('hey')
+  }
+  
   async function getUserData(user) {
     const q = query(collection(db, "users"), where("email", "==", user));
     const querySnapshot = await getDocs(q);
@@ -228,31 +235,23 @@ export default function App() {
   }
 
   async function getTreasures() {
-    //BUG Runs endlessly, constantly refreshing screen!
     const q = collection(db, "treasures");
     const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-    // doc.data() is never undefined for query doc snapshots
-    const data = doc.data()
-    console.log("hi",data)
-
-    const treasure = {
-      'user': data.user, 
-      'title': data.title, 
-      'description': data.description, // millsecond timestamp
-      'date': data.date, 
-      'tags': data.tags,
-      'id': data.id,
-    }
-    setTreasures([treasure, ...treasures]);
-    // treasures.push(treasure)
-    // const subcolls = collection(doc.id, "treasures")
-    // subcolls.forEach((c) => {
-    //   console.log(c.id, " => ", c);
-    // });
+    let treasures = []
+    querySnapshot.forEach(doc => {
+      const data = doc.data()
+      treasures.push(data)
+      setTreasures(treasures)
     });
-    // return treasures;
+    
   }
+  // useEffect(
+  //   () => { 
+  //     getUserData(loggedInUser); 
+  //     getTreasures();
+  //   },
+  //   // [selectedChannel, localMessageDB]
+  // ); 
 
   return (
     <StateContext.Provider value={screenProps}>
