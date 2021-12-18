@@ -19,8 +19,8 @@ export default function LoginScreen(props) {
       <TextInput
         style={styles.loginInput}
         placeholder="✉️ | Email Address"
-        onChangeText={ textVal => screenProps.setEmail(textVal) }
-        value={screenProps.email}
+        onChangeText={ textVal => screenProps.setLoggedInUser(textVal) }
+        value={screenProps.loggedInUser}
       />
 
       <TextInput
@@ -32,7 +32,8 @@ export default function LoginScreen(props) {
 
       <Pressable
         style={[styles.logButton]}
-        onPress={() => screenProps.signInUserEmailPassword()}>
+        onPress={() => true}>
+        {/* screenProps.signInUserEmailPassword() */}
         <Text style={[styles.textLog, {width: 220}]}>Login</Text>      
       </Pressable>
 

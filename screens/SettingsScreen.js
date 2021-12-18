@@ -41,7 +41,8 @@ export default function SettingsScreen(props) {
 
       <Pressable
         style={[styles.logButton]}
-        onPress={() => alert("To Be Implemented")}>
+        // onPress={screenProps.setLoggedInUser(null)}>
+        onPress={()=>alert("To Be Implemented")}>
         <Text style={styles.textLog}>Logout</Text>      
       </Pressable>
 
