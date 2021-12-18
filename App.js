@@ -1,7 +1,8 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useContext, useEffect, useRef} from 'react';
 import { LogBox } from 'react-native';
 import { NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Constants from 'expo-constants';
 import Navigation from './navigation/Navigation';
 import TreasuresNavigator from './navigation/TreasuresNavigator';
 import VaultsNavigator from './navigation/VaultsNavigator';
@@ -23,8 +24,11 @@ import { // access to authentication features:
          signOut
   } from "firebase/auth";
 
-import { getFirestore, 
-         collection, doc, addDoc, setDoc, getDocs
+import { // access to Firestore storage features:
+         getFirestore, 
+         // for storage access
+         collection, doc, addDoc, setDoc,
+         query, where, getDocs, getDoc, DocumentReference
   } from "firebase/firestore";
 
 const Stack = createNativeStackNavigator();
@@ -43,6 +47,14 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
+
+
+function formatJSON(jsonVal) {
+  // Lyn sez: replacing \n by <br/> not necesseary if use this CSS:
+  //   white-space: break-spaces; (or pre-wrap)
+  // let replacedNewlinesByBRs = prettyPrintedVal.replace(new RegExp('\n', 'g'), '<br/>')
+  return JSON.stringify(jsonVal, null, 2);
+}
 
 function emailOf(user) {
   if (user) {
@@ -160,8 +172,8 @@ export default function App() {
     'Setting a timer',
     'AsyncStorage',                                	 
 ]);
-
-  const [treasures, setTreasures] = useState(testTreasures);
+  // const firebaseTreasures = getTreasures();
+  const [treasures, setTreasures] = useState([...testTreasures]);
   const [vaults, setVaults] = useState(testVaults);
   const [mail, setMail] = useState(testMail);
   
@@ -169,6 +181,9 @@ export default function App() {
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [loggedInUser, setLoggedInUser] = useState(null);
+
+  //probably also buggy
+  const [currentUserInfo, setCurrentUserInfo] = React.useState(getUserData(loggedInUser));
 
   const addTreasure = (newTreasure) => setTreasures([newTreasure, ...treasures ])
   const deleteTreasure = (currentId) => setTreasures(treasures.filter(treasure => treasure.id !== currentId))
@@ -334,6 +349,53 @@ export default function App() {
     return {...item, timestamp:item.date.getTime()}
   }
 
+  async function getUserData(user) {
+    const q = query(collection(db, "users"), where("email", "==", user));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    const data = doc.data()
+    const currentUser = {
+      'email': data.email, 
+      'firstName': data.firstName, 
+      'lastName': data.lastName, // millsecond timestamp
+      'birthday': data.birthday, 
+    }
+    // const subcolls = collection(doc.id, "treasures")
+    // subcolls.forEach((c) => {
+    //   console.log(c.id, " => ", c);
+    // });
+    return currentUser;
+    });
+  }
+
+  async function getTreasures() {
+    //BUG Runs endlessly, constantly refreshing screen!
+    const q = collection(db, "treasures");
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    const data = doc.data()
+    console.log("hi",data)
+
+    const treasure = {
+      'user': data.user, 
+      'title': data.title, 
+      'description': data.description, // millsecond timestamp
+      'date': data.date, 
+      'tags': data.tags,
+      'id': data.id,
+    }
+    setTreasures([treasure, ...treasures]);
+    // treasures.push(treasure)
+    // const subcolls = collection(doc.id, "treasures")
+    // subcolls.forEach((c) => {
+    //   console.log(c.id, " => ", c);
+    // });
+    });
+    // return treasures;
+  }
+
   return (
     <StateContext.Provider value={screenProps}>
     <NavigationContainer>
@@ -367,14 +429,10 @@ export default function App() {
   // // Update data when loggedInUser
   // useEffect(
   //   () => { 
-  //     getDataForUser(loggedInUser); 
+  //     getUserData(loggedInUser); 
   //   },
   //   // [selectedChannel, localMessageDB]
   // ); 
-
-  // function toggleStorageMode() {
-  //   setUsingFirestore(!usingFirestore);
-  // }
 
   // /* 
   //  import { collection, query, where, getDocs } 
@@ -382,37 +440,40 @@ export default function App() {
   //  const querySnapshot = await getDocs(q);
   // */ 
 
-  // async function getMessagesForChannel(chan) {
-  //   console.log(`getMessagesForChannel(${chan}); usingFirestore=${usingFirestore}`);
-  //   if (usingFirestore) {
-  //     firebaseGetMessagesForChannel(chan); 
-  //   } else {
-  //     setSelectedMessages(localMessageDB.filter( msg => msg.channel === chan));
-  //   }
-  // }
+  function docToMessage(msgDoc) {
+    // msgDoc has the form {id: timestampetring, 
+    //                   data: {timestamp: ..., 
+    //                          author: ..., 
+    //                          channel: ..., 
+    //                          content: ...}
+    // Need to add missing date field to data portion, reconstructed from timestamp
+    console.log('docToMessage');
+    const data = msgDoc.data();
+    console.log(msgDoc.email, " => ", data);
+    return {...data, date: new Date(data.timestamp)}
+  }
 
-  // function docToMessage(msgDoc) {
-  //   // msgDoc has the form {id: timestampetring, 
-  //   //                   data: {timestamp: ..., 
-  //   //                          author: ..., 
-  //   //                          channel: ..., 
-  //   //                          content: ...}
-  //   // Need to add missing date field to data portion, reconstructed from timestamp
-  //   console.log('docToMessage');
-  //   const data = msgDoc.data();
-  //   console.log(msgDoc.id, " => ", data);
-  //   return {...data, date: new Date(data.timestamp)}
-  // }
 
-  // async function firebaseGetTreasures(chan) {
-  //   const q = query(collection(db, 'messages'), where('channel', '==', chan));
+  // async function getUserTreasures(username){
+  //   const citiesCol = collection(db, 'users');
+  //   const citySnapshot = await getDocs(citiesCol);
+  //   const cityList = citySnapshot.docs.map(doc => doc.data());
+
+  //   const q = query(collection(db, "users"), where("lastName", "==", 'Wellesley'));
+
   //   const querySnapshot = await getDocs(q);
-  //   // const messages = Array.from(querySnapshot).map( docToMessage );
-  //   let messages = []; 
-  //   querySnapshot.forEach(doc => {
-  //       messages.push(docToMessage(doc));
+  //   querySnapshot.forEach((doc) => {
+  //   // doc.data() is never undefined for query doc snapshots
+  //   console.log(doc.id, " => ", doc.data());
   //   });
-  //   setSelectedMessages( messages );
+  //   // const treasures = collection(db, "users").doc("ww1@wellesley.edu").getCollections().then((querySnapshot) => {
+  //   //   querySnapshot.forEach((collection) => {
+  //   //       console.log("collection: " + collection.id);
+  //   //       });
+  //   //   });
+  //   // console.log(cityList);
+  //   // console.log(treasures);
+
   // }
 
 

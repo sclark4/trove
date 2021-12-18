@@ -54,7 +54,7 @@ export default function AddTreasureModal(props) {
         alert('Please add a description to your treasure')
       }
       else if (tags == null){
-        alert('Please add tags  to your treasure')
+        alert('Please add tags to your treasure')
       }
       else {props.add(newItem);
       setModalVisible(!modalVisible);
