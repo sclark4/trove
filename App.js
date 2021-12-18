@@ -23,9 +23,9 @@ import { // access to authentication features:
          signOut
   } from "firebase/auth";
 
-// import { getFirestore, 
-//          collection, doc, addDoc, setDoc, getDocs
-//   } from "firebase/firestore";
+import { getFirestore, 
+         collection, doc, addDoc, setDoc, getDocs
+  } from "firebase/firestore";
 
 const Stack = createNativeStackNavigator();
 
@@ -42,8 +42,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
-// const db = getFirestore(firebaseApp);
-
+const db = getFirestore(firebaseApp);
 
 function emailOf(user) {
   if (user) {
@@ -165,10 +164,12 @@ export default function App() {
   const [treasures, setTreasures] = useState(testTreasures);
   const [vaults, setVaults] = useState(testVaults);
   const [mail, setMail] = useState(testMail);
+  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
-  const [loggedInUser, setLoggedInUser] = useState("null");
+  const [loggedInUser, setLoggedInUser] = useState(null);
+
   const addTreasure = (newTreasure) => setTreasures([newTreasure, ...treasures ])
   const deleteTreasure = (currentId) => setTreasures(treasures.filter(treasure => treasure.id !== currentId))
   const shareTreasure = (newMail) => setMail([newMail, ...mail])
@@ -211,10 +212,12 @@ export default function App() {
                       // or else we wouldn't be here
       }
       if (!email.includes('@')) {
+        alert('Not a valid email address');
         setErrorMsg('Not a valid email address');
         return;
       }
       if (password.length < 6) {
+        alert('Password too short');
         setErrorMsg('Password too short');
         return;
       }
@@ -238,6 +241,7 @@ export default function App() {
         sendEmailVerification(auth.currentUser)
         .then(() => {
             console.log('signUpUserEmailPassword: sent verification email');
+            alert(`A verification email has been sent to ${savedEmail}. You will not be able to sign in to this account until you click on the verification link in that email.`); 
             setErrorMsg(`A verification email has been sent to ${savedEmail}. You will not be able to sign in to this account until you click on the verification link in that email.`); 
             // Email verification sent!
             // ...
@@ -296,6 +300,7 @@ export default function App() {
         setErrorMsg('')
       } else {
         console.log('checkEmailVerification: remind user to verify email');
+        alert(`You cannot sign in as ${auth.currentUser.email} until you verify that this is your email address. You can verify this email address by clicking on the link in a verification email sent by this app to ${auth.currentUser.email}.`)
         setErrorMsg(`You cannot sign in as ${auth.currentUser.email} until you verify that this is your email address. You can verify this email address by clicking on the link in a verification email sent by this app to ${auth.currentUser.email}.`)
       }
     }

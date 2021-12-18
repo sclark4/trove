@@ -1,10 +1,13 @@
 import * as React from 'react';
-import {useState} from 'react';
+import {useState, useContext} from 'react';
 import { Text, View, Image, Button, Pressable } from 'react-native';
 import {styles} from '../style/styles';
 import { Icon, Header } from 'react-native-elements';
+import StateContext from '../StateContext';
 
 export default function SettingsScreen(props) {
+  const Props = useContext(StateContext);
+  const screenProps = Props.loginProps;
   return (
     <View>
       <Header
@@ -41,7 +44,7 @@ export default function SettingsScreen(props) {
 
       <Pressable
         style={[styles.logButton]}
-        onPress={() => alert("To Be Implemented")}>
+        onPress={() => screenProps.logOut()}>
         <Text style={styles.textLog}>Logout</Text>      
       </Pressable>
 

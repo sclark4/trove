@@ -19,14 +19,14 @@ export default function LoginScreen(props) {
       <TextInput
         style={styles.loginInput}
         placeholder="✉️ | Email Address"
-        onChangeText={ textVal => screenProps.setEmail(textVal) }
+        onChangeText={ (textVal) => screenProps.setEmail(textVal) }
         value={screenProps.email}
       />
 
       <TextInput
         style={styles.loginInput}
         placeholder="🔒 | Password"
-        onChangeText={ textVal => screenProps.setPassword(textVal)}
+        onChangeText={ (textVal) => screenProps.setPassword(textVal)}
         value={screenProps.password} 
       />
 
