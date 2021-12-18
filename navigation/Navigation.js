@@ -55,7 +55,7 @@ export default function Navigation(props) {
                   /> ;
                 }
               }
-              return  <Icon
+              return <Icon
               name={icon}
               color='#BEBEBE'
               type='font-awesome-5'
