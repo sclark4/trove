@@ -11,9 +11,9 @@ import LoginNavigator from './navigation/LoginNavigator';
 
 import LoginScreen from './screens/LoginScreen';
 import NotificationScreen from './screens/NotificationScreen';
-
 import VaultScreen from './screens/VaultScreen';
 import TreasuresScreen from './screens/TreasuresScreen';
+
 import StateContext from './StateContext.js';
 import { initializeApp } from "firebase/app";
 import { // access to authentication features:
@@ -23,6 +23,7 @@ import { // access to authentication features:
          // for logging out:
          signOut
   } from "firebase/auth";
+
 import { // access to Firestore storage features:
          getFirestore, 
          // for storage access
@@ -32,9 +33,6 @@ import { // access to Firestore storage features:
 
 const Stack = createNativeStackNavigator();
 
-// const firebase = require("firebase");
-//   // Required for side-effects
-// require("firebase/firestore");
 const firebaseConfig = {
   apiKey: "AIzaSyBEkoQ2intp_sRaZblI_3G7W1mlVeFE3-k",
   authDomain: "trove-fb82c.firebaseapp.com",
@@ -44,14 +42,12 @@ const firebaseConfig = {
   appId: "1:499829125421:web:c3b253aefde9616499e3a4",
   measurementId: "G-H7T9RJQRM8"
   };
+
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
 
-// const docRef = getUserData('ww1@wellesley.edu');
-// console.log('user info:', docRef)
-// const firebaseTreasures = getUserTreasures('ww1@wellesley.edu')
 
 function formatJSON(jsonVal) {
   // Lyn sez: replacing \n by <br/> not necesseary if use this CSS:
@@ -181,7 +177,11 @@ export default function App() {
 
   const [vaults, setVaults] = useState(testVaults);
   const [mail, setMail] = useState(testMail);
-  const [loggedInUser, setLoggedInUser] = React.useState("ww1@wellesley.edu");
+  
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
+  const [loggedInUser, setLoggedInUser] = useState(null);
 
   //probably also buggy
   const [currentUserInfo, setCurrentUserInfo] = React.useState();
@@ -199,11 +199,152 @@ export default function App() {
   const updateVault = (updated) => setVaults([updated, ...(vaults.filter(vault => vault.id !== updated.id))]);
   const deleteVault = (currentId) => setVaults(vaults.filter(vault => vault.id !== currentId));
   const getFirebaseData = () => loadFirebaseData()
+
+  useEffect(() => {
+    // Anything in here is fired on component mount.
+    console.log('Component did mount');
+    console.log(`on mount: emailOf(auth.currentUser)=${emailOf(auth.currentUser)}`);
+    console.log(`on mount: emailOf(loggedInUser)=${emailOf(loggedInUser)}`);
+    checkEmailVerification();
+    return () => {
+      // Anything in here is fired on component unmount.
+      console.log('Component did unmount');
+      console.log(`on unmount: emailOf(auth.currentUser)=${emailOf(auth.currentUser)}`);
+      console.log(`on unmount: emailOf(loggedInUser)=${emailOf(loggedInUser)}`);
+    }
+  }, [])
+
+  // Clear error message when email is updated to be nonempty
+  useEffect(
+    () => { if (email != '') setErrorMsg(''); },
+    [email]
+  ); 
+
+  const signUpUserEmailPassword = 
+    function signUpUserEmailPassword() {
+      console.log('called signUpUserEmailPassword');
+      if (auth.currentUser) {
+        signOut(auth); // sign out auth's current user (who is not loggedInUser, 
+                      // or else we wouldn't be here
+      }
+      if (!email.includes('@')) {
+        alert('Not a valid email address');
+        setErrorMsg('Not a valid email address');
+        return;
+      }
+      if (password.length < 6) {
+        alert('Password too short');
+        setErrorMsg('Password too short');
+        return;
+      }
+
+    // Invoke Firebase authentication API for Email/Password sign up 
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        console.log(`signUpUserEmailPassword: sign up for email ${email} succeeded (but email still needs verification).`);
+
+        // Clear email/password inputs
+        const savedEmail = email; // Save for email verification
+        setEmail('');
+        setPassword('');
+
+        // Note: could store userCredential here if wanted it later ...
+        // console.log(`createUserWithEmailAndPassword: setCredential`);
+        // setCredential(userCredential);
+
+        // Send verication email
+        console.log('signUpUserEmailPassword: about to send verification email');
+        sendEmailVerification(auth.currentUser)
+        .then(() => {
+            console.log('signUpUserEmailPassword: sent verification email');
+            alert(`A verification email has been sent to ${savedEmail}. You will not be able to sign in to this account until you click on the verification link in that email.`); 
+            setErrorMsg(`A verification email has been sent to ${savedEmail}. You will not be able to sign in to this account until you click on the verification link in that email.`); 
+            // Email verification sent!
+            // ...
+          });
+      })
+      .catch((error) => {
+        console.log(`signUpUserEmailPassword: sign up failed for email ${email}`);
+        const errorMessage = error.message;
+        // const errorCode = error.code; // Could use this, too.
+        console.log(`createUserWithEmailAndPassword: ${errorMessage}`);
+        setErrorMsg(`createUserWithEmailAndPassword: ${errorMessage}`);
+      });
+  }
+
+  const signInUserEmailPassword =
+    function signInUserEmailPassword() {
+      console.log('called signInUserEmailPassword');
+      console.log(`signInUserEmailPassword: emailOf(currentUser)0=${emailOf(auth.currentUser)}`); 
+      console.log(`signInUserEmailPassword: emailOf(loggedInUser)0=${emailOf(loggedInUser)}`); 
+      // Invoke Firebase authentication API for Email/Password sign in 
+      // Use Email/Password for authentication 
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          console.log(`signInUserEmailPassword succeeded for email ${email}; have userCredential for emailOf(auth.currentUser)=${emailOf(auth.currentUser)} (but may not be verified)`); 
+          console.log(`signInUserEmailPassword: emailOf(currentUser)1=${emailOf(auth.currentUser)}`); 
+          console.log(`signInUserEmailPassword: emailOf(loggedInUser)1=${emailOf(loggedInUser)}`); 
+
+          // Only log in auth.currentUser if their email is verified
+          checkEmailVerification();
+
+          // Clear email/password inputs 
+          setEmail('');
+          setPassword('');
+
+          // Note: could store userCredential here if wanted it later ...
+          // console.log(`createUserWithEmailAndPassword: setCredential`);
+          // setCredential(userCredential);
+      
+          })
+        .catch((error) => {
+          console.log(`signUpUserEmailPassword: sign in failed for email ${email}`);
+          const errorMessage = error.message;
+          // const errorCode = error.code; // Could use this, too.
+          console.log(`signInUserEmailPassword: ${errorMessage}`);
+          setErrorMsg(`signInUserEmailPassword: ${errorMessage}`);
+        });
+  }
+
+  function checkEmailVerification() {
+    if (auth.currentUser) {
+      console.log(`checkEmailVerification: auth.currentUser.emailVerified=${auth.currentUser.emailVerified}`);
+      if (auth.currentUser.emailVerified) {
+        console.log(`checkEmailVerification: setLoggedInUser for ${auth.currentUser.email}`);
+        setLoggedInUser(auth.currentUser);
+        console.log("checkEmailVerification: setErrorMsg('')")
+        setErrorMsg('')
+      } else {
+        console.log('checkEmailVerification: remind user to verify email');
+        alert(`You cannot sign in as ${auth.currentUser.email} until you verify that this is your email address. You can verify this email address by clicking on the link in a verification email sent by this app to ${auth.currentUser.email}.`)
+        setErrorMsg(`You cannot sign in as ${auth.currentUser.email} until you verify that this is your email address. You can verify this email address by clicking on the link in a verification email sent by this app to ${auth.currentUser.email}.`)
+      }
+    }
+  }
+
+  const logOut = function logOut() {
+    console.log('logOut'); 
+    console.log(`logOut: emailOf(auth.currentUser)=${emailOf(auth.currentUser)}`);
+    console.log(`logOut: emailOf(loggedInUser)=${emailOf(loggedInUser)}`);
+    console.log(`logOut: setLoggedInUser(null)`);
+    setLoggedInUser(null);
+    console.log('logOut: signOut(auth)');
+    signOut(auth); // Will eventually set auth.currentUser to null     
+  }
+
+  const formatJSON = function formatJSON() {
+    // Lyn sez: replacing \n by <br/> not necesseary if use this CSS:
+    //   white-space: break-spaces; (or pre-wrap)
+    // let replacedNewlinesByBRs = prettyPrintedVal.replace(new RegExp('\n', 'g'), '<br/>')
+    return JSON.stringify(loggedInUser, null, 2);
+  }
+
   const treasuresProps = { getFirebaseData, treasures, addTreasure, deleteTreasure, shareTreasure, updateTreasure };
   const vaultProps = { vaults, addVault, updateVault, deleteVault};
   const mailProps = { mail, acceptMail, rejectMail };
-  const screenProps = {treasuresProps, vaultProps, mailProps}
-  
+  const loginProps = { email, password, errorMsg, setEmail, setPassword, signUpUserEmailPassword, signInUserEmailPassword, logOut, formatJSON };
+  const screenProps = { treasuresProps, vaultProps, mailProps, loginProps };
+
   function addTimestamp(item) {
     // Add millisecond timestamp field to message 
     return {...item, timestamp:item.date.getTime()}
@@ -272,9 +413,7 @@ export default function App() {
       <Stack.Screen name="VaultsNav" component={VaultsNavigator} options={{ headerShown: false }}/>
       <Stack.Screen name="MailNav" component={MailNavigator} options={{ headerShown: false }}/> */}
     </Stack.Navigator>
-    
-        
-    
+
   </NavigationContainer>
   </StateContext.Provider>
 

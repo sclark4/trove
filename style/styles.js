@@ -234,6 +234,12 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       padding: 4,
     },
+    loginContainer: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: 4,
+      flex: 1
+    },
     treasureContainer: {
       alignItems: 'center',
       justifyContent: 'center',
@@ -296,7 +302,7 @@ const styles = StyleSheet.create({
       padding: 10,
       marginVertical: 2,
       marginHorizontal: 1,
-      backgroundColor: 'white',
+      backgroundColor: 'white'
     },
     mailItem: {
       // flexDirection: "row",
@@ -347,11 +353,12 @@ const styles = StyleSheet.create({
       borderRadius: 100,
     },
     listItemText: {
-      fontSize: 23,
+      fontSize: 20,
       fontWeight: '500',
       marginTop: 10,
       paddingTop: 20,
-      width: '55%'
+      width: '55%',
+      marginLeft: 15
     },
     regularTreasure:{
       width: 150,

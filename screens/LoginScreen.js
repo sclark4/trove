@@ -1,43 +1,46 @@
 import * as React from 'react';
+import { useContext } from "react";
 import { Text, View, Image, Button, TextInput, Pressable } from 'react-native';
 import {styles} from '../style/styles';
 import { Header } from 'react-native-elements';
+import StateContext from '../StateContext';
 // import SignupModal from './SignupModal';
 
 export default function LoginScreen(props) {
+  const Props = useContext(StateContext);
+  const screenProps = Props.loginProps;
   return ( 
-    <View style={styles.container}>
+    <View style={styles.loginContainer}>
 
-      <Text style={styles.h1}>{'\n'}Welcome!</Text>
+      <Text style={styles.h1}>Hi there!</Text>
       <Image style={styles.gifIcon} source={require('../assets/goldCoin.gif')} />
       <Text style={styles.h2}>Login to see your treasures</Text>
       
       <TextInput
         style={styles.loginInput}
         placeholder="✉️ | Email Address"
-        onChangeText={true}
-        multiline={true}
+        onChangeText={ (textVal) => screenProps.setEmail(textVal) }
+        value={screenProps.email}
       />
 
       <TextInput
         style={styles.loginInput}
         placeholder="🔒 | Password"
-        onChangeText={true}
-        multiline={true}
+        onChangeText={ (textVal) => screenProps.setPassword(textVal)}
+        value={screenProps.password} 
       />
 
       <Pressable
         style={[styles.logButton]}
-        onPress={() => alert("To Be Implemented")}>
-        <Text style={styles.textLog}>Login</Text>      
+        onPress={() => screenProps.signInUserEmailPassword()}>
+        <Text style={[styles.textLog, {width: 220}]}>Login</Text>      
       </Pressable>
 
-
-      <Text style={[styles.paragraph, {marginTop: 10}]}>Don't have an account?</Text>
+      <Text style={[styles.paragraph, {marginTop: 50}]}>Don't have an account?</Text>
       <Pressable
         style={[styles.logButton, {backgroundColor: "#a5c6ff"}]}
-        onPress={() => alert("To Be Implemented")}>      
-        <Text style={styles.textLog}>Sign up</Text>      
+        onPress={() => screenProps.signUpUserEmailPassword()}>      
+        <Text style={[styles.textLog, {fontSize: 15}]}>Sign up</Text>      
       </Pressable>
       {/* <SignupModal vault={props.route.params.vault} id ={props.route.params.vault.id} delete = {deleteAndExit} update = {updateAndExit}/> */}
 
