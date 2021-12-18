@@ -139,10 +139,19 @@ const testVaults = [
   'Summer 2019',
 ];
 
+const testAccounts = [
+  {'username': 'Wendy Wellesley',
+   'id': 'wendy@wellesley.edu',
+   'password': 'wendy1',
+   'birthday': '11/11/2021'
+  }
+];
+
 export default function App() {
   const [treasures, setTreasures] = useState(testTreasures);
   const [vaults, setVaults] = useState(testVaults);
   const [mail, setMail] = useState(testMail);
+<<<<<<< Updated upstream
   console.log(typeof mail)
 //   {'user': 'sclark4@wellesley.edu',                         
 //   'date': "12/05/2021",//new Date(2021, 11, 2, 10, 52, 31, 1234), 
@@ -155,6 +164,133 @@ export default function App() {
   const addTreasure = (newTreasure) => setTreasures([newTreasure, ...treasures ])
   const deleteTreasure = (currentId) => setTreasures(treasures.filter(treasure => treasure.id !== currentId))
   const shareTreasure = (newMail) => setMail([newMail, ...mail])
+=======
+  const [accounts, setAccounts] = useState(testAccounts);
+  
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
+  const [loggedInUser, setLoggedInUser] = useState('null');
+
+  const addTreasure = (newTreasure) => setTreasures([newTreasure, ...treasures ])
+  const deleteTreasure = (currentId) => setTreasures(treasures.filter(treasure => treasure.id !== currentId))
+  const shareTreasure = (newMail) => setMail([newMail, ...mail])
+  const updateTreasure = (updated) => setTreasures([updated, ...(treasures.filter(treasure => treasure.id !== updated.id))]);
+  
+  const updateAccount = (updated) => setAccounts([updated, ...(accounts.filter(account => account.id !== updated.id))]);
+  const deleteAccount = (deleted) => setAccounts(accounts.filter(account => account.id !== deleted))
+
+// TO DO: implement add accepted mail to trove
+  const acceptMail = (accepted) => setMail([...(mail.filter(treasure => treasure.id !== accepted.id)), accepted]);
+  const rejectMail = (currentId) => setMail(mail.filter(mail => mail.id != currentId));
+
+  const addVault = (newVault) => setVaults([newVault, ...vaults ]);
+  const updateVault = (updated) => setVaults([updated, ...(vaults.filter(vault => vault.id !== updated.id))]);
+  const deleteVault = (currentId) => setVaults(vaults.filter(vault => vault.id !== currentId));
+
+  useEffect(() => {
+    // Anything in here is fired on component mount.
+    console.log('Component did mount');
+    console.log(`on mount: emailOf(auth.currentUser)=${emailOf(auth.currentUser)}`);
+    console.log(`on mount: emailOf(loggedInUser)=${emailOf(loggedInUser)}`);
+    checkEmailVerification();
+    return () => {
+      // Anything in here is fired on component unmount.
+      console.log('Component did unmount');
+      console.log(`on unmount: emailOf(auth.currentUser)=${emailOf(auth.currentUser)}`);
+      console.log(`on unmount: emailOf(loggedInUser)=${emailOf(loggedInUser)}`);
+    }
+  }, [])
+
+  // Clear error message when email is updated to be nonempty
+  useEffect(
+    () => { if (email != '') setErrorMsg(''); },
+    [email]
+  ); 
+
+  const signUpUserEmailPassword = 
+    function signUpUserEmailPassword() {
+      console.log('called signUpUserEmailPassword');
+      if (auth.currentUser) {
+        signOut(auth); // sign out auth's current user (who is not loggedInUser, 
+                      // or else we wouldn't be here
+      }
+      if (!email.includes('@')) {
+        setErrorMsg('Not a valid email address');
+        return;
+      }
+      if (password.length < 6) {
+        setErrorMsg('Password too short');
+        return;
+      }
+
+    // Invoke Firebase authentication API for Email/Password sign up 
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        console.log(`signUpUserEmailPassword: sign up for email ${email} succeeded (but email still needs verification).`);
+
+        // Clear email/password inputs
+        const savedEmail = email; // Save for email verification
+        setEmail('');
+        setPassword('');
+
+        // Note: could store userCredential here if wanted it later ...
+        // console.log(`createUserWithEmailAndPassword: setCredential`);
+        // setCredential(userCredential);
+
+        // Send verication email
+        console.log('signUpUserEmailPassword: about to send verification email');
+        sendEmailVerification(auth.currentUser)
+        .then(() => {
+            console.log('signUpUserEmailPassword: sent verification email');
+            setErrorMsg(`A verification email has been sent to ${savedEmail}. You will not be able to sign in to this account until you click on the verification link in that email.`); 
+            // Email verification sent!
+            // ...
+          });
+      })
+      .catch((error) => {
+        console.log(`signUpUserEmailPassword: sign up failed for email ${email}`);
+        const errorMessage = error.message;
+        // const errorCode = error.code; // Could use this, too.
+        console.log(`createUserWithEmailAndPassword: ${errorMessage}`);
+        setErrorMsg(`createUserWithEmailAndPassword: ${errorMessage}`);
+      });
+  }
+
+  const signInUserEmailPassword =
+    function signInUserEmailPassword() {
+      console.log('called signInUserEmailPassword');
+      console.log(`signInUserEmailPassword: emailOf(currentUser)0=${emailOf(auth.currentUser)}`); 
+      console.log(`signInUserEmailPassword: emailOf(loggedInUser)0=${emailOf(loggedInUser)}`); 
+      // Invoke Firebase authentication API for Email/Password sign in 
+      // Use Email/Password for authentication 
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          console.log(`signInUserEmailPassword succeeded for email ${email}; have userCredential for emailOf(auth.currentUser)=${emailOf(auth.currentUser)} (but may not be verified)`); 
+          console.log(`signInUserEmailPassword: emailOf(currentUser)1=${emailOf(auth.currentUser)}`); 
+          console.log(`signInUserEmailPassword: emailOf(loggedInUser)1=${emailOf(loggedInUser)}`); 
+
+          // Only log in auth.currentUser if their email is verified
+          checkEmailVerification();
+
+          // Clear email/password inputs 
+          setEmail('');
+          setPassword('');
+
+          // Note: could store userCredential here if wanted it later ...
+          // console.log(`createUserWithEmailAndPassword: setCredential`);
+          // setCredential(userCredential);
+      
+          })
+        .catch((error) => {
+          console.log(`signUpUserEmailPassword: sign in failed for email ${email}`);
+          const errorMessage = error.message;
+          // const errorCode = error.code; // Could use this, too.
+          console.log(`signInUserEmailPassword: ${errorMessage}`);
+          setErrorMsg(`signInUserEmailPassword: ${errorMessage}`);
+        });
+  }
+>>>>>>> Stashed changes
 
  const acceptMail = () => alert("Accept Mail to be implemented");
  const rejectMail = () => alert("Reject Mail to be implemented");
@@ -162,7 +298,14 @@ export default function App() {
 
   const treasuresProps = { treasures, addTreasure, deleteTreasure, shareTreasure };
   const mailProps = { mail, acceptMail, rejectMail };
+<<<<<<< Updated upstream
   const screenProps = {treasuresProps, mailProps}
+=======
+  const settingsProps = { accounts, updateAccount, deleteAccount };
+  const loginProps = { email, password, errorMsg, setEmail, setPassword, signUpUserEmailPassword, signInUserEmailPassword, logOut, formatJSON };
+  const screenProps = { treasuresProps, vaultProps, mailProps, settingsProps, loginProps };
+
+>>>>>>> Stashed changes
   function addTimestamp(item) {
     // Add millisecond timestamp field to message 
     return {...item, timestamp:item.date.getTime()}

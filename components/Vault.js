@@ -26,11 +26,19 @@ export default function Vault(props) {
         <Pressable style={[styles.headerButton, styles.buttonOpen, {padding:6}]} 
         onPress={() => props.navigation.goBack()}> 
           <Icon name='arrow-left' color='#ffffff' type='font-awesome' size='20' />
+<<<<<<< Updated upstream
         </Pressable>}
 />
       <Text style={styles.h2}>Date Created Here</Text>
       <Text style={styles.paragraph}>Description Here </Text>
       <Text style={styles.paragraph}>Contents Here</Text>
+=======
+        </Pressable>}/>
+      <Image style={styles.gifIcon} source={require('../assets/diamond.gif')} />
+      <View style={styles.descContainer}>
+        <Text style={styles.descText}>Wowza! Here are your gems from the vault "{props.route.params.vault.title}". {"\n\n"}Click "Open Vault" to see them!</Text>
+      </View>
+>>>>>>> Stashed changes
       <Image style={styles.smallIcon} source={require('../assets/chest.png')} />
     </View>
   );

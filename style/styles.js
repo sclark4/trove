@@ -251,6 +251,23 @@ const styles = StyleSheet.create({
       fontWeight: '300',
       textAlign: 'center',
     },
+<<<<<<< Updated upstream
+=======
+    descText: {
+      margin: 5,
+      fontSize: 18,
+      fontWeight: '300',
+      fontFamily:'Karla_Regular',
+      textAlign: 'center'
+    },
+    descContainer: {
+      margin: 20,
+      marginTop: 0,
+      backgroundColor: '#ccdaff',
+      borderRadius: 40,
+      padding: 20
+    },
+>>>>>>> Stashed changes
     tag:{
       color:'#a5c6ff',
       fontWeight: '500',
@@ -327,6 +344,7 @@ const styles = StyleSheet.create({
       width: 150,
       height: 150,
       borderRadius: 100,
+      marginTop: 30
     },
     listItemText: {
       fontSize: 23,
