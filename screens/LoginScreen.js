@@ -12,7 +12,7 @@ export default function LoginScreen(props) {
   return ( 
     <View style={styles.loginContainer}>
 
-      <Text style={styles.h1}>Hi There!</Text>
+      <Text style={styles.h1}>Hi there!</Text>
       <Image style={styles.gifIcon} source={require('../assets/goldCoin.gif')} />
       <Text style={styles.h2}>Login to see your treasures</Text>
       
