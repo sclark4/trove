@@ -427,7 +427,8 @@ const styles = StyleSheet.create({
       margin: 5,
       borderWidth: 1,
       padding: 10,
-      borderRadius: 20
+      borderRadius: 20,
+      marginBottom: 15
     },
     loginInput: {
       height: 50,
@@ -442,7 +443,8 @@ const styles = StyleSheet.create({
     },
     modalText: {
       marginBottom: 1,
-      textAlign: "center"
+      textAlign: "center",
+      marginTop: 15
     }
     
   });

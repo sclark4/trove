@@ -32,7 +32,7 @@ export default function Vault(props) {
       leftComponent={
         <Pressable style={[styles.headerButton, styles.buttonOpen, {padding:6}]} 
         onPress={() => props.navigation.goBack()}> 
-          <Icon name='arrow-left' color='#ffffff' type='font-awesome' size='20' />
+          <Icon name='arrow-left' color='#ffffff' type='font-awesome' size={20} />
         </Pressable>}/>
       <Image style={styles.gifIcon} source={require('../assets/diamond.gif')} />
       <View style={styles.descContainer}>

@@ -55,7 +55,7 @@ export default function TreasuresScreen(props) {
         <Header
       backgroundColor='#fff'
       leftComponent={<AddTreasureModal add={screenProps.addTreasure}/>}
-      centerComponent={{ text: 'Treasures', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900', fontFamily:'Grandstander_Bold' } }}
+      centerComponent={{ text: 'Treasures', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}
         />
     <View style={styles.container}>
     

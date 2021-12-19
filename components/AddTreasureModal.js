@@ -171,7 +171,7 @@ export default function AddTreasureModal(props) {
             <Text style={styles.modalText}>Tags</Text>
             <TextInput
         style={styles.input}
-        placeholder="Treasure, Tags, formatted, like, this"
+        placeholder="tags, formatted, like, this"
         onChangeText={setTags}
         multiline={true}
       />
