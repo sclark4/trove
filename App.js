@@ -7,7 +7,6 @@ import Navigation from './navigation/Navigation';
 import TreasuresNavigator from './navigation/TreasuresNavigator';
 import VaultsNavigator from './navigation/VaultsNavigator';
 import MailNavigator from './navigation/MailNavigator';
-import LoginNavigator from './navigation/LoginNavigator';
 
 import LoginScreen from './screens/LoginScreen';
 import NotificationScreen from './screens/NotificationScreen';
@@ -264,6 +263,7 @@ export default function App() {
       })
       .catch((error) => {
         console.log(`signUpUserEmailPassword: sign up failed for email ${email}`);
+        alert('Account already exists')
         const errorMessage = error.message;
         // const errorCode = error.code; // Could use this, too.
         console.log(`createUserWithEmailAndPassword: ${errorMessage}`);
@@ -298,6 +298,7 @@ export default function App() {
           })
         .catch((error) => {
           console.log(`signUpUserEmailPassword: sign in failed for email ${email}`);
+          alert('Wrong email or password')
           const errorMessage = error.message;
           // const errorCode = error.code; // Could use this, too.
           console.log(`signInUserEmailPassword: ${errorMessage}`);
@@ -401,7 +402,7 @@ export default function App() {
     <NavigationContainer>
     <Stack.Navigator>
     {(loggedInUser === null) ? 
-      <Stack.Screen name="LoginNav" component={LoginNavigator} options={{ headerShown: false }}/> : 
+      <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }}/> : 
         (<>
       <Stack.Screen name="Main" component={Navigation} options={{ headerShown: false }}/>
       <Stack.Screen name="TreasuresNav" component={TreasuresNavigator} options={{ headerShown: false }}/>
@@ -409,11 +410,6 @@ export default function App() {
       <Stack.Screen name="MailNav" component={MailNavigator} options={{ headerShown: false }}/>
       </>)
     }
-      {/* <Stack.Screen name="Main" component={Navigation} options={{ headerShown: false }}/>
-      <Stack.Screen name="LoginNav" component={LoginNavigator} options={{ headerShown: false }}/>
-      <Stack.Screen name="TreasuresNav" component={TreasuresNavigator} options={{ headerShown: false }}/>
-      <Stack.Screen name="VaultsNav" component={VaultsNavigator} options={{ headerShown: false }}/>
-      <Stack.Screen name="MailNav" component={MailNavigator} options={{ headerShown: false }}/> */}
     </Stack.Navigator>
 
   </NavigationContainer>
