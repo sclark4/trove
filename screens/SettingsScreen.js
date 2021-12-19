@@ -4,6 +4,7 @@ import { Text, View, Image, Button, Pressable } from 'react-native';
 import {styles} from '../style/styles';
 import { Icon, Header } from 'react-native-elements';
 import StateContext from '../StateContext';
+import EditAccountModal from '../components/EditAccountModal';
 
 export default function SettingsScreen(props) {
   const Props = useContext(StateContext);
@@ -37,10 +38,8 @@ export default function SettingsScreen(props) {
       Email: ww1@wellesley.edu
       </Text>
 
-      <Pressable
-        onPress={()=>alert("To Be Implemented")}>
-        <Icon name='edit' raised reverse color='#a5c6ff' />
-      </Pressable>
+      {/* <EditAccountModal account={props.route.params.account} id ={props.route.params.account.id} delete = {deleteAndExit} update = {updateAndExit}/> */}
+      <EditAccountModal/>
 
       <Pressable
         style={[styles.logButton]}

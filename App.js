@@ -166,6 +166,14 @@ const testVaults = [
   },
 ];
 
+const testAccounts = [
+  {'name': 'Wendy Wellesley',
+   'id': 1,
+   'birthday': '1/01/2021',
+   'email': 'wendy@wellesley.edu'
+  }
+];
+
 export default function App() {
   LogBox.ignoreLogs([
     'Setting a timer',
@@ -197,6 +205,8 @@ export default function App() {
   const addVault = (newVault) => setVaults([newVault, ...vaults ]);
   const updateVault = (updated) => setVaults([updated, ...(vaults.filter(vault => vault.id !== updated.id))]);
   const deleteVault = (currentId) => setVaults(vaults.filter(vault => vault.id !== currentId));
+  // const updateAccount = (updated) => setAccount([updated, ...(vaults.filter(vault => vault.id !== updated.id))]);
+  // const deleteAccount = (deleted) => setAccount(vaults.filter(vault => vault.id !== currentId));
   const getFirebaseData = () => loadFirebaseData()
 
   useEffect(() => {
