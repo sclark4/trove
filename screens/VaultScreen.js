@@ -50,12 +50,7 @@ export default function VaultScreen(props) {
       centerComponent={{ text: 'Vault', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}/>
 
       <View style={styles.listWrapper}>
-        <Pressable
-          style={[styles.headerButton, styles.buttonOpen]}
-          onPress={screenProps.getFirebaseData}
-        >
-          <Text style={styles.paragraph}>Import Firebase Data</Text>
-        </Pressable>
+        
           <FlatList
             showsVerticalScrollIndicator={false}
             style={styles.list}

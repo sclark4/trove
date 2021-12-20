@@ -65,7 +65,7 @@ export default function MailScreen(props) {
   const acceptAlert = (mailItem) =>
   Alert.alert(
     "Accept Treasure?",
-    "Are you sure you want to acceot this treasure? This will add the treasure to your personal vault. The sender will not be notified if you accept their treasure.",
+    "Are you sure you want to accept this treasure? This will add the treasure to your personal vault. The sender will not be notified if you accept their treasure.",
     [
       {
         text: "Cancel",
@@ -87,11 +87,18 @@ export default function MailScreen(props) {
             keyExtractor={item => item.id} 
           />
         </View>
-      <Button
+      {/* <Button
       title="Send a Treasure"
       onPress={() =>
-        navigation.navigate('Treasures')}
-    />
+        props.navigation.navigate('Treasures')}
+    /> */}
+    <Pressable
+        style={[styles.button, styles.buttonClose]}
+        onPress={() =>
+          props.navigation.navigate('Treasures')}
+      >
+        <Text style={styles.textStyle}>Send a Treasure</Text>
+    </Pressable>
     </View>
   );
 }
