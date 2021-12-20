@@ -204,9 +204,9 @@ export default function App() {
   const acceptMail = (accepted) => setMail([...(mail.filter(treasure => treasure.id !== accepted.id)), accepted]);
   const rejectMail = (currentId) => deleteMail(currentId) // setMail(mail.filter(mail => mail.id != currentId));
 
-  const addVault = (newVault) => setVaults([newVault, ...vaults ]);
-  const updateVault = (updated) => setVaults([updated, ...(vaults.filter(vault => vault.id !== updated.id))]);
-  const deleteVault = (currentId) => setVaults(vaults.filter(vault => vault.id !== currentId));
+  const addVault = (newVault) => postVault(newVault);
+  const updateVault = (updated) => putVault(updated);
+  const deleteVault = (currentId) => firebaseDeleteVault(currentId)
   
   const updateAccount = (updated) => setAccounts([updated, ...(accounts.filter(account => account.email !== updated.email))]);
   const deleteAccount = (currentId) => setAccounts(accounts.filter(account => account.email !== currentId));
@@ -358,7 +358,7 @@ export default function App() {
   }
   
   const treasuresProps = { getFirebaseData, treasures, addTreasure, deleteTreasure, shareTreasure, updateTreasure };
-  const vaultProps = { vaults, addVault, updateVault, deleteVault};
+  const vaultProps = { getFirebaseData, vaults, addVault, updateVault, deleteVault};
   const mailProps = { mail, acceptMail, rejectMail };
   const loginProps = { loggedInUser, email, password, errorMsg, setEmail, setPassword, signUpUserEmailPassword, signInUserEmailPassword, logOut, formatJSON };
   const settingsProps = { accounts, updateAccount, deleteAccount };
@@ -373,6 +373,7 @@ export default function App() {
     getUserData(loggedInUser);
     getTreasures();
     getMail();
+    getVaults();
     console.log('Loading Firebase Data for:', loggedInUser)
   }
   
@@ -532,6 +533,49 @@ export default function App() {
     setMail(mail.filter(mail => mail.id !== id))
     console.log("Permanently deleted mail from account")
   }
+  async function getVaults() {
+    const q = query(collection(db, "vaults"), where("user", "==", loggedInUser));
+    console.log("get vaults", loggedInUser)
+    const querySnapshot = await getDocs(q);
+    let vaults = []
+    querySnapshot.forEach(doc => {
+      const data = doc.data()
+      vaults.push(data)
+    });
+    setVaults(vaults);
+  }
+  async function postVault(newVault) {
+    // Add a new document in collection "vaults"
+    setVaults([newVault, ...vaults ])
+    const timestampString = newVault.id.toString();
+    await setDoc(doc(db, "vaults", timestampString), 
+        { 'user': newVault.user,
+          'title': newVault.title,
+          'id': newVault.id
+        }
+      );
+    console.log("Successfully added new treasure to vault:", newVault.user )
+  }
+  async function putVault(updated) {
+    // Update an existing document in collection "vaults"
+    await setDoc(doc(db, "vaults", updated.id), 
+        { 'user': updated.user,
+          'title': updated.title,
+          'id': updated.id
+        }
+    );
+    setVaults([updated, ...(vaults.filter(vault => vault.id !== updated.id))]);
+    console.log("Successfully update vault to account:", updated.user )
+  }
+
+  async function firebaseDeleteVault(id) {
+    // Delete an existing document in collection "vaults"
+    //Remove from firebase
+    await deleteDoc(doc(db, "vaults", id));
+    //Remove from local storage
+    setVaults(vaults.filter(vault => vault.id !== id))
+    console.log("Permanently deleted vault from account")
+  }
 
   return (
     <StateContext.Provider value={screenProps}>
@@ -553,115 +597,3 @@ export default function App() {
 
   );
 }
-
- /***************************************************************************
-   FIREBASE INTEGRATION CODE
-  ***************************************************************************/
-
-  // // Update data when loggedInUser
-  // useEffect(
-  //   () => { 
-  //     getUserData(loggedInUser); 
-  //   },
-  //   // [selectedChannel, localMessageDB]
-  // ); 
-
-  // /* 
-  //  import { collection, query, where, getDocs } 
-  //  const q = query(collection(db, "cities"), where("capital", "==", true));
-  //  const querySnapshot = await getDocs(q);
-  // */ 
-
-  function docToMessage(msgDoc) {
-    // msgDoc has the form {id: timestampetring, 
-    //                   data: {timestamp: ..., 
-    //                          author: ..., 
-    //                          channel: ..., 
-    //                          content: ...}
-    // Need to add missing date field to data portion, reconstructed from timestamp
-    console.log('docToMessage');
-    const data = msgDoc.data();
-    console.log(msgDoc.email, " => ", data);
-    return {...data, date: new Date(data.timestamp)}
-  }
-
-
-  // async function getUserTreasures(username){
-  //   const citiesCol = collection(db, 'users');
-  //   const citySnapshot = await getDocs(citiesCol);
-  //   const cityList = citySnapshot.docs.map(doc => doc.data());
-
-  //   const q = query(collection(db, "users"), where("lastName", "==", 'Wellesley'));
-
-  //   const querySnapshot = await getDocs(q);
-  //   querySnapshot.forEach((doc) => {
-  //   // doc.data() is never undefined for query doc snapshots
-  //   console.log(doc.id, " => ", doc.data());
-  //   });
-  //   // const treasures = collection(db, "users").doc("ww1@wellesley.edu").getCollections().then((querySnapshot) => {
-  //   //   querySnapshot.forEach((collection) => {
-  //   //       console.log("collection: " + collection.id);
-  //   //       });
-  //   //   });
-  //   // console.log(cityList);
-  //   // console.log(treasures);
-
-  // }
-
-
-  // function postMessage() {
-  //   console.log(`postMessage; usingFirestore=${usingFirestore}`);
-  //   const now = new Date();
-  //   const newMessage = {
-  //     'author': loggedInUser.email, 
-  //     'date': now, 
-  //     'timestamp': now.getTime(), // millsecond timestamp
-  //     'channel': selectedChannel, 
-  //     'content': textInputValue, 
-  //   }
-  //   if (usingFirestore) {
-  //     firebasePostMessage(newMessage);
-  //   } else {
-  //     setLocalMessageDB([...localMessageDB, newMessage]);
-  //     setIsComposingMessage(false);
-  //   }
-  //   setTextInputValue('');
-  // }
-
-  // async function firebasePostMessage(msg) {
-  //   // Add a new document in collection "messages"
-  //   const timestampString = msg.timestamp.toString();
-  //   await setDoc(doc(db, "messages", timestampString), 
-  //       {
-  //         'timestamp': msg.timestamp, 
-  //         'author': msg.author, 
-  //         'channel': msg.channel, 
-  //         'content': msg.content, 
-  //       }
-  //     );
-  // }
-
-  // async function populateFirestoreDB(messages) {
-
-  //   // Returns a promise to add message to firestore
-  //   async function addMessageToDB(message) {
-  //     const timestamp = message.date.getTime(); // millsecond timestamp
-  //     const timestampString = timestamp.toString();
-
-  //     // Add a new document in collection "messages"
-  //     return setDoc(doc(db, "messages", timestampString), 
-  //       {
-  //         'timestamp': timestamp, 
-  //         'author': message.author, 
-  //         'channel': message.channel, 
-  //         'content': message.content, 
-  //       }
-  //     );
-  //   }
-
-  //   // Peform one await for all the promises. 
-  //   await Promise.all(
-  //     messages.map( addMessageToDB ) 
-  //   );
-
-  // }

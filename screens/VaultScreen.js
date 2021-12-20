@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useContext } from "react";
-import { Text, View, Image, FlatList, TouchableOpacity } from 'react-native';
+import { Text, View, Image, FlatList, TouchableOpacity, Pressable } from 'react-native';
 import {styles} from '../style/styles';
 import { Header } from 'react-native-elements'
 import AddVaultModal from '../components/AddVaultModal';
@@ -9,6 +9,7 @@ import {useFonts} from 'expo-font';
 
 export default function VaultScreen(props) {
   const Props = useContext(StateContext);
+  const currentUser = Props.loginProps.loggedInUser;
   const screenProps = Props.vaultProps;
 
   const newItem = {'user': 'echoe2@wellesley.edu',                         
@@ -45,10 +46,16 @@ export default function VaultScreen(props) {
     <View>
       <Header
       backgroundColor='#fff'
-      leftComponent= {<AddVaultModal add={screenProps.addVault}/>}
+      leftComponent= {<AddVaultModal add={screenProps.addVault} currentUser ={currentUser} />}
       centerComponent={{ text: 'Vault', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}/>
 
       <View style={styles.listWrapper}>
+        <Pressable
+          style={[styles.headerButton, styles.buttonOpen]}
+          onPress={screenProps.getFirebaseData}
+        >
+          <Text style={styles.paragraph}>Import Firebase Data</Text>
+        </Pressable>
           <FlatList
             showsVerticalScrollIndicator={false}
             style={styles.list}

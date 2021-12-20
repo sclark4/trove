@@ -15,7 +15,7 @@ export default function AddVaultModal(props) {
     const [title, setTitle] = React.useState();
     const [id, setId] = useState(nextId)
     
-    const newItem = {'user': 'currentUser',                         
+    const newItem = {'user': props.currentUser,                         
     'title': title,
     'id': id,
    };
