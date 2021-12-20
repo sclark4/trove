@@ -72,7 +72,10 @@ export default function ShareTreasureModal(props) {
             <TextInput
         style={styles.input}
         onChangeText={setReceiver}
-        placeholder='Email Address of receiptent'
+        autoCompleteType = 'email'
+        keyboardType='email-address'
+        textContentType='emailAddress'
+        placeholder="✉️ | Email of receiptent"
       />
             <Text style={styles.modalText}>Note:</Text>
             <TextInput

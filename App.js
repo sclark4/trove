@@ -180,6 +180,7 @@ export default function App() {
     'AsyncStorage',                                	 
 ]);
   const [treasures, setTreasures] = useState(testTreasures);
+  const [allTreasures, setAllTreasures] = useState([]);
   const [vaults, setVaults] = useState(testVaults);
   const [mail, setMail] = useState(testMail);
 
@@ -196,17 +197,17 @@ export default function App() {
   const addTreasure = (newTreasure) => postTreasure(newTreasure);
   // const addTreasure = (newTreasure) => setTreasures([newTreasure.map(addTimestamp), ...treasures ])
 
-  const deleteTreasure = (currentId) => firebaseDeleteTreasure(currentId)//setTreasures(treasures.filter(treasure => treasure.id !== currentId))
-  const shareTreasure = (newMail) => postMail(newMail)
+  const deleteTreasure = (currentId) => firebaseDeleteTreasure(currentId);//setTreasures(treasures.filter(treasure => treasure.id !== currentId))
+  const shareTreasure = (newMail) => postMail(newMail);
   const updateTreasure = (updated) => putTreasure(updated);
   //setTreasures([updated, ...(treasures.filter(treasure => treasure.id !== updated.id))]);
 // TO DO: implement add accepted mail to trove
-  const acceptMail = (accepted) => setMail([...(mail.filter(treasure => treasure.id !== accepted.id)), accepted]);
-  const rejectMail = (currentId) => deleteMail(currentId) // setMail(mail.filter(mail => mail.id != currentId));
+  const acceptMail = (accepted) => acceptTreasure(accepted); //setMail([...(mail.filter(treasure => treasure.id !== accepted.id)), accepted]);
+  const rejectMail = (currentId) => deleteMail(currentId); // setMail(mail.filter(mail => mail.id != currentId));
 
   const addVault = (newVault) => postVault(newVault);
   const updateVault = (updated) => putVault(updated);
-  const deleteVault = (currentId) => firebaseDeleteVault(currentId)
+  const deleteVault = (currentId) => firebaseDeleteVault(currentId);
   
   const updateAccount = (updated) => setAccounts([updated, ...(accounts.filter(account => account.email !== updated.email))]);
   const deleteAccount = (currentId) => setAccounts(accounts.filter(account => account.email !== currentId));
@@ -357,7 +358,7 @@ export default function App() {
     return JSON.stringify(loggedInUser, null, 2);
   }
   
-  const treasuresProps = { getFirebaseData, treasures, addTreasure, deleteTreasure, shareTreasure, updateTreasure };
+  const treasuresProps = { getFirebaseData, treasures, allTreasures, addTreasure, deleteTreasure, shareTreasure, updateTreasure };
   const vaultProps = { getFirebaseData, vaults, addVault, updateVault, deleteVault};
   const mailProps = { mail, acceptMail, rejectMail };
   const loginProps = { loggedInUser, email, password, errorMsg, setEmail, setPassword, signUpUserEmailPassword, signInUserEmailPassword, logOut, formatJSON };
@@ -372,6 +373,7 @@ export default function App() {
   function loadFirebaseData() {
     getUserData(loggedInUser);
     getTreasures();
+    getAllTreasures();
     getMail();
     getVaults();
     console.log('Loading Firebase Data for:', loggedInUser)
@@ -408,6 +410,19 @@ export default function App() {
     });
     setTreasures(treasures);
   }
+
+  async function getAllTreasures() {
+    const q = query(collection(db, "treasures"));
+    console.log("get all treasures")
+    const querySnapshot = await getDocs(q);
+    let treasures = []
+    querySnapshot.forEach(doc => {
+      const data = doc.data()
+      treasures.push(data)
+    });
+    setAllTreasures(treasures);
+  }
+
   async function postTreasure(newTreasure) {
     // Add a new document in collection "treasures"
     // treasure = newTreasure.map(addTimestamp)
@@ -488,39 +503,44 @@ export default function App() {
           'date': newMail.date,
           'note': newMail.note,
           'tid': newMail.tid,
-          'id': newMail.id,
+          'id': timestampString,
           'accepted': false,
         }
       );
     console.log("Successfully sent mail to user:", newMail.receiver )
   }
 
-  async function postTreasure(newTreasure) {
-    // Add a new document in collection "treasures"
-    // treasure = newTreasure.map(addTimestamp)
-    setTreasures([newTreasure, ...treasures ])
-    const timestampString = newTreasure.id.toString();
-    await setDoc(doc(db, "treasures", timestampString), 
-        { 'user': newTreasure.user,
-          'author': newTreasure.author, 
-          'date': newTreasure.date,//new Date(2021, 11, 2, 10, 52, 31, 1234), 
-          'title': newTreasure.title,
-          // 'tags': newTreasure.tags, 
-          'description': newTreasure.description,
-          'id': newTreasure.id,
-          'image': newTreasure.image,
-        }
-      );
-    console.log("Successfully added new treasure to account:", newTreasure.user )
-  }
   
   async function acceptTreasure(accepted) {
     // Find Incoming Treasure Information
+    const treasure = allTreasures.find(treasure => treasure.id == accepted.tid)
+    const newTreasure = 
+    { 'user': loggedInUser,
+    'author': treasure.author, 
+    'date': treasure.date,//new Date(2021, 11, 2, 10, 52, 31, 1234), 
+    'title': treasure.title,
+    // 'tags': newTreasure.tags, 
+    'description': treasure.description,
+    'id': Date.now(),
+    'image': treasure.image,
+  }
+  // Add to current Treasures
+    postTreasure(newTreasure)
 
-    // Add to current Treasures
+    //Update Mail Item to reflect acceptance
+    await setDoc(doc(db, "mail", accepted.id), 
+          {'receiver': accepted.receiver, 
+          'sender': accepted.sender,                     
+          'date': accepted.date,
+          'note': accepted.note,
+          'tid': accepted.tid,
+          'id': accepted.id,
+          'accepted': true,
+        }
+      );
 
     //Update local storage
-    setMail([...(mail.filter(treasure => treasure.id !== accepted.id)), accepted]);
+    setMail([...(mail.filter(item => item.id !== accepted.id)), accepted]);
 
   }
 

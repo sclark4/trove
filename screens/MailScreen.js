@@ -6,7 +6,7 @@ import {styles} from '../style/styles';
 
 export default function MailScreen(props) {
   const screenProps = useContext(StateContext);
-  const treasures = screenProps.treasuresProps.treasures;
+  const treasures = screenProps.treasuresProps.allTreasures;
   const dateSortedMail = [...screenProps.mailProps.mail].sort((a, b) => (new Date(b.date)-new Date(a.date)));
 
   const ListItem = mail => { 
