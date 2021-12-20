@@ -435,7 +435,7 @@ export default function App() {
           'title': newTreasure.title,
           // 'tags': newTreasure.tags, 
           'description': newTreasure.description,
-          'id': newTreasure.id,
+          'id': timestampString,
           'image': newTreasure.image,
         }
       );

@@ -136,7 +136,7 @@ export default function EditTreasureModal(props) {
       </View>
       <View style={{flexDirection:"row"}} >
           <View>
-          <Button styles={styles.setDate} title='Set Date 'color="black" disabled='true' />
+          <Button styles={styles.setDate} title='Set Date 'color="black" disabled={true} />
             <DateTimePicker
               testID="dateTimePicker"
               value={date}
