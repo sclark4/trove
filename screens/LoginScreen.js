@@ -44,7 +44,6 @@ export default function LoginScreen(props) {
         value={screenProps.password} 
       />
       
-
       <Pressable
         style={[styles.logButton]}
         onPress={() => screenProps.signInUserEmailPassword()}>
@@ -56,9 +55,7 @@ export default function LoginScreen(props) {
         style={[styles.logButton, {backgroundColor: "#a5c6ff"}]}
         onPress={() => screenProps.signUpUserEmailPassword()}>      
         <Text style={[styles.textLog, {fontSize: 15}]}>Sign up</Text>      
-      </Pressable>
-      {/* <SignupModal vault={props.route.params.vault} id ={props.route.params.vault.id} delete = {deleteAndExit} update = {updateAndExit}/> */}
-      
+      </Pressable>      
     </View>
     </DismissKeyboard>
   );
