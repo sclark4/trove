@@ -204,9 +204,9 @@ export default function App() {
   const acceptMail = (accepted) => setMail([...(mail.filter(treasure => treasure.id !== accepted.id)), accepted]);
   const rejectMail = (currentId) => setMail(mail.filter(mail => mail.id != currentId));
 
-  const addVault = (newVault) => setVaults([newVault, ...vaults ]);
-  const updateVault = (updated) => setVaults([updated, ...(vaults.filter(vault => vault.id !== updated.id))]);
-  const deleteVault = (currentId) => setVaults(vaults.filter(vault => vault.id !== currentId));
+  const addVault = (newVault) => postVault(newVault);
+  const updateVault = (updated) => putVault(updated);
+  const deleteVault = (currentId) => firebaseDeleteVault(currentId)
   
   const updateAccount = (updated) => setAccounts([updated, ...(accounts.filter(account => account.email !== updated.email))]);
   const deleteAccount = (currentId) => setAccounts(accounts.filter(account => account.email !== currentId));
@@ -360,7 +360,7 @@ export default function App() {
   
 
   const treasuresProps = { getFirebaseData, treasures, addTreasure, deleteTreasure, shareTreasure, updateTreasure };
-  const vaultProps = { vaults, addVault, updateVault, deleteVault};
+  const vaultProps = { getFirebaseData, vaults, addVault, updateVault, deleteVault};
   const mailProps = { mail, acceptMail, rejectMail };
   const loginProps = { loggedInUser, email, password, errorMsg, setEmail, setPassword, signUpUserEmailPassword, signInUserEmailPassword, logOut, formatJSON };
   const settingsProps = { accounts, updateAccount, deleteAccount };
@@ -374,6 +374,7 @@ export default function App() {
   function loadFirebaseData() {
     getUserData(loggedInUser);
     getTreasures();
+    getVaults();
     console.log('Loading Firebase Data for:', loggedInUser)
   }
   
@@ -450,6 +451,50 @@ export default function App() {
     //Remove from local storage
     setTreasures(treasures.filter(treasure => treasure.id !== id))
     console.log("Permanently deleted treasure from account")
+  }
+
+  async function getVaults() {
+    const q = query(collection(db, "vaults"), where("user", "==", loggedInUser));
+    console.log("get vaults", loggedInUser)
+    const querySnapshot = await getDocs(q);
+    let vaults = []
+    querySnapshot.forEach(doc => {
+      const data = doc.data()
+      vaults.push(data)
+    });
+    setVaults(vaults);
+  }
+  async function postVault(newVault) {
+    // Add a new document in collection "vaults"
+    setVaults([newVault, ...vaults ])
+    const timestampString = newVault.id.toString();
+    await setDoc(doc(db, "vaults", timestampString), 
+        { 'user': newVault.user,
+          'title': newVault.title,
+          'id': newVault.id
+        }
+      );
+    console.log("Successfully added new treasure to vault:", newVault.user )
+  }
+  async function putVault(updated) {
+    // Update an existing document in collection "vaults"
+    await setDoc(doc(db, "vaults", updated.id), 
+        { 'user': updated.user,
+          'title': updated.title,
+          'id': updated.id
+        }
+    );
+    setVaults([updated, ...(vaults.filter(vault => vault.id !== updated.id))]);
+    console.log("Successfully update vault to account:", updated.user )
+  }
+
+  async function firebaseDeleteVault(id) {
+    // Delete an existing document in collection "vaults"
+    //Remove from firebase
+    await deleteDoc(doc(db, "vaults", id));
+    //Remove from local storage
+    setVaults(vaults.filter(vault => vault.id !== id))
+    console.log("Permanently deleted vault from account")
   }
 
   return (
