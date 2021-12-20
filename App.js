@@ -167,8 +167,8 @@ const testVaults = [
 ];
 
 const testAccounts = [
-  {'name': 'Wendy Wellesley',
-   'id': 1,
+  {'firstName': 'Wendy',
+   'lastName': 'Wellesley',
    'birthday': '1/01/2021',
    'email': 'wendy@wellesley.edu'
   }
@@ -184,6 +184,8 @@ export default function App() {
 
   const [vaults, setVaults] = useState(testVaults);
   const [mail, setMail] = useState(testMail);
+
+  const [accounts, setAccounts] = useState(testAccounts);
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -205,8 +207,10 @@ export default function App() {
   const addVault = (newVault) => setVaults([newVault, ...vaults ]);
   const updateVault = (updated) => setVaults([updated, ...(vaults.filter(vault => vault.id !== updated.id))]);
   const deleteVault = (currentId) => setVaults(vaults.filter(vault => vault.id !== currentId));
-  // const updateAccount = (updated) => setAccount([updated, ...(vaults.filter(vault => vault.id !== updated.id))]);
-  // const deleteAccount = (deleted) => setAccount(vaults.filter(vault => vault.id !== currentId));
+  
+  const updateAccount = (updated) => setAccounts([updated, ...(accounts.filter(account => account.email !== updated.email))]);
+  const deleteAccount = (currentId) => setAccounts(accounts.filter(account => account.email !== currentId));
+  
   const getFirebaseData = () => loadFirebaseData()
 
   useEffect(() => {
@@ -354,7 +358,8 @@ export default function App() {
   const vaultProps = { vaults, addVault, updateVault, deleteVault};
   const mailProps = { mail, acceptMail, rejectMail };
   const loginProps = { email, password, errorMsg, setEmail, setPassword, signUpUserEmailPassword, signInUserEmailPassword, logOut, formatJSON };
-  const screenProps = { treasuresProps, vaultProps, mailProps, loginProps };
+  const settingsProps = { accounts, updateAccount, deleteAccount };
+  const screenProps = { treasuresProps, vaultProps, mailProps, loginProps, settingsProps };
 
   function addTimestamp(item) {
     // Add millisecond timestamp field to message 

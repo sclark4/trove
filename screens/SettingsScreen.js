@@ -9,6 +9,20 @@ import EditAccountModal from '../components/EditAccountModal';
 export default function SettingsScreen(props) {
   const Props = useContext(StateContext);
   const screenProps = Props.loginProps;
+
+  const deleteAndExit = () => {
+    props.route.params.delete(props.route.params.treasure.id);
+    props.navigation.goBack()
+  };
+  const updateAndExit = (updated) => {
+    props.route.params.update(updated);
+    props.navigation.goBack()
+  };
+  const shareAndExit = (newMail) => {
+    props.route.params.share(newMail);
+    alert("Treasure successfully sent to: " + newMail.receiver);
+  };
+  console.log(props.route.params.accounts)
   return (
     <View>
       <Header
@@ -17,29 +31,24 @@ export default function SettingsScreen(props) {
 
     <View style={styles.container}>
 
-      <Text style={styles.h1}>
-      Wendy Wellesley
-      </Text>
-
       <Image
             style={styles.regularProfile}
             source={require('../assets/icon.png')}
           />
 
       <Text style={styles.h2}>
-      @wwwendy
+        💎 {props.route.params.account.firstName} {props.route.params.account.lastName}
       </Text>
 
       <Text style={styles.paragraph}>
-      Birthday: 11/29/2021
+        🎂 {props.route.params.account.birthday}
       </Text>
 
       <Text style={styles.paragraph}>
-      Email: ww1@wellesley.edu
+        ✉️ {props.route.params.account.email}
       </Text>
 
-      {/* <EditAccountModal account={props.route.params.account} id ={props.route.params.account.id} delete = {deleteAndExit} update = {updateAndExit}/> */}
-      <EditAccountModal/>
+      <EditAccountModal account={props.route.params.accounts} id ={props.route.params.accounts.email} delete = {deleteAndExit} update = {updateAndExit}/>
 
       <Pressable
         style={[styles.logButton]}

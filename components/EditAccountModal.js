@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Alert, Button, Modal,Text, Pressable, View, TextInput, Keyboard,  TouchableWithoutFeedback, Image } from "react-native";
 import { Icon } from 'react-native-elements';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import * as ImagePicker from 'expo-image-picker';
 import {styles} from '../style/styles';
 
 const DismissKeyboard = ({ children }) => (
@@ -13,41 +12,38 @@ const DismissKeyboard = ({ children }) => (
     );
 
 export default function EditAccountModal(props) {
-//     const [title, setTitle] = React.useState(props.treasure.title);
-//     const [description, setDescription] = React.useState(props.treasure.description);
-//     const [date, setDate] = useState(new Date());
-//     const [location, setLocation] = React.useState('Science Center');
-//     const [tags, setTags] = React.useState(props.treasure.tags.join());
-//     const [modalVisible, setModalVisible] = useState(false);
-//     const [image, setImage] = useState(null);
+    const [firstName, setFirstName] = React.useState(props.account.firstName);
+    const [lastName, setLastName] = React.useState(props.account.lastName);
+    const [birthday, setBirthday] = useState(new Date());
+    const [modalVisible, setModalVisible] = useState(false);
 
-//     const updatedItem = {'user': props.treasure.user,                         
-//     'date': date.toDateString(),
-//     'title': title,
-//     'tags': (tags ? tags.split(",") : ""), 
-//     'description': description,
-//     'id': props.treasure.id,
-//     'image': image,
-//    };
+    const updatedItem = {'firstName': firstName,                        
+    'lastName': lastName,
+    'birthday': date.toDateString(),
+    'email': props.account.email
+   };
 
     const updateAndClose = () => {
-      if (username == null){
-        alert('Please enter a valid username')
+      if (firstName == null){
+        alert('Please enter a valid first name')
+      }
+      else if (lastName == null){
+        alert('Please enter a valid last name')
       }
       else if (birthday == null){
         alert('Please add a valid birthday')
       }
       else {
-        // props.update(updatedItem);
+        props.update(updatedItem);
         setModalVisible(!modalVisible);
         alert("Successfully updated account")
       }
     };
   
-//     const onChange = (event, selectedDate) => {
-//       const currentDate = selectedDate || date;
-//       setDate(currentDate);
-//     };
+    const onChange = (event, selectedDate) => {
+      const currentDate = selectedDate || date;
+      setDate(currentDate);
+    };
 
     const createTwoButtonAlert = () =>
     Alert.alert(
@@ -88,18 +84,37 @@ export default function EditAccountModal(props) {
             <Pressable onPress={() => setModalVisible(false)}>
                 <Icon name='times-circle' type='font-awesome' color='#ff7fad' size={30} />
             </Pressable>
-            <Text style={styles.modalText}>Name:</Text>
+            <Text style={styles.modalText}>First Name:</Text>
             <TextInput
-        style={styles.input}
-        onChangeText={true}
-        value={username}
-      />
+              style={styles.input}
+              onChangeText={setFirstName}
+              value={firstName}
+            />
+
+            <Text style={styles.modalText}>Last Name:</Text>
+              <TextInput
+              style={styles.input}
+              onChangeText={setLastName}
+              value={lastName}
+            />
+
         <Text style={styles.modalText}>Birthday:</Text>
         <TextInput
             style={styles.input}
-            onChangeText={true}
+            onChangeText={setBirthday}
             value={birthday}
             multiline={true}/>
+
+            <View>
+              <Button title="Set birthday  " />
+              <DateTimePicker
+                testID="dateTimePicker"
+                value={birthday}
+                mode='date'
+                is24Hour={true}
+                display="default"
+                onChange={onChange}/>
+            </View>
 
             <Pressable
               style={[styles.button, styles.buttonClose]}
