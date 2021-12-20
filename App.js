@@ -207,18 +207,11 @@ export default function App() {
   const addVault = (newVault) => setVaults([newVault, ...vaults ]);
   const updateVault = (updated) => setVaults([updated, ...(vaults.filter(vault => vault.id !== updated.id))]);
   const deleteVault = (currentId) => setVaults(vaults.filter(vault => vault.id !== currentId));
-<<<<<<< HEAD
-  const getFirebaseData = () => loadFirebaseData();
-
-  // const updateAccount = (updated) => setAccount([updated, ...(vaults.filter(vault => vault.id !== updated.id))]);
-  // const deleteAccount = (deleted) => setAccount(vaults.filter(vault => vault.id !== currentId));
-=======
   
   const updateAccount = (updated) => setAccounts([updated, ...(accounts.filter(account => account.email !== updated.email))]);
   const deleteAccount = (currentId) => setAccounts(accounts.filter(account => account.email !== currentId));
   
   const getFirebaseData = () => loadFirebaseData()
->>>>>>> c299ba9547b24c93a18dd626843b271de53173f2
 
   useEffect(() => {
     // Anything in here is fired on component mount.
@@ -369,14 +362,9 @@ export default function App() {
   const treasuresProps = { getFirebaseData, treasures, addTreasure, deleteTreasure, shareTreasure, updateTreasure };
   const vaultProps = { vaults, addVault, updateVault, deleteVault};
   const mailProps = { mail, acceptMail, rejectMail };
-<<<<<<< HEAD
   const loginProps = { loggedInUser, email, password, errorMsg, setEmail, setPassword, signUpUserEmailPassword, signInUserEmailPassword, logOut, formatJSON };
-  const screenProps = { treasuresProps, vaultProps, mailProps, loginProps };
-=======
-  const loginProps = { email, password, errorMsg, setEmail, setPassword, signUpUserEmailPassword, signInUserEmailPassword, logOut, formatJSON };
   const settingsProps = { accounts, updateAccount, deleteAccount };
   const screenProps = { treasuresProps, vaultProps, mailProps, loginProps, settingsProps };
->>>>>>> c299ba9547b24c93a18dd626843b271de53173f2
 
   function addTimestamp(item) {
     // Add millisecond timestamp field to message 
