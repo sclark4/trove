@@ -15,7 +15,7 @@ export default function ShareTreasureModal(props) {
     const [note, setNote] = React.useState();
     const [modalVisible, setModalVisible] = useState(false);
     const currentDate = (new Date()).toDateString();
-    const currentUser = 'ww1';
+    const currentUser = props.currentUser;
     const [id, setId] =  React.useState(9);
 
     const newMail = {'receiver': receiver, 
@@ -23,7 +23,7 @@ export default function ShareTreasureModal(props) {
     'date': currentDate,
     'note': note,
     'tid': props.treasure.id,
-    'id': id,
+    'id': Date.now(),
     'accepted': false,
    };
 
@@ -72,7 +72,7 @@ export default function ShareTreasureModal(props) {
             <TextInput
         style={styles.input}
         onChangeText={setReceiver}
-        placeholder='Username of receiptent'
+        placeholder='Email Address of receiptent'
       />
             <Text style={styles.modalText}>Note:</Text>
             <TextInput

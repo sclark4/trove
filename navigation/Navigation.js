@@ -71,7 +71,7 @@ export default function Navigation(props) {
 
           <Tab.Screen name="Treasures" component={TreasuresScreen} options={{ headerShown: false }}  />
           <Tab.Screen name="Vault" component={VaultScreen} options={{ headerShown: false }}/>
-          <Tab.Screen name="Mail" component={MailScreen} options={{ headerShown: false, tabBarBadge: 4 }}/>
+          <Tab.Screen name="Mail" component={MailScreen} options={{ headerShown: false}}/>
           <Tab.Screen name="Settings" component={SettingsScreen} options={{ headerShown: false }}/>
         </Tab.Navigator>
         </StateContext.Provider>

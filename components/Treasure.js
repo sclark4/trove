@@ -74,7 +74,7 @@ export default function Treasure(props) {
       {/* <Text style={styles.paragraph, {fontFamily:'Karla_Regular'}, styles.tag}>{props.route.params.treasure.tags.map(tag => '#'+tag+' ')} </Text> */}
       
       <EditTreasureModal treasure={props.route.params.treasure} id ={props.route.params.treasure.id} delete = {deleteAndExit} update = {updateAndExit}/>
-      <ShareTreasureModal treasure={props.route.params.treasure} share = {shareAndExit}/>
+      <ShareTreasureModal treasure={props.route.params.treasure} currentUser={props.route.params.currentUser} share = {shareAndExit}/>
       <OpenURLButton url={supportedURL}>External Link (e.g. to a favorite video or song)</OpenURLButton>
 
     </View>

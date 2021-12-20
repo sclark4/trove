@@ -136,7 +136,7 @@ export default function EditTreasureModal(props) {
       </View>
       <View style={{flexDirection:"row"}} >
           <View>
-            <Button title="Set date  " />
+          <Button styles={styles.setDate} title='Set Date 'color="black" disabled='true' />
             <DateTimePicker
               testID="dateTimePicker"
               value={date}
@@ -144,17 +144,6 @@ export default function EditTreasureModal(props) {
               is24Hour={true}
               display="default"
               onChange={onChange}/>
-          </View>
-          <View>
-            <Button title="Set time" />
-            <DateTimePicker
-              testID="dateTimePicker"
-              value={date}
-              mode='time'
-              is24Hour={true}
-              display="default"
-              // onChange={onChange}
-            />
           </View>
         </View>
          
