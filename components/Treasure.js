@@ -71,7 +71,7 @@ export default function Treasure(props) {
       <Text style={styles.h2, {fontFamily:'Karla_Regular'}}>Date: {props.route.params.treasure.date.toString()}</Text>
       <Text style={styles.paragraph, {fontFamily:'Karla_Regular'}}>Description: {props.route.params.treasure.description}</Text>
       <Text style={styles.paragraph, {fontFamily:'Karla_Regular'}}>Location: Science Center</Text>
-      <Text style={styles.paragraph, {fontFamily:'Karla_Regular'}, styles.tag}>{props.route.params.treasure.tags.map(tag => '#'+tag+' ')} </Text>
+      {/* <Text style={styles.paragraph, {fontFamily:'Karla_Regular'}, styles.tag}>{props.route.params.treasure.tags.map(tag => '#'+tag+' ')} </Text> */}
       
       <EditTreasureModal treasure={props.route.params.treasure} id ={props.route.params.treasure.id} delete = {deleteAndExit} update = {updateAndExit}/>
       <ShareTreasureModal treasure={props.route.params.treasure} share = {shareAndExit}/>

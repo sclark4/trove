@@ -289,6 +289,13 @@ const styles = StyleSheet.create({
       fontWeight: '400',
       textAlign: 'center',
     },
+    setDate: {
+      fontSize: 500,
+      margin: 10,
+      padding: 10,
+      fontWeight: '700',
+      textAlign: 'center',
+    },
     logo: {
       height: 128,
       width: 128,

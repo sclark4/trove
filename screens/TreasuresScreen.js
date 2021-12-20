@@ -9,21 +9,14 @@ import {useFonts} from 'expo-font';
 
 export default function TreasuresScreen(props) {
   const Props = useContext(StateContext);
+  const currentUser = Props.loginProps.loggedInUser;
   const screenProps = Props.treasuresProps;
-  console.log(screenProps.treasures)
+
   const titleSortedTreasures = [...screenProps.treasures].sort((a, b) => (a.title.toLowerCase()<b.title.toLowerCase())? -1:1);
   const dateSortedTreasures = [...screenProps.treasures].sort((a, b) => (new Date(b.date)-new Date(a.date)));
-  console.log(dateSortedTreasures)
   const TagItem = item => {
     return (<Text style={{fontFamily:'Karla_Regular'}, styles.tag}>#{item.text} </Text>)
   }
-  const newItem = {'user': 'sclark4@wellesley.edu',                         
-    'date': "12/05/2021",//new Date(2021, 11, 2, 10, 52, 31, 1234), 
-    'title': 'The Best Monday',
-    'tags': ['cs317', 'WeLoveLyn', 'appdevelopment'], 
-    'description': "Today, we successfully demoed trove!",
-    'id': '10',
-   };
   const CardItem = item => {
     return (
     <TouchableOpacity
@@ -33,7 +26,8 @@ export default function TreasuresScreen(props) {
       <Card.Image style={styles.treasureThumbnail} source={{uri:('https://cdn.pixabay.com/photo/2021/01/21/16/17/english-cocker-spaniel-5937757_1280.jpg')}}>
       </Card.Image>
       <Text style={{margin: 10, fontFamily:'Karla_Regular'}}>
-        {item.text.item.description} <Text> {item.text.item.tags.map(tag => <TagItem text = {tag}/>)} </Text>
+        {item.text.item.description}
+        {/* <Text> {item.text.item.tags.map(tag => <TagItem text = {tag}/>)} </Text> */}
         </Text>
   </Card>
 </TouchableOpacity>)
@@ -54,7 +48,7 @@ export default function TreasuresScreen(props) {
     <View>
         <Header
       backgroundColor='#fff'
-      leftComponent={<AddTreasureModal add={screenProps.addTreasure}/>}
+      leftComponent={<AddTreasureModal add={screenProps.addTreasure} currentUser ={currentUser}/>}
       centerComponent={{ text: 'Treasures', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}
         />
     <View style={styles.container}>
@@ -66,11 +60,16 @@ export default function TreasuresScreen(props) {
       >
         <Text style={styles.paragraph}>Import Firebase Data</Text>
       </Pressable>
-          <FlatList showsVerticalScrollIndicator={false}
+      {(dateSortedTreasures === [] ?  
+           <Text styles={styles.h1}>There's no time like the present to add your first Treasure! Click the + button to get started.</Text>
+          :
+      <FlatList showsVerticalScrollIndicator={false}
           style={styles.list}
             data={dateSortedTreasures}
-            renderItem={ datum => <CardItem id={datum.id} text={datum} title={datum.title} description={datum.description} tags={datum.tags} location={datum.location}></CardItem>} 
+            renderItem={ datum => <CardItem id={datum.id} text={datum} title={datum.title} description={datum.description} location={datum.location}></CardItem>} 
             keyExtractor={item => item.id} />
+      )}
+         
         </View>
         </View>
     </View>

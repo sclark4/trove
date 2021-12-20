@@ -49,7 +49,8 @@ const TagItem = item => {
       <Card.Image source={{uri:('https://cdn.pixabay.com/photo/2021/01/21/16/17/english-cocker-spaniel-5937757_1280.jpg')}}>
       </Card.Image>
       <Text style={{margin: 10, fontFamily:'Karla_Regular'}}>
-        {item.text.description} <Text> {item.text.tags.map(tag => <TagItem text = {tag}/>)} </Text>
+        {item.text.description}
+        {/* <Text> {item.text.tags.map(tag => <TagItem text = {tag}/>)} </Text> */}
         </Text>
   </Card>
 </View>)

@@ -26,7 +26,7 @@ import { // access to authentication features:
 import { // access to Firestore storage features:
          getFirestore, 
          // for storage access
-         collection, doc, addDoc, setDoc,
+         collection, doc, addDoc, setDoc, deleteDoc,
          query, where, getDocs, getDoc, DocumentReference
   } from "firebase/firestore";
 
@@ -172,8 +172,6 @@ export default function App() {
     'AsyncStorage',                                	 
 ]);
   const [treasures, setTreasures] = useState(testTreasures);
-  console.log("hey", treasures)
-
   const [vaults, setVaults] = useState(testVaults);
   const [mail, setMail] = useState(testMail);
   
@@ -185,11 +183,13 @@ export default function App() {
   //probably also buggy
   const [currentUserInfo, setCurrentUserInfo] = React.useState();
 
-  const addTreasure = (newTreasure) => setTreasures([newTreasure, ...treasures ])
-  const deleteTreasure = (currentId) => setTreasures(treasures.filter(treasure => treasure.id !== currentId))
-  const shareTreasure = (newMail) => setMail([newMail, ...mail])
-  const updateTreasure = (updated) => setTreasures([updated, ...(treasures.filter(treasure => treasure.id !== updated.id))]);
+  const addTreasure = (newTreasure) => postTreasure(newTreasure);
+  // const addTreasure = (newTreasure) => setTreasures([newTreasure.map(addTimestamp), ...treasures ])
 
+  const deleteTreasure = (currentId) => firebaseDeleteTreasure(currentId)//setTreasures(treasures.filter(treasure => treasure.id !== currentId))
+  const shareTreasure = (newMail) => setMail([newMail, ...mail])
+  const updateTreasure = (updated) => putTreasure(updated);
+  //setTreasures([updated, ...(treasures.filter(treasure => treasure.id !== updated.id))]);
 // TO DO: implement add accepted mail to trove
   const acceptMail = (accepted) => setMail([...(mail.filter(treasure => treasure.id !== accepted.id)), accepted]);
   const rejectMail = (currentId) => setMail(mail.filter(mail => mail.id != currentId));
@@ -197,7 +197,7 @@ export default function App() {
   const addVault = (newVault) => setVaults([newVault, ...vaults ]);
   const updateVault = (updated) => setVaults([updated, ...(vaults.filter(vault => vault.id !== updated.id))]);
   const deleteVault = (currentId) => setVaults(vaults.filter(vault => vault.id !== currentId));
-  const getFirebaseData = () => loadFirebaseData()
+  const getFirebaseData = () => loadFirebaseData();
 
   useEffect(() => {
     // Anything in here is fired on component mount.
@@ -287,10 +287,11 @@ export default function App() {
 
           // Only log in auth.currentUser if their email is verified
           checkEmailVerification();
-
+          loadFirebaseData();
           // Clear email/password inputs 
           setEmail('');
           setPassword('');
+
 
           // Note: could store userCredential here if wanted it later ...
           // console.log(`createUserWithEmailAndPassword: setCredential`);
@@ -305,6 +306,7 @@ export default function App() {
           console.log(`signInUserEmailPassword: ${errorMessage}`);
           setErrorMsg(`signInUserEmailPassword: ${errorMessage}`);
         });
+
   }
 
   function checkEmailVerification() {
@@ -312,7 +314,9 @@ export default function App() {
       console.log(`checkEmailVerification: auth.currentUser.emailVerified=${auth.currentUser.emailVerified}`);
       if (auth.currentUser.emailVerified) {
         console.log(`checkEmailVerification: setLoggedInUser for ${auth.currentUser.email}`);
-        setLoggedInUser(auth.currentUser);
+        setLoggedInUser(auth.currentUser.email);
+        // Load Firebase Data for user
+        loadFirebaseData();
         console.log("checkEmailVerification: setErrorMsg('')")
         setErrorMsg('')
       } else {
@@ -339,21 +343,23 @@ export default function App() {
     // let replacedNewlinesByBRs = prettyPrintedVal.replace(new RegExp('\n', 'g'), '<br/>')
     return JSON.stringify(loggedInUser, null, 2);
   }
+  
 
   const treasuresProps = { getFirebaseData, treasures, addTreasure, deleteTreasure, shareTreasure, updateTreasure };
   const vaultProps = { vaults, addVault, updateVault, deleteVault};
   const mailProps = { mail, acceptMail, rejectMail };
-  const loginProps = { email, password, errorMsg, setEmail, setPassword, signUpUserEmailPassword, signInUserEmailPassword, logOut, formatJSON };
+  const loginProps = { loggedInUser, email, password, errorMsg, setEmail, setPassword, signUpUserEmailPassword, signInUserEmailPassword, logOut, formatJSON };
   const screenProps = { treasuresProps, vaultProps, mailProps, loginProps };
 
   function addTimestamp(item) {
     // Add millisecond timestamp field to message 
-    return {...item, timestamp:item.date.getTime()}
+    const currentTime = new Date();
+    return {...item, timestamp:currentTime.getTime()}
   }
   function loadFirebaseData() {
     getUserData(loggedInUser);
     getTreasures();
-    console.log('hey')
+    console.log('Loading Firebase Data for:', loggedInUser)
   }
   
   async function getUserData(user) {
@@ -377,23 +383,59 @@ export default function App() {
   }
 
   async function getTreasures() {
-    const q = collection(db, "treasures");
+    const q = query(collection(db, "treasures"), where("user", "==", loggedInUser));
+    console.log("get treasures", loggedInUser)
     const querySnapshot = await getDocs(q);
     let treasures = []
     querySnapshot.forEach(doc => {
       const data = doc.data()
       treasures.push(data)
-      setTreasures(treasures)
     });
-    
+    setTreasures(treasures);
   }
-  // useEffect(
-  //   () => { 
-  //     getUserData(loggedInUser); 
-  //     getTreasures();
-  //   },
-  //   // [selectedChannel, localMessageDB]
-  // ); 
+  async function postTreasure(newTreasure) {
+    // Add a new document in collection "treasures"
+    // treasure = newTreasure.map(addTimestamp)
+    setTreasures([newTreasure, ...treasures ])
+    const timestampString = newTreasure.id.toString();
+    await setDoc(doc(db, "treasures", timestampString), 
+        { 'user': newTreasure.user,
+          'author': newTreasure.author, 
+          'date': newTreasure.date,//new Date(2021, 11, 2, 10, 52, 31, 1234), 
+          'title': newTreasure.title,
+          // 'tags': newTreasure.tags, 
+          'description': newTreasure.description,
+          'id': newTreasure.id,
+          'image': newTreasure.image,
+        }
+      );
+    console.log("Successfully added new treasure to account:", newTreasure.user )
+  }
+  async function putTreasure(updated) {
+    // Update an existing document in collection "treasures"
+    await setDoc(doc(db, "treasures", updated.id), 
+        { 'user': updated.user,
+          'author': updated.author, 
+          'date': updated.date,
+          'title': updated.title,
+          // 'tags': updated.tags, 
+          'description': updated.description,
+          'id': updated.id,
+          'image': updated.image,
+        }
+    );
+    setTreasures([updated, ...(treasures.filter(treasure => treasure.id !== updated.id))]);
+    console.log("Successfully update treasure to account:", updated.user )
+  }
+
+  async function firebaseDeleteTreasure(id) {
+    // Delete an existing document in collection "treasures"
+    //Remove from firebase
+    await deleteDoc(doc(db, "treasures", id));
+    //Remove from local storage
+    setTreasures(treasures.filter(treasure => treasure.id !== id))
+    console.log("Permanently deleted treasure from account")
+  }
 
   return (
     <StateContext.Provider value={screenProps}>

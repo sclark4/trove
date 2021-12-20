@@ -27,14 +27,18 @@ export default function LoginScreen(props) {
       
       <TextInput
         style={styles.loginInput}
+        autoCompleteType = 'email'
+        keyboardType='email-address'
+        textContentType='emailAddress'
         placeholder="✉️ | Email Address"
         onChangeText={ (textVal) => screenProps.setEmail(textVal) }
         value={screenProps.email}
       />
       
-      
       <TextInput
         style={styles.loginInput}
+        autoCompleteType = 'password'
+        textContentType='password'
         placeholder="🔒 | Password"
         onChangeText={ (textVal) => screenProps.setPassword(textVal)}
         value={screenProps.password} 

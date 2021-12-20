@@ -18,20 +18,21 @@ export default function AddTreasureModal(props) {
     const [description, setDescription] = React.useState();
     const [date, setDate] = useState(new Date());
     const [id, setId] = useState(nextId)
-    const [location, setLocation] = React.useState();
-    const [tags, setTags] = React.useState();
+    // const [location, setLocation] = React.useState();
+    // const [tags, setTags] = React.useState();
     
-    const newItem = {'user': 'currentUser',                         
+    const newItem = {'user': props.currentUser,                         
     'date': date.toDateString(),//new Date(2021, 11, 2, 10, 52, 31, 1234), 
     'title': title,
-    'tags': (tags ? tags.split(",") : ""), 
+    // 'tags': (tags ? tags.split(",") : ""), 
     'description': description,
-    'id': id,
-    'image': image,
+    'id': Date.now(),
+    'image': "https://cdn.pixabay.com/photo/2018/10/01/09/21/pets-3715733_1280.jpg",
+    'author': props.currentUser
    };
 
     const [modalVisible, setModalVisible] = useState(false);
-    const [image, setImage] = useState(null);
+    const [image, setImage] = useState("https://cdn.pixabay.com/photo/2018/10/01/09/21/pets-3715733_1280.jpg");
     const onChangeDescription = (event, description) => {
       setDescription(description);
     };
@@ -52,9 +53,9 @@ export default function AddTreasureModal(props) {
       else if (description == null){
         alert('Please add a description to your treasure')
       }
-      else if (tags == null){
-        alert('Please add tags to your treasure')
-      }
+      // else if (tags == null){
+      //   alert('Please add tags to your treasure')
+      // }
       else {props.add(newItem);
       setModalVisible(!modalVisible);
 
@@ -136,7 +137,7 @@ export default function AddTreasureModal(props) {
     </View>
     <View style={{flexDirection:"row"}} >
             <View>
-            <Button title="Set date  " />
+            <Button styles={styles.setDate} title='Set Date 'color="black" disabled='true' />
         <DateTimePicker
           testID="dateTimePicker"
           value={date}
@@ -148,7 +149,7 @@ export default function AddTreasureModal(props) {
         />
       </View>
       <View>
-        <Button title="Set time" />
+        {/* <Button title="Set time" />
         <DateTimePicker
           testID="dateTimePicker"
           value={date}
@@ -156,25 +157,25 @@ export default function AddTreasureModal(props) {
           is24Hour={true}
           display="default"
           onChange={onChangeTime}
-        />
+        /> */}
       </View>
       </View>
          
-            <Text style={styles.modalText}>Location</Text>
+            {/* <Text style={styles.modalText}>Location</Text>
             <TextInput
         style={styles.input}
         placeholder="Treasure Location"
         onChangeText={setLocation}
         value={location}
-      />
+      /> */}
          
-            <Text style={styles.modalText}>Tags</Text>
+            {/* <Text style={styles.modalText}>Tags</Text>
             <TextInput
         style={styles.input}
         placeholder="tags, formatted, like, this"
         onChangeText={setTags}
         multiline={true}
-      />
+      /> */}
       <View style={{flexDirection: 'row'}}>
             <Pressable
               style={[styles.button, styles.buttonClose]}

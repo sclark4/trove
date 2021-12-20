@@ -17,17 +17,18 @@ export default function EditTreasureModal(props) {
     const [description, setDescription] = React.useState(props.treasure.description);
     const [date, setDate] = useState(new Date());
     const [location, setLocation] = React.useState('Science Center');
-    const [tags, setTags] = React.useState(props.treasure.tags.join());
+    // const [tags, setTags] = React.useState(props.treasure.tags);
     const [modalVisible, setModalVisible] = useState(false);
-    const [image, setImage] = useState(null);
+    const [image, setImage] = useState("https://cdn.pixabay.com/photo/2018/10/01/09/21/pets-3715733_1280.jpg");
 
-    const updatedItem = {'user': props.treasure.user,                         
+    const updatedItem = {'user': props.treasure.user, 
+    'author': props.treasure.author,                        
     'date': date.toDateString(),
     'title': title,
-    'tags': (tags ? tags.split(",") : ""), 
+    // 'tags':tags, //(tags ? tags.split(",") : ""), 
     'description': description,
-    'id': props.treasure.id,
-    'image': image,
+    'id': props.treasure.id.toString(),
+    'image': "https://cdn.pixabay.com/photo/2018/10/01/09/21/pets-3715733_1280.jpg",
    };
 
     const updateAndClose = () => {
@@ -37,9 +38,9 @@ export default function EditTreasureModal(props) {
       else if (description == null){
         alert('Please add a description to your treasure')
       }
-      else if (tags == null){
-        alert('Please add tags to your treasure')
-      }
+      // else if (tags == null){
+      //   alert('Please add tags to your treasure')
+      // }
       else {
       props.update(updatedItem);
       setModalVisible(!modalVisible);
@@ -157,19 +158,19 @@ export default function EditTreasureModal(props) {
           </View>
         </View>
          
-            <Text style={styles.modalText}>Location</Text>
+            {/* <Text style={styles.modalText}>Location</Text>
 
             <TextInput
         style={styles.input}
         onChangeText={setLocation}
-        value={location}/>
+        value={location}/> */}
          
-            <Text style={styles.modalText}>Tags</Text>
+            {/* <Text style={styles.modalText}>Tags</Text>
             <TextInput
         style={styles.input}
         onChangeText={setTags}
         value={tags}
-        multiline={true}/>
+        multiline={true}/> */}
 
             <Pressable
               style={[styles.button, styles.buttonClose]}
