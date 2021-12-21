@@ -22,7 +22,7 @@ export default function SettingsScreen(props) {
     props.route.params.share(newMail);
     alert("Treasure successfully sent to: " + newMail.receiver);
   };
-  console.log(props.route.params.accounts)
+  // console.log(props.route.params.accounts)
   return (
     <View>
       <Header
@@ -36,19 +36,19 @@ export default function SettingsScreen(props) {
             source={require('../assets/icon.png')}
           />
 
-      <Text style={styles.h2}>
+      {/* <Text style={styles.h2}>
         💎 {props.route.params.account.firstName} {props.route.params.account.lastName}
       </Text>
 
       <Text style={styles.paragraph}>
         🎂 {props.route.params.account.birthday}
-      </Text>
+      </Text> */}
 
       <Text style={styles.paragraph}>
         ✉️ {props.route.params.account.email}
       </Text>
 
-      <EditAccountModal account={props.route.params.accounts} id ={props.route.params.accounts.email} delete = {deleteAndExit} update = {updateAndExit}/>
+      {/* <EditAccountModal account={props.route.params.accounts} id ={props.route.params.accounts.email} delete = {deleteAndExit} update = {updateAndExit}/> */}
 
       <Pressable
         style={[styles.logButton]}

@@ -16,7 +16,8 @@ export default function EditVaultModal(props) {
 
     const updatedItem = {'user': props.vault.user,                         
     'title': title,
-    'id': props.vault.id
+    'id': props.vault.id.toString(),
+    'treasures': props.vault.treasures
    };
 
     const updateAndClose = () => {
