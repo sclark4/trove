@@ -68,6 +68,7 @@ export default function AddVaultModal(props) {
         style={styles.input}
         placeholder="Vault Title"
         onChangeText={setTitle}
+        multiline={true}
       />
          
       <View style={{flexDirection: 'row'}}>

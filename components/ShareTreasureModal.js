@@ -76,6 +76,7 @@ export default function ShareTreasureModal(props) {
         keyboardType='email-address'
         textContentType='emailAddress'
         placeholder="✉️ | Email of recipient"
+        multiline={true}
       />
             <Text style={styles.modalText}>Note:</Text>
             <TextInput

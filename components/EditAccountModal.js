@@ -14,12 +14,12 @@ const DismissKeyboard = ({ children }) => (
 export default function EditAccountModal(props) {
     const [firstName, setFirstName] = React.useState(props.account.firstName);
     const [lastName, setLastName] = React.useState(props.account.lastName);
-    const [birthday, setBirthday] = useState(new Date());
+    // const [birthday, setBirthday] = useState(new Date());
     const [modalVisible, setModalVisible] = useState(false);
 
     const updatedItem = {'firstName': firstName,                        
     'lastName': lastName,
-    'birthday': date.toDateString(),
+    // 'birthday': '2/2/2022',
     'email': props.account.email
    };
 
@@ -30,9 +30,9 @@ export default function EditAccountModal(props) {
       else if (lastName == null){
         alert('Please enter a valid last name')
       }
-      else if (birthday == null){
-        alert('Please add a valid birthday')
-      }
+      // else if (birthday == null){
+      //   alert('Please add a valid birthday')
+      // }
       else {
         props.update(updatedItem);
         setModalVisible(!modalVisible);
@@ -98,7 +98,7 @@ export default function EditAccountModal(props) {
               value={lastName}
             />
 
-        <Text style={styles.modalText}>Birthday:</Text>
+        {/* <Text style={styles.modalText}>Birthday:</Text>
         <TextInput
             style={styles.input}
             onChangeText={setBirthday}
@@ -114,7 +114,7 @@ export default function EditAccountModal(props) {
                 is24Hour={true}
                 display="default"
                 onChange={onChange}/>
-            </View>
+            </View> */}
 
             <Pressable
               style={[styles.button, styles.buttonClose]}

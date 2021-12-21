@@ -121,6 +121,7 @@ export default function AddTreasureModal(props) {
         style={styles.input}
         placeholder="Treasure Title"
         onChangeText={setTitle}
+        multiline={true}
       />
             <Text style={styles.modalText}>Description</Text>
             <TextInput
@@ -138,14 +139,18 @@ export default function AddTreasureModal(props) {
     <View style={{flexDirection:"row"}} >
             <View>
             <Button styles={styles.setDate} title='Set Date 'color="black" disabled={true} />
+        
         <DateTimePicker
           testID="dateTimePicker"
           value={date}
+          // minimumDate={Date.parse(new Date())}
           mode='date'
           // is24Hour={true}
           required
           display="default"
           onChange={onChangeDate}
+          // closable
+          // shouldCloseOnSelect={true}
         />
       </View>
       <View>

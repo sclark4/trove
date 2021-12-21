@@ -8,10 +8,10 @@ import EditAccountModal from '../components/EditAccountModal';
 
 export default function SettingsScreen(props) {
   const Props = useContext(StateContext);
-  const screenProps = Props.loginProps;
+  const loginProps = Props.loginProps;
 
   const deleteAndExit = () => {
-    props.route.params.delete(props.route.params.treasure.id);
+    props.route.params.delete(props.route.params.account.email);
     props.navigation.goBack()
   };
   const updateAndExit = (updated) => {
@@ -22,7 +22,7 @@ export default function SettingsScreen(props) {
     props.route.params.share(newMail);
     alert("Treasure successfully sent to: " + newMail.receiver);
   };
-  // console.log(props.route.params.accounts)
+  // console.log('hello' + screenProps.loggedInUser)
   return (
     <View>
       <Header
@@ -44,11 +44,11 @@ export default function SettingsScreen(props) {
         🎂 {props.route.params.account.birthday}
       </Text> */}
 
-      <Text style={styles.paragraph}>
-        ✉️ {props.route.params.account.email}
+      <Text style={styles.h2}>
+        ✉️ {loginProps.loggedInUser}
       </Text>
 
-      {/* <EditAccountModal account={props.route.params.accounts} id ={props.route.params.accounts.email} delete = {deleteAndExit} update = {updateAndExit}/> */}
+      {/* <EditAccountModal account={screenProps.loggedInUser} email ={screenProps.loggedInUser} delete = {deleteAndExit} update = {updateAndExit}/> */}
 
       <Pressable
         style={[styles.logButton]}

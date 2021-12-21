@@ -143,7 +143,8 @@ export default function EditTreasureModal(props) {
               mode='date'
               is24Hour={true}
               display="default"
-              onChange={onChange}/>
+              onChange={onChange}
+              shouldCloseOnSelect={true}/>
           </View>
         </View>
          

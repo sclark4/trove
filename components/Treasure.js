@@ -4,7 +4,7 @@ import { Card, ListItem, Icon, Header } from 'react-native-elements'
 import {styles} from '../style/styles';
 import EditTreasureModal from './EditTreasureModal';
 import ShareTreasureModal from './ShareTreasureModal';
-import AddToVaultModal from './AddToVault';
+import AddToVaultModal from './AddToVaultModal';
 import {useFonts} from 'expo-font';
 
 const supportedURL = "https://cs.wellesley.edu/~cs317/";

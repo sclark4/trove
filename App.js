@@ -169,7 +169,7 @@ const testVaults = [
 const testAccounts = [
   {'firstName': 'Wendy',
    'lastName': 'Wellesley',
-   'birthday': '1/01/2021',
+  //  'birthday': '1/01/2021',
    'email': 'wendy@wellesley.edu'
   }
 ];
@@ -389,7 +389,7 @@ export default function App() {
       'email': data.email, 
       'firstName': data.firstName, 
       'lastName': data.lastName, // millsecond timestamp
-      'birthday': data.birthday, 
+      // 'birthday': data.birthday, 
     }
     // const subcolls = collection(doc.id, "treasures")
     // subcolls.forEach((c) => {
