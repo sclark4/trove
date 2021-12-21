@@ -27,8 +27,13 @@ import { // access to Firestore storage features:
          getFirestore, 
          // for storage access
          collection, doc, addDoc, setDoc, deleteDoc,
-         query, where, getDocs, getDoc, DocumentReference
+         query, where, getDocs, DocumentReference
   } from "firebase/firestore";
+
+  import { // access to Firebase storage features (for files like images, video, etc.)
+    getStorage, 
+   ref, uploadBytes, uploadBytesResumable, getDownloadURL
+  } from "firebase/storage";
 
 const Stack = createNativeStackNavigator();
 

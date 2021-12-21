@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { Alert, Button, Modal, StyleSheet, Text, Pressable, View, TextInput, Keyboard,  TouchableWithoutFeedback, Image } from "react-native";
 import { Card, ListItem, Icon, Header } from 'react-native-elements'
 import {styles} from '../style/styles';
 import SelectDropdown from 'react-native-select-dropdown'
+import StateContext from '../StateContext';
 
 const DismissKeyboard = ({ children }) => (
     <TouchableWithoutFeedback 
@@ -12,6 +13,8 @@ const DismissKeyboard = ({ children }) => (
     );
 
 export default function AddToVaultModal(props) {
+    const Props = useContext(StateContext);
+    const vaultProps = Props.vaultProps;
     const [vault, setVault] = React.useState("Senior Year");
     const [note, setNote] = React.useState("Senior Year");
     const [modalVisible, setModalVisible] = useState(false);
@@ -53,7 +56,6 @@ export default function AddToVaultModal(props) {
           setModalVisible(!modalVisible);
         }}
       >
-        
         <View style={styles.centeredView}>
         <DismissKeyboard>
           <View style={styles.modalView}>
@@ -64,7 +66,9 @@ export default function AddToVaultModal(props) {
             <Text style={[styles.modalText, {marginBottom: 20}]}>Select Vault: </Text>
             
             <SelectDropdown
-              data={vaults}
+              data={vaultProps.vaults}
+              // renderItem={ datum => <ListItem id={datum.id} text={datum} title={datum.title}></ListItem>} 
+              // keyExtractor={item => item.id} />
               onSelect={(selectedItem, index) => {
                 console.log(selectedItem, index)
               }}
