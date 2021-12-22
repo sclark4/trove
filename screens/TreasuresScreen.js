@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { useContext } from "react";
-import { Text, View, FlatList, TouchableOpacity, Pressable } from 'react-native';
+import { useContext, useCallback } from "react";
+import { Text, View, FlatList, TouchableOpacity, Pressable, Button, Linking } from 'react-native';
 import {styles} from '../style/styles';
 import AddTreasureModal from '../components/AddTreasureModal';
 import { Card, Header, Icon } from 'react-native-elements';
@@ -17,6 +17,24 @@ export default function TreasuresScreen(props) {
   const TagItem = item => {
     return (<Text style={{fontFamily:'Karla_Regular'}, styles.tag}>#{item.text} </Text>)
   }
+
+  const OpenURLButton = ({ url, children }) => {
+    const handlePress = useCallback(async () => {
+      // Checking if the link is supported for links with custom URL scheme.
+      const supported = await Linking.canOpenURL(url);
+  
+      if (supported) {
+        // Opening the link with some app, if the URL scheme is "http" the web link should be opened
+        // by some browser in the mobile
+        await Linking.openURL(url);
+      } else {
+        alert(`Sorry, we are unable to open: ${url}`);
+      }
+    }, [url]);
+  
+    return <Button title={children} onPress={handlePress} />;
+  };  
+
   const CardItem = item => {
     return (
     <TouchableOpacity
@@ -24,15 +42,14 @@ export default function TreasuresScreen(props) {
       <Card containerStyle={styles.treasureCard}>
       <Card.Title style={{margin: 10, fontFamily:'Grandstander_Bold'}}>{item.text.item.title}</Card.Title>
 
-      {(item.text.item.image !== "")?
-      
-
+      {(item.text.item.image)?
       <Card.Image style={styles.treasureThumbnail} 
       // source={(item.text.item.image != "")?{uri:item.text.item.image}:{uri:('https://cdn.pixabay.com/photo/2021/01/21/16/17/english-cocker-spaniel-5937757_1280.jpg')}}>
       source={{uri:(item.text.item.image)}}>
       </Card.Image>
-      :<Text>no image</Text>
-      }
+      :<></>}
+      {(item.text.item.link)?<OpenURLButton url={item.text.item.link}>{item.text.item.link}</OpenURLButton>
+        :<></>}
       <Text style={{margin: 10, fontFamily:'Karla_Regular'}}>
         {item.text.item.description}
         {/* <Text> {item.text.item.tags.map(tag => <TagItem text = {tag}/>)} </Text> */}

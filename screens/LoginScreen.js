@@ -40,6 +40,7 @@ export default function LoginScreen(props) {
         autoCompleteType = 'password'
         textContentType='password'
         placeholder="🔒 | Password"
+        secureTextEntry = {true}
         onChangeText={ (textVal) => screenProps.setPassword(textVal)}
         value={screenProps.password} 
       />

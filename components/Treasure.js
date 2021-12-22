@@ -60,22 +60,25 @@ export default function Treasure(props) {
           <Icon name='arrow-left' color='#ffffff' type='font-awesome' size={20} />
         </Pressable>}
       centerComponent={{ text: props.route.params.treasure.title, style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900', fontFamily:'Grandstander_Bold' } }}
-      rightComponent={<AddToVaultModal treasure={props.route.params.treasure}/>}
+      // rightComponent={<AddToVaultModal treasure={props.route.params.treasure}/>}
       />
       {/* <Text style={styles.h1}>{route.params.title}</Text> */}
-      <Image
+      {(props.route.params.treasure.image) ?<Image
             style={styles.regularTreasure}
             // source={require('../assets/diamond.png')}
-            source={{uri:('https://cdn.pixabay.com/photo/2021/01/21/16/17/english-cocker-spaniel-5937757_1280.jpg')}}
-          />
+            source={{uri:(props.route.params.treasure.image)}}
+          /> :<></>}
+      
       <Text style={styles.h2, {fontFamily:'Karla_Regular'}}>Date: {props.route.params.treasure.date.toString()}</Text>
       <Text style={styles.paragraph, {fontFamily:'Karla_Regular'}}>Description: {props.route.params.treasure.description}</Text>
-      <Text style={styles.paragraph, {fontFamily:'Karla_Regular'}}>Location: Science Center</Text>
       {/* <Text style={styles.paragraph, {fontFamily:'Karla_Regular'}, styles.tag}>{props.route.params.treasure.tags.map(tag => '#'+tag+' ')} </Text> */}
+      {(props.route.params.treasure.link) ? 
+      <OpenURLButton url={props.route.params.treasure.link}>{props.route.params.treasure.link}</OpenURLButton>
+        :<></>
+      }
       
       <EditTreasureModal treasure={props.route.params.treasure} id ={props.route.params.treasure.id} delete = {deleteAndExit} update = {updateAndExit}/>
       <ShareTreasureModal treasure={props.route.params.treasure} currentUser={props.route.params.currentUser} share = {shareAndExit}/>
-      <OpenURLButton url={supportedURL}>External Link (e.g. to a favorite video or song)</OpenURLButton>
 
     </View>
   );

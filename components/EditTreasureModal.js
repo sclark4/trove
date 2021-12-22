@@ -15,20 +15,22 @@ const DismissKeyboard = ({ children }) => (
 export default function EditTreasureModal(props) {
     const [title, setTitle] = React.useState(props.treasure.title);
     const [description, setDescription] = React.useState(props.treasure.description);
+    const [link, setLink] = React.useState(props.treasure.link);
     const [date, setDate] = useState(new Date());
     const [location, setLocation] = React.useState('Science Center');
     // const [tags, setTags] = React.useState(props.treasure.tags);
     const [modalVisible, setModalVisible] = useState(false);
-    const [image, setImage] = useState("https://cdn.pixabay.com/photo/2018/10/01/09/21/pets-3715733_1280.jpg");
+    // const [image, setImage] = useState("https://cdn.pixabay.com/photo/2018/10/01/09/21/pets-3715733_1280.jpg");
 
     const updatedItem = {'user': props.treasure.user, 
     'author': props.treasure.author,                        
     'date': date.toDateString(),
     'title': title,
+    'link': link,
     // 'tags':tags, //(tags ? tags.split(",") : ""), 
     'description': description,
     'id': props.treasure.id.toString(),
-    'image': "https://cdn.pixabay.com/photo/2018/10/01/09/21/pets-3715733_1280.jpg",
+    'image': props.treasure.image,
    };
 
     const updateAndClose = () => {
@@ -44,9 +46,10 @@ export default function EditTreasureModal(props) {
       else {
       props.update(updatedItem);
       setModalVisible(!modalVisible);
-      setImage(null);
-      setTitle(null);
-      setDescription(null);
+      // setImage(null);
+      // setLink(null);
+      // setTitle(null);
+      // setDescription(null);
       alert("Successfully updated treasure")
       }
     };
@@ -75,7 +78,7 @@ export default function EditTreasureModal(props) {
       if (Platform.OS !== 'web') {
         const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (status !== 'granted') {
-          alert('Sorry, we need camera roll permissions to make this work!');
+          alert('Sorry, we need camera roll permissions to make this work! You can update permissions in Settings.');
         }
       }
     })();
@@ -86,7 +89,7 @@ export default function EditTreasureModal(props) {
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 1,
+      quality: 0.2,
     });
 
     console.log(result);
@@ -132,12 +135,21 @@ export default function EditTreasureModal(props) {
         onChangeText={setDescription}
         value={description}
         multiline={true}/>
+        <Text style={styles.modalText}>External Link</Text>
+            <TextInput
+        required
+        style={styles.input}
+        placeholder="Link to your treasure"
+        onChangeText={setLink}
+        multiline={true}
+        value={link}
+      />
 
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Button title="Update Image/Video" onPress={pickImage} />
         {image && <Image source={{ uri: image }} style={{ width: 50, height: 50 }} />}
-      </View>
-      <View style={{flexDirection:"row"}} >
+      </View> */}
+      <View>
           <View>
           <Button styles={styles.setDate} title='Set Date 'color="black" disabled={true} />
             <DateTimePicker

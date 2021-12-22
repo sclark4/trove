@@ -25,6 +25,7 @@ export default function AddTreasureModal(props) {
     const storage = firebaseProps.storage;
     const authProps = stateProps.authProps;
     const [title, setTitle] = React.useState();
+    const [link, setLink] = React.useState();
     const [description, setDescription] = React.useState();
     const [date, setDate] = useState(new Date());
     // const [location, setLocation] = React.useState();
@@ -72,6 +73,7 @@ export default function AddTreasureModal(props) {
         setModalVisible(!modalVisible);
         setImage(null);
         setTitle(null);
+        setLink(null);
         setDescription(null);
       }
     };
@@ -172,7 +174,7 @@ export default function AddTreasureModal(props) {
                 <Icon name='times-circle' type='font-awesome' color='#ff7fad' size={30} />
             </Pressable>
       <View style={{alignItems:'center'}}>
-            <Text style={styles.modalText}>Title:</Text>
+            <Text style={styles.modalText}>Title*</Text>
             <TextInput
         required
         style={styles.input}
@@ -180,12 +182,20 @@ export default function AddTreasureModal(props) {
         onChangeText={setTitle}
         multiline={true}
       />
-            <Text style={styles.modalText}>Description</Text>
+            <Text style={styles.modalText}>Description*</Text>
             <TextInput
         required
         style={styles.input}
         placeholder="Treasure Description"
         onChangeText={setDescription}
+        multiline={true}
+      />
+      <Text style={styles.modalText}>External Link</Text>
+            <TextInput
+        required
+        style={styles.input}
+        placeholder="Link to your treasure"
+        onChangeText={setLink}
         multiline={true}
       />
             
