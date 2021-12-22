@@ -40,7 +40,7 @@ export default function TreasuresScreen(props) {
     <TouchableOpacity
     onPress={() => props.navigation.navigate('TreasuresNav', { screen: 'Treasure', params: {treasure: item.text.item, delete: screenProps.deleteTreasure, share: screenProps.shareTreasure, update: screenProps.updateTreasure, currentUser:currentUser}})}>
       <Card containerStyle={styles.treasureCard}>
-      <Card.Title style={{margin: 10, fontFamily:'Grandstander_Bold'}}>{item.text.item.title}</Card.Title>
+      <Card.Title style={{margin: 10, fontFamily:'Rubik1'}}>{item.text.item.title}</Card.Title>
 
       {(item.text.item.image)?
       <Card.Image style={styles.treasureThumbnail} 
@@ -61,8 +61,8 @@ export default function TreasuresScreen(props) {
   const [loaded] = useFonts({
     Karla_Regular: require('../assets/fonts/Karla-Regular.ttf'),
     Karla_ExtraLight: require('../assets/fonts/Karla-ExtraLight.ttf'),
-    Grandstander_Bold: require('../assets/fonts/Grandstander-Bold.ttf'),
-    Grandstander_Medium: require('../assets/fonts/Grandstander-Medium.ttf'),
+    Rubik1: require('../assets/fonts/Rubik-ExtraBold.ttf'),
+    Rubik2: require('../assets/fonts/Rubik-Medium.ttf'),
   });
 
   if (!loaded) {
@@ -74,18 +74,18 @@ export default function TreasuresScreen(props) {
         <Header
       backgroundColor='#fff'
       leftComponent={<AddTreasureModal add={screenProps.addTreasure} currentUser ={currentUser}/>}
-      centerComponent={{ text: 'Treasures', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}
+      centerComponent={{ text: 'Treasures', style: { color: '#a5c6ff', fontSize: 20,fontFamily:'Rubik1' } }}
         />
     <View style={styles.container}>
     
       <View style={styles.listWrapper}>
       <Pressable
-        style={[styles.headerButton, styles.buttonOpen]}
+        style={[styles.button, styles.buttonOpen]}
         onPress={screenProps.getFirebaseData}
       >
-        <Text style={styles.paragraph}>Import/Refresh Firebase Data</Text>
+        <Text style={styles.textStyle}>Import/Refresh Firebase Data</Text>
       </Pressable>
-      {(!dateSortedTreasures) ?  
+      {(dateSortedTreasures === []) ?  
            <Text styles={styles.h1}>There's no time like the present to add your first Treasure! Click the + button to get started.</Text>
           :
 

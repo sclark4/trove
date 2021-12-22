@@ -46,10 +46,6 @@ export default function EditTreasureModal(props) {
       else {
       props.update(updatedItem);
       setModalVisible(!modalVisible);
-      // setImage(null);
-      // setLink(null);
-      // setTitle(null);
-      // setDescription(null);
       alert("Successfully updated treasure")
       }
     };

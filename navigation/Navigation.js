@@ -12,6 +12,14 @@ const Tab = createBottomTabNavigator();
 
 export default function Navigation(props) {
     const screenProps = useContext(StateContext);
+    const count = screenProps.mailProps.mailCount
+
+    function options() {
+      if (count > 0){
+        return {headerShown: false, tabBarBadge: count, tabBarBadgeStyle:{backgroundColor:'#f26b5b', fontSize:11, color:'white'} }
+      }
+      return { headerShown: false}
+    }
     return (
       <StateContext.Provider value={screenProps}>
         <Tab.Navigator
@@ -71,7 +79,7 @@ export default function Navigation(props) {
 
           <Tab.Screen name="Treasures" component={TreasuresScreen} options={{ headerShown: false }}  />
           <Tab.Screen name="Vault" component={VaultScreen} options={{ headerShown: false }}/>
-          <Tab.Screen name="Mail" component={MailScreen} options={{ headerShown: false}}/>
+          <Tab.Screen name="Mail" component={MailScreen} options = {options()}/>
           <Tab.Screen name="Settings" component={SettingsScreen} options={{ headerShown: false }}/>
         </Tab.Navigator>
         </StateContext.Provider>

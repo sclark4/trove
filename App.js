@@ -106,7 +106,9 @@ export default function App() {
   const [treasures, setTreasures] = useState([]);
   const [allTreasures, setAllTreasures] = useState([]);
   const [vaults, setVaults] = useState(testVaults);
+
   const [mail, setMail] = useState([]);
+  const [mailCount, setMailCount] = useState(0);
 
   const [accounts, setAccounts] = useState(testAccounts);
   
@@ -283,7 +285,7 @@ export default function App() {
   
   const treasuresProps = { getFirebaseData, treasures, allTreasures, addTreasure, deleteTreasure, shareTreasure, updateTreasure };
   const vaultProps = { getFirebaseData, vaults, addVault, updateVault, deleteVault};
-  const mailProps = { mail, acceptMail, rejectMail };
+  const mailProps = { mail, mailCount, acceptMail, rejectMail };
   const loginProps = { loggedInUser, email, password, errorMsg, setEmail, setPassword, signUpUserEmailPassword, signInUserEmailPassword, logOut, formatJSON };
   const settingsProps = { accounts, updateAccount, deleteAccount };
  const firebaseProps = {auth, storage, db};
@@ -299,6 +301,7 @@ export default function App() {
       getTreasures();
       getAllTreasures();
       getMail();
+      setMailCount(mail.filter(item => item.accepted === false).length);
       getVaults();
       console.log('Loading Firebase Data for:', loggedInUser)
     }

@@ -27,7 +27,7 @@ export default function SettingsScreen(props) {
     <View>
       <Header
       backgroundColor='#fff'
-      centerComponent={{ text: 'Settings', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}/>
+      centerComponent={{ text: 'Settings', style: { color: '#a5c6ff', fontSize: 20, fontFamily:'Rubik1' } }}/>
 
     <View style={styles.container}>
 

@@ -20,7 +20,7 @@ export default function LoginScreen(props) {
     <DismissKeyboard>
     <View style={styles.loginContainer}>
       
-      <Text style={styles.h1}>Hi there!</Text>
+      <Text style={styles.h1}>Hi, there!</Text>
       <Image style={styles.gifIcon} source={require('../assets/goldCoin.gif')} />
       <Text style={styles.h2}>Login to see your treasures</Text>
       

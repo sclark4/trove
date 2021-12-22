@@ -7,8 +7,6 @@ import ShareTreasureModal from './ShareTreasureModal';
 import AddToVaultModal from './AddToVaultModal';
 import {useFonts} from 'expo-font';
 
-const supportedURL = "https://cs.wellesley.edu/~cs317/";
-
 const OpenURLButton = ({ url, children }) => {
   const handlePress = useCallback(async () => {
     // Checking if the link is supported for links with custom URL scheme.
@@ -47,8 +45,8 @@ export default function Treasure(props) {
   const [loaded] = useFonts({
     Karla_Regular: require('../assets/fonts/Karla-Regular.ttf'),
     Karla_ExtraLight: require('../assets/fonts/Karla-ExtraLight.ttf'),
-    Grandstander_Bold: require('../assets/fonts/Grandstander-Bold.ttf'),
-    Grandstander_Medium: require('../assets/fonts/Grandstander-Medium.ttf'),
+    Rubik1: require('../assets/fonts/Rubik-ExtraBold.ttf'),
+    Rubik2: require('../assets/fonts/Rubik-Medium.ttf'),
   });
   
   if (!loaded) {
@@ -63,17 +61,14 @@ export default function Treasure(props) {
         onPress={() => props.navigation.goBack()}> 
           <Icon name='arrow-left' color='#ffffff' type='font-awesome' size={20} />
         </Pressable>}
-      centerComponent={{ text: props.route.params.treasure.title, style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900', fontFamily:'Grandstander_Bold' } }}
-      // rightComponent={<AddToVaultModal treasure={props.route.params.treasure}/>}
+      centerComponent={{ text: props.route.params.treasure.title, style: { color: '#a5c6ff', fontSize: 15, fontWeight:'900', fontFamily:'Rubik1' } }}
       />
-      {/* <Text style={styles.h1}>{route.params.title}</Text> */}
       {(props.route.params.treasure.image) ?<Image
             style={styles.regularTreasure}
-            // source={require('../assets/diamond.png')}
             source={{uri:(props.route.params.treasure.image)}}
           /> :<></>}
-      
-      <Text style={styles.h2, {fontFamily:'Karla_Regular'}}>Date: {props.route.params.treasure.date.toString()}</Text>
+      <Text style={styles.h2, {fontFamily:'Karla_Regular'}}>Author: {props.route.params.treasure.author}</Text>
+      <Text style={styles.h2, {fontFamily:'Karla_Regular'}}>Date: {props.route.params.treasure.date}</Text>
       <Text style={styles.paragraph, {fontFamily:'Karla_Regular'}}>Description: {props.route.params.treasure.description}</Text>
       {/* <Text style={styles.paragraph, {fontFamily:'Karla_Regular'}, styles.tag}>{props.route.params.treasure.tags.map(tag => '#'+tag+' ')} </Text> */}
       {(props.route.params.treasure.link) ? 

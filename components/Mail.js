@@ -4,8 +4,6 @@ import { Card, ListItem, Icon, Header } from 'react-native-elements'
 import {styles} from '../style/styles';
 import {useFonts} from 'expo-font';
 
-const supportedURL = "https://cs.wellesley.edu/~cs317/";
-
 const OpenURLButton = ({ url, children }) => {
   const handlePress = useCallback(async () => {
     // Checking if the link is supported for links with custom URL scheme.
@@ -29,8 +27,8 @@ export default function Mail(props) {
   const [loaded] = useFonts({
     Karla_Regular: require('../assets/fonts/Karla-Regular.ttf'),
     Karla_ExtraLight: require('../assets/fonts/Karla-ExtraLight.ttf'),
-    Grandstander_Bold: require('../assets/fonts/Grandstander-Bold.ttf'),
-    Grandstander_Medium: require('../assets/fonts/Grandstander-Medium.ttf'),
+    Rubik1: require('../assets/fonts/Rubik-ExtraBold.ttf'),
+    Rubik2: require('../assets/fonts/Rubik-Medium.ttf'),
   });
   
   if (!loaded) {
@@ -46,12 +44,11 @@ const TagItem = item => {
     return (
       <View style={styles.treasureContainer}>
       <Card containerStyle={styles.treasureCard}>
-      <Card.Title style={{margin: 10, fontFamily:'Grandstander_Bold'}}>{item.text.title}</Card.Title>
+      <Card.Title style={{margin: 10, fontFamily:'Rubik1'}}>{item.text.title}</Card.Title>
       {(item.text.image)?
       <Card.Image style={{
         height: 300
       }} 
-      // source={(item.text.item.image != "")?{uri:item.text.item.image}:{uri:('https://cdn.pixabay.com/photo/2021/01/21/16/17/english-cocker-spaniel-5937757_1280.jpg')}}>
       source={{uri:(item.text.image)}}>
       </Card.Image>
       :<></>}
@@ -76,7 +73,7 @@ const TagItem = item => {
         onPress={() => props.navigation.goBack()}> 
           <Icon name='arrow-left' color='#ffffff' type='font-awesome' size={20} />
         </Pressable>}
-      centerComponent={{ text: 'from '+ props.route.params.mail.sender, style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900', fontFamily:'Grandstander_Bold' } }}
+      centerComponent={{ text: 'from '+ props.route.params.mail.sender, style: { color: '#a5c6ff', fontSize: 10, fontFamily:'Rubik1' } }}
       />
       <CardItem text={treasure} ></CardItem>
       <Text style={styles.h2, {fontFamily:'Karla_Regular'}}>Date Sent: {props.route.params.mail.date.toString()}</Text>

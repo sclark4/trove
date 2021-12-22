@@ -20,10 +20,7 @@ const DismissKeyboard = ({ children }) => (
 export default function AddTreasureModal(props) {
     const stateProps = useContext(StateContext);
     const firebaseProps = stateProps.firebaseProps;
-    const auth = firebaseProps.auth;
-    const db = firebaseProps.db;
     const storage = firebaseProps.storage;
-    const authProps = stateProps.authProps;
     const [title, setTitle] = React.useState();
     const [link, setLink] = React.useState("");
     const [description, setDescription] = React.useState();
@@ -44,9 +41,6 @@ export default function AddTreasureModal(props) {
 
     const [modalVisible, setModalVisible] = useState(false);
     const [image, setImage] = useState(null);
-    const onChangeDescription = (event, description) => {
-      setDescription(description);
-    };
     const onChangeDate = (event, selectedDate) => {
       const currentDate = selectedDate || date;
       setDate(currentDate);

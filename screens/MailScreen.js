@@ -17,8 +17,6 @@ export default function MailScreen(props) {
             style={styles.smallImage}
             source={require('../assets/icon.png')}
           />
-          {/* <Text style={styles.paragraph}>Treasure Title: {((treasures.find(treasure => treasure.id !== mail.text.item.tid)).title)}</Text> */}
-          {/* Buggy, treasure.id == mail.text.item.tid returns null for whatever reason  */}
           <Text style={styles.paragraph}>From {mail.text.item.sender}: "{mail.text.item.note}"</Text>
           <Text style={styles.paragraph}>Sent: {mail.text.item.date}</Text>
           <View style={styles.container}>
@@ -30,7 +28,6 @@ export default function MailScreen(props) {
   }
 
   const AcceptButtons = (item) => { 
-    //ALSO need functionality to add to treasure trove
     return (
       <View>
         <Text style={{textAlign: 'center'}}>
@@ -44,11 +41,6 @@ export default function MailScreen(props) {
       </View>
     );
   }
-  // const acceptedMail = (mailItem) =>
-
-  // return (
-  // {'sender': mailItem.sender, 'note': mailItem.note, 'accepted':true, 'date':mailItem.date, 'tid':mailItem.tid, 'id':mailItem.id, 'receiver':mailItem.receiver,},
-  //   );
   const denyAlert = (id) => 
   Alert.alert(
     "Deny Treasure?",
@@ -78,7 +70,7 @@ export default function MailScreen(props) {
     <View>
       <Header
       backgroundColor='#fff'
-      centerComponent={{ text: 'Mail', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}
+      centerComponent={{ text: 'Mail', style: { color: '#a5c6ff', fontSize: 20, fontFamily:'Rubik1' } }}
       />
     <View style={styles.container}>
       <View style={styles.listWrapper}>

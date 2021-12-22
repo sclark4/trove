@@ -17,8 +17,8 @@ export default function Vault(props) {
   const [loaded] = useFonts({
     Karla_Regular: require('../assets/fonts/Karla-Regular.ttf'),
     Karla_ExtraLight: require('../assets/fonts/Karla-ExtraLight.ttf'),
-    Grandstander_Bold: require('../assets/fonts/Grandstander-Bold.ttf'),
-    Grandstander_Medium: require('../assets/fonts/Grandstander-Medium.ttf'),
+    Rubik1: require('../assets/fonts/Rubik-ExtraBold.ttf'),
+    Rubik2: require('../assets/fonts/Rubik-Medium.ttf'),
   });
   
   if (!loaded) {

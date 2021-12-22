@@ -34,8 +34,8 @@ export default function VaultScreen(props) {
   const [loaded] = useFonts({
     Karla_Regular: require('../assets/fonts/Karla-Regular.ttf'),
     Karla_ExtraLight: require('../assets/fonts/Karla-ExtraLight.ttf'),
-    Grandstander_Bold: require('../assets/fonts/Grandstander-Bold.ttf'),
-    Grandstander_Medium: require('../assets/fonts/Grandstander-Medium.ttf'),
+    Rubik1: require('../assets/fonts/Rubik-ExtraBold.ttf'),
+    Rubik2: require('../assets/fonts/Rubik-Medium.ttf'),
   });
 
   if (!loaded) {
@@ -47,7 +47,7 @@ export default function VaultScreen(props) {
       <Header
       backgroundColor='#fff'
       leftComponent= {<AddVaultModal add={screenProps.addVault} currentUser ={currentUser} />}
-      centerComponent={{ text: 'Vault', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}/>
+      centerComponent={{ text: 'Vault', style: { color: '#a5c6ff', fontSize: 20, fontFamily:'Rubik1' } }}/>
 
       <View style={styles.listWrapper}>
         
