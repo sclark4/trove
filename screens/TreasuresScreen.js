@@ -38,7 +38,7 @@ export default function TreasuresScreen(props) {
   const CardItem = item => {
     return (
     <TouchableOpacity
-    onPress={() => props.navigation.navigate('TreasuresNav', { screen: 'Treasure', params: {treasure: item.text.item, delete: screenProps.deleteTreasure, share: screenProps.shareTreasure, update: screenProps.updateTreasure,}})}>
+    onPress={() => props.navigation.navigate('TreasuresNav', { screen: 'Treasure', params: {treasure: item.text.item, delete: screenProps.deleteTreasure, share: screenProps.shareTreasure, update: screenProps.updateTreasure, currentUser:currentUser}})}>
       <Card containerStyle={styles.treasureCard}>
       <Card.Title style={{margin: 10, fontFamily:'Grandstander_Bold'}}>{item.text.item.title}</Card.Title>
 
@@ -83,9 +83,9 @@ export default function TreasuresScreen(props) {
         style={[styles.headerButton, styles.buttonOpen]}
         onPress={screenProps.getFirebaseData}
       >
-        <Text style={styles.paragraph}>Import Firebase Data</Text>
+        <Text style={styles.paragraph}>Import/Refresh Firebase Data</Text>
       </Pressable>
-      {(dateSortedTreasures === [] ?  
+      {(!dateSortedTreasures) ?  
            <Text styles={styles.h1}>There's no time like the present to add your first Treasure! Click the + button to get started.</Text>
           :
 
@@ -96,7 +96,7 @@ export default function TreasuresScreen(props) {
             renderItem={ datum => <CardItem id={datum.id} text={datum} title={datum.title} description={datum.description} location={datum.location}></CardItem>} 
             keyExtractor={item => item.id} />
  
-      )}
+      }
       
         </View>
         </View>

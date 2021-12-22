@@ -38,6 +38,7 @@ export default function Mail(props) {
   }
   
   const treasure = props.route.params.treasures.find(treasure => treasure.id == props.route.params.mail.tid)
+  console.log(treasure)
 const TagItem = item => {
     return (<Text style={{fontFamily:'Karla_Regular'}, styles.tag}>#{item.text} </Text>)
   }
@@ -47,7 +48,9 @@ const TagItem = item => {
       <Card containerStyle={styles.treasureCard}>
       <Card.Title style={{margin: 10, fontFamily:'Grandstander_Bold'}}>{item.text.title}</Card.Title>
       {(item.text.image)?
-      <Card.Image style={styles.treasureThumbnail} 
+      <Card.Image style={{
+        height: 300
+      }} 
       // source={(item.text.item.image != "")?{uri:item.text.item.image}:{uri:('https://cdn.pixabay.com/photo/2021/01/21/16/17/english-cocker-spaniel-5937757_1280.jpg')}}>
       source={{uri:(item.text.image)}}>
       </Card.Image>

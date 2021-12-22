@@ -301,8 +301,9 @@ const styles = StyleSheet.create({
       width: 128,
     },
     listWrapper: {
-      maxHeight: '100%', 
+      maxHeight: '75%', 
       width: '100%',
+      marginBottom: '50%',
     },
     listItem: {
       flexDirection: "row",
@@ -317,6 +318,7 @@ const styles = StyleSheet.create({
       marginVertical: 2,
       // marginHorizontal: 1,
       backgroundColor: 'white',
+      width:'100%',
     },
     smallImage: {
       width: 90,

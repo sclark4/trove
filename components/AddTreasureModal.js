@@ -25,7 +25,7 @@ export default function AddTreasureModal(props) {
     const storage = firebaseProps.storage;
     const authProps = stateProps.authProps;
     const [title, setTitle] = React.useState();
-    const [link, setLink] = React.useState();
+    const [link, setLink] = React.useState("");
     const [description, setDescription] = React.useState();
     const [date, setDate] = useState(new Date());
     // const [location, setLocation] = React.useState();
