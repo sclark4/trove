@@ -58,7 +58,7 @@ export default function VaultScreen(props) {
             renderItem={ datum => <ListItem id={datum.id} text={datum} title={datum.title}></ListItem>} 
             keyExtractor={item => item.id} />
 
-        </View>
+      </View>
     </View>
   );
 }

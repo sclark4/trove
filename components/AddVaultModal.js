@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Alert, Button, Modal, Text, Pressable, View, TextInput, Keyboard,  TouchableWithoutFeedback, Image } from "react-native";
 import {styles} from '../style/styles';
 import { Icon } from 'react-native-elements';
+import StateContext from '../StateContext';
 
 const DismissKeyboard = ({ children }) => (
     <TouchableWithoutFeedback 
@@ -11,13 +12,16 @@ const DismissKeyboard = ({ children }) => (
     );
 
 export default function AddVaultModal(props) {
-    const nextId = 20
+    // const nextId = 20
+    const stateProps = useContext(StateContext);
+    const firebaseProps = stateProps.firebaseProps;
+    const storage = firebaseProps.storage;
     const [title, setTitle] = React.useState();
-    const [id, setId] = useState(nextId)
     
     const newItem = {'user': props.currentUser,                         
-    'title': title,
-    'id': id,
+        'title': title,
+        'id': Date.now(),
+        'treasures': []
    };
 
     const [modalVisible, setModalVisible] = useState(false);
@@ -29,10 +33,11 @@ export default function AddVaultModal(props) {
     const addAndClose = () => {
       if (title == null){
         alert('Please add a title to your vault')
-      } else {props.add(newItem);
-      setModalVisible(!modalVisible);
+      } else {
+        props.add(newItem);
+        setModalVisible(!modalVisible);
+        setTitle(null);
       }
-      setId(id+1);
     };
 
   return (
@@ -64,12 +69,12 @@ export default function AddVaultModal(props) {
       <View style={{alignItems:'center'}}>
             <Text style={styles.modalText}>Title:</Text>
             <TextInput
-        required
-        style={styles.input}
-        placeholder="Vault Title"
-        onChangeText={setTitle}
-        multiline={true}
-      />
+              required
+              style={styles.input}
+              placeholder="Vault Title"
+              onChangeText={setTitle}
+              multiline={true}
+            />
          
       <View style={{flexDirection: 'row'}}>
             <Pressable
@@ -83,10 +88,7 @@ export default function AddVaultModal(props) {
           </View>
           </DismissKeyboard>
         </View>
-        
       </Modal>
-      
     </View>
-    
   );
 };

@@ -70,10 +70,10 @@ export default function EditVaultModal(props) {
             </Pressable>
             <Text style={styles.modalText}>Title:</Text>
             <TextInput
-        style={styles.input}
-        onChangeText={setTitle}
-        value={title}
-      />
+              style={styles.input}
+              onChangeText={setTitle}
+              value={title}
+            />
             <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={updateAndClose}>

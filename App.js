@@ -297,10 +297,10 @@ export default function App() {
       getUserData(loggedInUser);
       getTreasures();
       getAllTreasures();
-      getMail();
-      setMailCount(mail.filter(item => item.accepted === false).length);
       getVaults();
       getAllVaults();
+      getMail();
+      setMailCount(mail.filter(item => item.accepted === false).length);
       console.log('Loading Firebase Data for:', loggedInUser)
     }
     else{
