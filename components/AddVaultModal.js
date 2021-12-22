@@ -12,11 +12,14 @@ const DismissKeyboard = ({ children }) => (
     );
 
 export default function AddVaultModal(props) {
-    // const nextId = 20
     const stateProps = useContext(StateContext);
     const firebaseProps = stateProps.firebaseProps;
     const storage = firebaseProps.storage;
     const [title, setTitle] = React.useState();
+
+    const vaultProps = stateProps.vaultProps;
+    const existingTitles = vaultProps.vaults;
+    console.log(existingTitles);
     
     const newItem = {'user': props.currentUser,                         
         'title': title,
@@ -33,6 +36,8 @@ export default function AddVaultModal(props) {
     const addAndClose = () => {
       if (title == null){
         alert('Please add a title to your vault')
+      } else if (title === existingTitles) {
+        alert('This vault title already exists')
       } else {
         props.add(newItem);
         setModalVisible(!modalVisible);

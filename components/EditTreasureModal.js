@@ -145,17 +145,19 @@ export default function EditTreasureModal(props) {
         <Button title="Update Image/Video" onPress={pickImage} />
         {image && <Image source={{ uri: image }} style={{ width: 50, height: 50 }} />}
       </View> */}
-      <View>
+      <View style={styles.centeredView}>
           <View>
           <Button styles={styles.setDate} title='Set Date 'color="black" disabled={true} />
             <DateTimePicker
               testID="dateTimePicker"
               value={date}
               mode='date'
-              is24Hour={true}
+              // is24Hour={true}
               display="default"
+              required
               onChange={onChange}
-              shouldCloseOnSelect={true}/>
+              // shouldCloseOnSelect={true}
+              />
           </View>
         </View>
          

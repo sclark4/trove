@@ -73,7 +73,7 @@ const TagItem = item => {
         onPress={() => props.navigation.goBack()}> 
           <Icon name='arrow-left' color='#ffffff' type='font-awesome' size={20} />
         </Pressable>}
-      centerComponent={{ text: 'from '+ props.route.params.mail.sender, style: { color: '#a5c6ff', fontSize: 10, fontFamily:'Rubik1' } }}
+      centerComponent={{ text: 'from '+ props.route.params.mail.sender, style: { color: '#a5c6ff', fontSize: 15, fontFamily:'Rubik1' } }}
       />
       <CardItem text={treasure} ></CardItem>
       <Text style={styles.h2, {fontFamily:'Karla_Regular'}}>Date Sent: {props.route.params.mail.date.toString()}</Text>
