@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Alert, Button, Modal, Text, Pressable, View, TextInput, Keyboard,  TouchableWithoutFeedback, Image } from "react-native";
 import {styles} from '../style/styles';
 import * as ImagePicker from 'expo-image-picker';
 import { Icon } from 'react-native-elements';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import StateContext from '../StateContext';
+import { // access to Firebase storage features (for files like images, video, etc.)
+  getStorage, 
+ ref, uploadBytes, uploadBytesResumable, getDownloadURL
+} from "firebase/storage";
 
 const DismissKeyboard = ({ children }) => (
     <TouchableWithoutFeedback 
@@ -13,34 +18,32 @@ const DismissKeyboard = ({ children }) => (
     );
 
 export default function AddTreasureModal(props) {
-    const nextId = 20
+    const stateProps = useContext(StateContext);
+    const firebaseProps = stateProps.firebaseProps;
+    const auth = firebaseProps.auth;
+    const db = firebaseProps.db;
+    const storage = firebaseProps.storage;
+    const authProps = stateProps.authProps;
     const [title, setTitle] = React.useState();
     const [description, setDescription] = React.useState();
     const [date, setDate] = useState(new Date());
-    const [id, setId] = useState(nextId)
     // const [location, setLocation] = React.useState();
     // const [tags, setTags] = React.useState();
     
     const newItem = {'user': props.currentUser,                         
-    'date': date.toDateString(),//new Date(2021, 11, 2, 10, 52, 31, 1234), 
+    'date': date.toDateString(),
     'title': title,
     // 'tags': (tags ? tags.split(",") : ""), 
     'description': description,
     'id': Date.now(),
-    'image': "https://cdn.pixabay.com/photo/2018/10/01/09/21/pets-3715733_1280.jpg",
+    // 'image': image.toString(),
     'author': props.currentUser
    };
 
     const [modalVisible, setModalVisible] = useState(false);
-    const [image, setImage] = useState("https://cdn.pixabay.com/photo/2018/10/01/09/21/pets-3715733_1280.jpg");
+    const [image, setImage] = useState(null);
     const onChangeDescription = (event, description) => {
       setDescription(description);
-    };
-    const onChangeTime = (event, selectedTime) => {
-      // const currentTime = selectedTime || time;
-      // setShow(Platform.OS === 'ios');
-      // setDate(currentDate);
-      console.log("potentially unnecessary")
     };
     const onChangeDate = (event, selectedDate) => {
       const currentDate = selectedDate || date;
@@ -56,12 +59,66 @@ export default function AddTreasureModal(props) {
       // else if (tags == null){
       //   alert('Please add tags to your treasure')
       // }
-      else {props.add(newItem);
-      setModalVisible(!modalVisible);
-
+      else {
+        console.log("testing image", image)
+        if (image){
+          console.log("with image")
+          firebasePostMessageWithImage(newItem, image);
+        }
+        else{
+          console.log("without image")
+          props.add({...newItem, image: ""});
+        }
+        setModalVisible(!modalVisible);
+        setImage(null);
+        setTitle(null);
+        setDescription(null);
       }
-      setId(id+1);
     };
+
+    async function firebasePostMessageWithImage(treasure, imageUri) {
+
+      const storageRef = ref(storage, `treasureImages/${treasure.id}`);
+  
+      const fetchResponse = await fetch(imageUri);
+      const imageBlob = await fetchResponse.blob();
+  
+      const uploadTask = uploadBytesResumable(storageRef, imageBlob);
+      console.log(`Uploading image for message ${treasure.id} ...`);
+      uploadTask.on('state_changed',
+        // This callback is called with a snapshot on every progress update
+        (snapshot) => {
+          // Get task progress, including the number of bytes uploaded 
+          // and the total number of bytes to be uploaded
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+          switch (snapshot.state) {
+            case 'paused':
+              console.log('Upload is paused');
+              break;
+            case 'running':
+              console.log('Upload is running');
+              break;
+              }
+        }, 
+        // This callback is called when there's an error in the upload
+        (error) => {
+          console.error(error);
+        }, 
+        // This callback is called when the upload is finished 
+        async function() {
+          console.log(`Uploading image for message ${treasure.id} succeeded!`);
+          // Once the upload is finished, get the downloadURL for the uploaed image
+          const downloadURL = await getDownloadURL(storageRef);
+          console.log(`Message image file for ${treasure.id} available at ${downloadURL}`);
+  
+          // Add the downloadURL as the imageUri for the message
+          const treasureWithDownloadURL = {...treasure, image: downloadURL.toString()}; 
+          props.add(treasureWithDownloadURL);
+          // Store (in Firestore) the message with the downloadURL as imageUri
+        }      
+      ); // end arguments to uploadTask.on
+    }
 
   useEffect(() => {
     (async () => {
@@ -79,10 +136,10 @@ export default function AddTreasureModal(props) {
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 1,
+      quality: 0.2,
     });
 
-    console.log(result);
+    console.log("Picked Image", result);
 
     if (!result.cancelled) {
       setImage(result.uri);
@@ -139,30 +196,16 @@ export default function AddTreasureModal(props) {
     <View style={{flexDirection:"row"}} >
             <View>
             <Button styles={styles.setDate} title='Set Date 'color="black" disabled={true} />
-        
         <DateTimePicker
           testID="dateTimePicker"
           value={date}
-          // minimumDate={Date.parse(new Date())}
           mode='date'
-          // is24Hour={true}
           required
           display="default"
           onChange={onChangeDate}
-          // closable
-          // shouldCloseOnSelect={true}
         />
       </View>
       <View>
-        {/* <Button title="Set time" />
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={date}
-          mode='time'
-          is24Hour={true}
-          display="default"
-          onChange={onChangeTime}
-        /> */}
       </View>
       </View>
          
@@ -192,11 +235,8 @@ export default function AddTreasureModal(props) {
           </View>
           </View>
           </DismissKeyboard>
-        </View>
-        
+        </View> 
       </Modal>
-      
     </View>
-    
   );
 };

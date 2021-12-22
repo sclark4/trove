@@ -23,8 +23,16 @@ export default function TreasuresScreen(props) {
     onPress={() => props.navigation.navigate('TreasuresNav', { screen: 'Treasure', params: {treasure: item.text.item, delete: screenProps.deleteTreasure, share: screenProps.shareTreasure, update: screenProps.updateTreasure,}})}>
       <Card containerStyle={styles.treasureCard}>
       <Card.Title style={{margin: 10, fontFamily:'Grandstander_Bold'}}>{item.text.item.title}</Card.Title>
-      <Card.Image style={styles.treasureThumbnail} source={{uri:('https://cdn.pixabay.com/photo/2021/01/21/16/17/english-cocker-spaniel-5937757_1280.jpg')}}>
+
+      {(item.text.item.image !== "")?
+      
+
+      <Card.Image style={styles.treasureThumbnail} 
+      // source={(item.text.item.image != "")?{uri:item.text.item.image}:{uri:('https://cdn.pixabay.com/photo/2021/01/21/16/17/english-cocker-spaniel-5937757_1280.jpg')}}>
+      source={{uri:(item.text.item.image)}}>
       </Card.Image>
+      :<Text>no image</Text>
+      }
       <Text style={{margin: 10, fontFamily:'Karla_Regular'}}>
         {item.text.item.description}
         {/* <Text> {item.text.item.tags.map(tag => <TagItem text = {tag}/>)} </Text> */}

@@ -49,6 +49,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
+const storage = getStorage(firebaseApp, firebaseConfig.storageBucket) // for storaging images in Firebase storage
 const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
 
@@ -184,7 +185,7 @@ export default function App() {
     'Setting a timer',
     'AsyncStorage',                                	 
 ]);
-  const [treasures, setTreasures] = useState(testTreasures);
+  const [treasures, setTreasures] = useState([]);
   const [allTreasures, setAllTreasures] = useState([]);
   const [vaults, setVaults] = useState(testVaults);
   const [mail, setMail] = useState(testMail);
@@ -368,8 +369,8 @@ export default function App() {
   const mailProps = { mail, acceptMail, rejectMail };
   const loginProps = { loggedInUser, email, password, errorMsg, setEmail, setPassword, signUpUserEmailPassword, signInUserEmailPassword, logOut, formatJSON };
   const settingsProps = { accounts, updateAccount, deleteAccount };
-  const screenProps = { treasuresProps, vaultProps, mailProps, loginProps, settingsProps };
-
+ const firebaseProps = {auth, storage, db};
+  const screenProps = { firebaseProps, treasuresProps, vaultProps, mailProps, loginProps, settingsProps };
   function addTimestamp(item) {
     // Add millisecond timestamp field to message 
     const currentTime = new Date();
@@ -429,14 +430,11 @@ export default function App() {
   }
 
   async function postTreasure(newTreasure) {
-    // Add a new document in collection "treasures"
-    // treasure = newTreasure.map(addTimestamp)
-    setTreasures([newTreasure, ...treasures ])
     const timestampString = newTreasure.id.toString();
-    await setDoc(doc(db, "treasures", timestampString), 
+      await setDoc(doc(db, "treasures", timestampString), 
         { 'user': newTreasure.user,
           'author': newTreasure.author, 
-          'date': newTreasure.date,//new Date(2021, 11, 2, 10, 52, 31, 1234), 
+          'date': newTreasure.date,
           'title': newTreasure.title,
           // 'tags': newTreasure.tags, 
           'description': newTreasure.description,
@@ -444,8 +442,10 @@ export default function App() {
           'image': newTreasure.image,
         }
       );
+      setTreasures([newTreasure, ...treasures ]);
     console.log("Successfully added new treasure to account:", newTreasure.user )
   }
+
   async function putTreasure(updated) {
     // Update an existing document in collection "treasures"
     await setDoc(doc(db, "treasures", updated.id), 
