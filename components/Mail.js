@@ -46,8 +46,16 @@ const TagItem = item => {
       <View style={styles.treasureContainer}>
       <Card containerStyle={styles.treasureCard}>
       <Card.Title style={{margin: 10, fontFamily:'Grandstander_Bold'}}>{item.text.title}</Card.Title>
-      <Card.Image source={{uri:('https://cdn.pixabay.com/photo/2021/01/21/16/17/english-cocker-spaniel-5937757_1280.jpg')}}>
+      {(item.text.image)?
+      <Card.Image style={styles.treasureThumbnail} 
+      // source={(item.text.item.image != "")?{uri:item.text.item.image}:{uri:('https://cdn.pixabay.com/photo/2021/01/21/16/17/english-cocker-spaniel-5937757_1280.jpg')}}>
+      source={{uri:(item.text.image)}}>
       </Card.Image>
+      :<></>}
+      {(item.text.link) ? 
+      <OpenURLButton url={item.text.link}>{item.text.link}</OpenURLButton>
+        :<></>
+      }
       <Text style={{margin: 10, fontFamily:'Karla_Regular'}}>
         {item.text.description}
         {/* <Text> {item.text.tags.map(tag => <TagItem text = {tag}/>)} </Text> */}
