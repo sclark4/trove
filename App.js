@@ -578,7 +578,8 @@ export default function App() {
     await setDoc(doc(db, "vaults", timestampString), 
         { 'user': newVault.user,
           'title': newVault.title,
-          'id': newVault.id
+          'id': newVault.id,
+          'treasures': newVault.treasures
         }
       );
     console.log("Successfully added new treasure to vault:", newVault.user )
@@ -588,7 +589,8 @@ export default function App() {
     await setDoc(doc(db, "vaults", updated.id), 
         { 'user': updated.user,
           'title': updated.title,
-          'id': updated.id
+          'id': updated.id,
+          'treasures': updated.treasures
         }
     );
     setVaults([updated, ...(vaults.filter(vault => vault.id !== updated.id))]);

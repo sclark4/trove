@@ -32,7 +32,7 @@ export default function SettingsScreen(props) {
     <View style={styles.container}>
 
       <Image
-            style={styles.regularProfile}
+            style={[styles.regularProfile, {marginTop: 20}]}
             source={require('../assets/icon.png')}
           />
 
@@ -52,7 +52,7 @@ export default function SettingsScreen(props) {
 
       <Pressable
         style={[styles.logButton]}
-        onPress={() => screenProps.logOut()}>
+        onPress={() => loginProps.logOut()}>
         <Text style={styles.textLog}>Logout</Text>      
       </Pressable>
 

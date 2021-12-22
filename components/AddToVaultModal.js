@@ -30,21 +30,12 @@ export default function AddToVaultModal(props) {
 
   return (
     
-    // <View style={styles.centeredView}>
-    //     <Pressable
-    //     style={[styles.headerButton, styles.buttonOpen]}
-    //     onPress={() => alert("To Be Implemented")}
-    //   >
-    //     <Icon name='add' color='#ffffff' />
-    //   </Pressable>
-    // </View>
-    
     <View style={styles.centeredView}>
       <Pressable
-        style={[styles.headerButton, styles.buttonOpen]}
+        style={[styles.button, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}
       >
-        <Icon name='add' color='#ffffff' />      
+        <Text style={styles.textStyle}>Add to Vault</Text>
       </Pressable>
       
       <Modal
@@ -66,7 +57,7 @@ export default function AddToVaultModal(props) {
             <Text style={[styles.modalText, {marginBottom: 20}]}>Select Vault: </Text>
             
             <SelectDropdown
-              data={vaultProps.vaults}
+              data={vaults}
               // renderItem={ datum => <ListItem id={datum.id} text={datum} title={datum.title}></ListItem>} 
               // keyExtractor={item => item.id} />
               onSelect={(selectedItem, index) => {

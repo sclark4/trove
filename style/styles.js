@@ -399,6 +399,7 @@ const styles = StyleSheet.create({
       padding: 10,
       elevation: 2,
       margin: 1,
+      marginTop: 10
     },
     headerButton: {
       backgroundColor: "#a5c6ff",

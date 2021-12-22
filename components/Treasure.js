@@ -40,6 +40,10 @@ export default function Treasure(props) {
     props.route.params.share(newMail);
     alert("Treasure successfully sent to: " + newMail.receiver);
   };
+  const addAndExit = (vault) => {
+    props.route.params.add(vault);
+    alert("Treasure successfully sent to: " + vault.title);
+  };
   const [loaded] = useFonts({
     Karla_Regular: require('../assets/fonts/Karla-Regular.ttf'),
     Karla_ExtraLight: require('../assets/fonts/Karla-ExtraLight.ttf'),
@@ -79,7 +83,7 @@ export default function Treasure(props) {
       
       <EditTreasureModal treasure={props.route.params.treasure} id ={props.route.params.treasure.id} delete = {deleteAndExit} update = {updateAndExit}/>
       <ShareTreasureModal treasure={props.route.params.treasure} currentUser={props.route.params.currentUser} share = {shareAndExit}/>
-
+      <AddToVaultModal treasure={props.route.params.treasure} id ={props.route.params.treasure.id} add = {addAndExit}/>
     </View>
   );
 }
