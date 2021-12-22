@@ -2,12 +2,10 @@ import React, {useContext} from 'react';
 import { Icon } from 'react-native-elements';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import SettingsScreen from '../screens/SettingsScreen';
-import LoginScreen from '../screens/LoginScreen';
 import TreasuresScreen from '../screens/TreasuresScreen';
 import MailScreen from '../screens/MailScreen';
 import VaultScreen from '../screens/VaultScreen';
 import StateContext from '../StateContext';
-import NotificationScreen from '../screens/NotificationScreen';
 const Tab = createBottomTabNavigator();
 
 export default function Navigation(props) {
