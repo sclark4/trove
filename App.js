@@ -102,8 +102,8 @@ export default function App() {
 ]);
   const [treasures, setTreasures] = useState([]);
   const [allTreasures, setAllTreasures] = useState([]);
-  const [vaults, setVaults] = useState(testVaults);
-
+  const [vaults, setVaults] = useState([]);
+  const [allVaults, setAllVaults] = useState([]);
   const [mail, setMail] = useState([]);
   const [mailCount, setMailCount] = useState(0);
 
@@ -281,8 +281,8 @@ export default function App() {
   }
   
   const treasuresProps = { getFirebaseData, treasures, allTreasures, addTreasure, deleteTreasure, shareTreasure, updateTreasure };
-  const vaultProps = { getFirebaseData, vaults, addVault, updateVault, deleteVault};
   const mailProps = { mail, mailCount, acceptMail, rejectMail };
+  const vaultProps = { getFirebaseData, vaults, allVaults, addVault, updateVault, deleteVault};
   const loginProps = { loggedInUser, email, password, errorMsg, setEmail, setPassword, signUpUserEmailPassword, signInUserEmailPassword, logOut, formatJSON };
   const settingsProps = { accounts, updateAccount, deleteAccount };
  const firebaseProps = {auth, storage, db};
@@ -300,6 +300,7 @@ export default function App() {
       getMail();
       setMailCount(mail.filter(item => item.accepted === false).length);
       getVaults();
+      getAllVaults();
       console.log('Loading Firebase Data for:', loggedInUser)
     }
     else{
@@ -479,6 +480,19 @@ export default function App() {
     });
     setVaults(vaults);
   }
+
+  async function getAllVaults() {
+    const q = query(collection(db, "vaults"));
+    console.log("get all vaults")
+    const querySnapshot = await getDocs(q);
+    let vaults = []
+    querySnapshot.forEach(doc => {
+      const data = doc.data()
+      vaults.push(data)
+    });
+    setAllVaults(vaults);
+  }
+
   async function postVault(newVault) {
     // Add a new document in collection "vaults"
     setVaults([newVault, ...vaults ])
@@ -486,12 +500,14 @@ export default function App() {
     await setDoc(doc(db, "vaults", timestampString), 
         { 'user': newVault.user,
           'title': newVault.title,
-          'id': newVault.id,
+          'id': timestampString,
           'treasures': newVault.treasures
         }
       );
+    setVaults([newVault, ...vaults ]);
     console.log("Successfully added new treasure to vault:", newVault.user )
   }
+
   async function putVault(updated) {
     // Update an existing document in collection "vaults"
     await setDoc(doc(db, "vaults", updated.id), 
@@ -513,6 +529,8 @@ export default function App() {
     setVaults(vaults.filter(vault => vault.id !== id))
     console.log("Permanently deleted vault from account")
   }
+
+
 
   return (
     <StateContext.Provider value={screenProps}>
