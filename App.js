@@ -9,9 +9,6 @@ import VaultsNavigator from './navigation/VaultsNavigator';
 import MailNavigator from './navigation/MailNavigator';
 
 import LoginScreen from './screens/LoginScreen';
-import NotificationScreen from './screens/NotificationScreen';
-import VaultScreen from './screens/VaultScreen';
-import TreasuresScreen from './screens/TreasuresScreen';
 
 import StateContext from './StateContext.js';
 import { initializeApp } from "firebase/app";
