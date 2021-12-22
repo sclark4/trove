@@ -80,25 +80,26 @@ export default function MailScreen(props) {
       backgroundColor='#fff'
       centerComponent={{ text: 'Mail', style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}
       />
+    <View style={styles.container}>
       <View style={styles.listWrapper}>
+      {(!dateSortedMail) ?  
+           <Text styles={styles.h1}>Your mailbox is empty! Check back again later.</Text>
+          :
           <FlatList showsVerticalScrollIndicator={false}
             data={dateSortedMail}
             renderItem={ datum => <ListItem text={datum}></ListItem>} 
-            keyExtractor={item => item.id} 
-          />
-        </View>
-      {/* <Button
-      title="Send a Treasure"
-      onPress={() =>
-        props.navigation.navigate('Treasures')}
-    /> */}
-    <Pressable
+            keyExtractor={item => item.id} />
+      }
+      <Pressable
         style={[styles.button, styles.buttonClose]}
         onPress={() =>
           props.navigation.navigate('Treasures')}
       >
         <Text style={styles.textStyle}>Send a Treasure</Text>
     </Pressable>
+        </View>
+    
+    </View>
     </View>
   );
 }
