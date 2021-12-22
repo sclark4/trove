@@ -37,6 +37,7 @@ export default function AddTreasureModal(props) {
     // 'tags': (tags ? tags.split(",") : ""), 
     'description': description,
     'id': Date.now(),
+    'link': link,
     // 'image': image.toString(),
     'author': props.currentUser
    };
@@ -74,14 +75,13 @@ export default function AddTreasureModal(props) {
         setImage(null);
         setTitle(null);
         setLink(null);
+        setDate(new Date())
         setDescription(null);
       }
     };
 
     async function firebasePostMessageWithImage(treasure, imageUri) {
-
       const storageRef = ref(storage, `treasureImages/${treasure.id}`);
-  
       const fetchResponse = await fetch(imageUri);
       const imageBlob = await fetchResponse.blob();
   
