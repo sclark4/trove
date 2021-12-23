@@ -20,7 +20,7 @@ export default function VaultScreen(props) {
   const ListItem = item => { 
     return (
       <TouchableOpacity
-        onPress={() => props.navigation.navigate('VaultsNav', { screen: 'Vault', params: {vault: item.text.item, update: screenProps.updateVault, delete: screenProps.deleteVault }})}> 
+        onPress={() => props.navigation.navigate('VaultsNav', { screen: 'Vault', params: {vault: item.text.item }})}> 
         <View style={styles.listItem}>
           <Image
             style={styles.smallIcon}

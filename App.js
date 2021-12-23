@@ -121,7 +121,7 @@ export default function App() {
   const deleteTreasure = (currentId) => firebaseDeleteTreasure(currentId);
   const shareTreasure = (newMail) => postMail(newMail);
   const updateTreasure = (updated) => putTreasure(updated);
-  const addTreasureToVault = (updatedVault) => putVault(updatedVault);
+  // const addTreasureToVault = (updatedVault) => putVault(updatedVault);
 
   const acceptMail = (accepted) => acceptTreasure(accepted); 
   const rejectMail = (currentId) => deleteMail(currentId); 
@@ -281,7 +281,7 @@ export default function App() {
     return JSON.stringify(loggedInUser, null, 2);
   }
   
-  const treasuresProps = { getFirebaseData, treasures, allTreasures, addTreasure, deleteTreasure, shareTreasure, updateTreasure, addTreasureToVault };
+  const treasuresProps = { getFirebaseData, treasures, allTreasures, addTreasure, deleteTreasure, shareTreasure, updateTreasure };
   const mailProps = { mail, mailCount, acceptMail, rejectMail };
   const vaultProps = { getFirebaseData, vaults, allVaults, addVault, updateVault, deleteVault};
   const loginProps = { loggedInUser, email, password, errorMsg, setEmail, setPassword, signUpUserEmailPassword, signInUserEmailPassword, logOut, formatJSON };
@@ -512,11 +512,12 @@ export default function App() {
   async function putVault(updated) {
     // Update an existing document in collection "vaults"
     await setDoc(doc(db, "vaults", updated.id), 
-        { 'user': updated.user,
-          'title': updated.title,
-          'id': updated.id,
-          'treasures': updated.treasures
-        }
+        // { 'user': updated.user,
+        //   'title': updated.title,
+        //   'id': updated.id,
+        //   'treasures': updated.treasures
+        // }
+        updated
     );
     setVaults([updated, ...(vaults.filter(vault => vault.id !== updated.id))]);
     console.log("Successfully update vault to account:", updated.user )

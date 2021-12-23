@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { Alert, Button, Modal,Text, Pressable, View, TextInput, Keyboard,  TouchableWithoutFeedback, Image } from "react-native";
-import { Icon } from 'react-native-elements';
+import React, { useState, useContext } from "react";
+import { Alert, Modal, Text, TouchableOpacity, Button, Linking, Pressable, View, TextInput, Keyboard,  TouchableWithoutFeedback, Image } from "react-native";
+import { Icon, Card, Header } from 'react-native-elements';
 import {styles} from '../style/styles';
+import StateContext from '../StateContext';
 
 const DismissKeyboard = ({ children }) => (
     <TouchableWithoutFeedback 
@@ -13,6 +14,8 @@ const DismissKeyboard = ({ children }) => (
 export default function EditVaultModal(props) {
     const [title, setTitle] = React.useState(props.vault.title);
     const [modalVisible, setModalVisible] = useState(false);
+    const state = useContext(StateContext);
+    const vaultProps = state.vaultProps;
 
     const updatedItem = {'user': props.vault.user,                         
     'title': title,
@@ -24,9 +27,9 @@ export default function EditVaultModal(props) {
       if (title == null){
         alert('Please add a title to your vault')
       } else {
-        props.update(updatedItem);
+        vaultProps.updateVault(updatedItem);
         setModalVisible(!modalVisible);
-        alert("Successfully updated vault")
+        alert("Successfully updated vault");
       }
     };
 
@@ -40,7 +43,8 @@ export default function EditVaultModal(props) {
           onPress: setModalVisible(!modalVisible),
           style: "cancel"
         },
-        { text: "Delete", onPress: () => {setModalVisible(!modalVisible); props.delete()}}
+        { text: "Delete", onPress: () => {setModalVisible(!modalVisible); 
+          vaultProps.deleteVault(props.id); }}
       ]
     );
 

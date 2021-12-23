@@ -13,23 +13,29 @@ const DismissKeyboard = ({ children }) => (
     );
 
 export default function AddToVaultModal(props) {
-    const Props = useContext(StateContext);
-    const vaultProps = Props.vaultProps;
+    const state = useContext(StateContext);
+    const vaultProps = state.vaultProps;
     // for dropdown to select destination vault
     const vaultTitles = vaultProps.vaults.map(vault => vault.title);
 
     const [destination, setDestination] = React.useState();
-    const retrievedVault = vaultProps.vaults.filter(vault => vault.title === destination);
+    
     const [modalVisible, setModalVisible] = useState(false);
-
-    const updatedVault = {'id': retrievedVault.id, 
-    'title': retrievedVault.title,                     
-    'treasures': [props.treasure.id, ...retrievedVault.treasures], 
-    'user': retrievedVault.user
+    
+    const addTreasureToVault = (vaultTitle) => {
+      const retrievedVault = vaultProps.vaults.find(vault => vault.title === vaultTitle);
+      const updatedVault = {
+        'id': retrievedVault.id, 
+        'title': retrievedVault.title,                     
+        'treasures': [props.treasure.id, ...retrievedVault.treasures], 
+        'user': retrievedVault.user
+      };
+      vaultProps.updateVault(updatedVault);
+      alert('Treasure successfully added to vault');
     };
 
     const addAndClose = () => {
-      props.add(updatedVault);
+      addTreasureToVault(destination);
       setModalVisible(!modalVisible);
     };
 
