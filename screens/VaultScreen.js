@@ -26,7 +26,7 @@ export default function VaultScreen(props) {
             style={styles.smallIcon}
             source={require('../assets/chest.png')}
           />
-          <Text style={styles.listItemText}>{item.text.item.title}</Text>
+          <Text style={[styles.listItemText, {fontFamily:'Rubik1'} ]}>{item.text.item.title}</Text>
         </View>
       </TouchableOpacity>
     )

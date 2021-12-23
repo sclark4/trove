@@ -15,17 +15,22 @@ const DismissKeyboard = ({ children }) => (
 export default function AddToVaultModal(props) {
     const Props = useContext(StateContext);
     const vaultProps = Props.vaultProps;
-    const [vault, setVault] = React.useState("Senior Year");
-    const [note, setNote] = React.useState("Senior Year");
+    // for dropdown to select destination vault
+    const vaultTitles = vaultProps.vaults.map(vault => vault.title);
+
+    const [destination, setDestination] = React.useState();
+    const retrievedVault = vaultProps.vaults.filter(vault => vault.title === destination);
     const [modalVisible, setModalVisible] = useState(false);
-    const vaults = ["Egypt", "Canada", "Australia", "Ireland"]
-    const sendAndClose = () => {
-      if (vault == null){
-        alert('Please select a vault')
-      }
-      else {props.send();
+
+    const updatedVault = {'id': retrievedVault.id, 
+    'title': retrievedVault.title,                     
+    'treasures': [props.treasure.id, ...retrievedVault.treasures], 
+    'user': retrievedVault.user
+    };
+
+    const addAndClose = () => {
+      props.add(updatedVault);
       setModalVisible(!modalVisible);
-      }
     };
 
   return (
@@ -57,12 +62,16 @@ export default function AddToVaultModal(props) {
             <Text style={[styles.modalText, {marginBottom: 20}]}>Select Vault: </Text>
             
             <SelectDropdown
-              data={vaults}
+              data={vaultTitles}
               // renderItem={ datum => <ListItem id={datum.id} text={datum} title={datum.title}></ListItem>} 
               // keyExtractor={item => item.id} />
-              onSelect={(selectedItem, index) => {
-                console.log(selectedItem, index)
-              }}
+              // onSelect={(selectedItem, index) => {
+              //   console.log(selectedItem, index)
+              // }}
+              onSelect={(selectedVault, index) => 
+                // console.log(selectedVault)
+                setDestination(selectedVault)
+              }
               buttonTextAfterSelection={(selectedItem, index) => {
                 // text represented after item is selected
                 // if data array is an array of objects then return selectedItem.property to render after item is selected
@@ -77,8 +86,7 @@ export default function AddToVaultModal(props) {
 
             <Pressable
               style={[styles.button, styles.buttonClose, {marginTop: 20}]}
-    // onPress={sendAndClose}>
-          onPress={true}>
+              onPress={addAndClose}>
 
               <Text style={styles.textStyle}>Add Treasure to Vault</Text>
             </Pressable>

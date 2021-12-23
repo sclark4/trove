@@ -149,7 +149,8 @@ const styles = StyleSheet.create({
     },
     listItemText: {
       fontSize: 20,
-      fontWeight: '500',
+      // fontWeight: 'bold',
+      color: "#5c5c5c",
       marginTop: 10,
       paddingTop: 20,
       width: '55%',

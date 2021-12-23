@@ -18,8 +18,8 @@ export default function AddVaultModal(props) {
     const [title, setTitle] = React.useState();
 
     const vaultProps = stateProps.vaultProps;
-    const existingTitles = vaultProps.vaults;
-    console.log(existingTitles);
+    const existingTitles = vaultProps.vaults.map(vault => vault.title);
+    // console.log(existingTitles);
     
     const newItem = {'user': props.currentUser,                         
         'title': title,
@@ -28,16 +28,12 @@ export default function AddVaultModal(props) {
    };
 
     const [modalVisible, setModalVisible] = useState(false);
-    
-    const onChangeTitle = (event, title) => {
-      setTitle(title);
-    };
 
     const addAndClose = () => {
       if (title == null){
         alert('Please add a title to your vault')
-      } else if (title === existingTitles) {
-        alert('This vault title already exists')
+      } else if (existingTitles.includes(title)) {
+        alert('This vault title already exists. Try a different title')
       } else {
         props.add(newItem);
         setModalVisible(!modalVisible);

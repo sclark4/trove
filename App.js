@@ -121,6 +121,7 @@ export default function App() {
   const deleteTreasure = (currentId) => firebaseDeleteTreasure(currentId);
   const shareTreasure = (newMail) => postMail(newMail);
   const updateTreasure = (updated) => putTreasure(updated);
+  const addTreasureToVault = (updatedVault) => putVault(updatedVault);
 
   const acceptMail = (accepted) => acceptTreasure(accepted); 
   const rejectMail = (currentId) => deleteMail(currentId); 
@@ -280,7 +281,7 @@ export default function App() {
     return JSON.stringify(loggedInUser, null, 2);
   }
   
-  const treasuresProps = { getFirebaseData, treasures, allTreasures, addTreasure, deleteTreasure, shareTreasure, updateTreasure };
+  const treasuresProps = { getFirebaseData, treasures, allTreasures, addTreasure, deleteTreasure, shareTreasure, updateTreasure, addTreasureToVault };
   const mailProps = { mail, mailCount, acceptMail, rejectMail };
   const vaultProps = { getFirebaseData, vaults, allVaults, addVault, updateVault, deleteVault};
   const loginProps = { loggedInUser, email, password, errorMsg, setEmail, setPassword, signUpUserEmailPassword, signInUserEmailPassword, logOut, formatJSON };

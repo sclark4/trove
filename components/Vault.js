@@ -28,7 +28,7 @@ export default function Vault(props) {
     <View style={styles.container}>
       <Header
       backgroundColor='#fff'
-      centerComponent={{ text: props.route.params.vault.title, style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900' } }}
+      centerComponent={{ text: props.route.params.vault.title, style: { color: '#a5c6ff', fontSize: 20, fontWeight:'900'} }}
       leftComponent={
         <Pressable style={[styles.headerButton, styles.buttonOpen, {padding:6}]} 
         onPress={() => props.navigation.goBack()}> 
@@ -40,6 +40,7 @@ export default function Vault(props) {
       </View>
       <Image style={styles.smallIcon} source={require('../assets/chest.png')} />
       <EditVaultModal vault={props.route.params.vault} id ={props.route.params.vault.id} delete = {deleteAndExit} update = {updateAndExit}/>
+      {/* <OpenVaultModal vault={props.route.params.vault} id ={props.route.params.vault.id}/> */}
 
     </View>
   );

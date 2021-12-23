@@ -10,18 +10,6 @@ export default function SettingsScreen(props) {
   const Props = useContext(StateContext);
   const loginProps = Props.loginProps;
 
-  const deleteAndExit = () => {
-    props.route.params.delete(props.route.params.account.email);
-    props.navigation.goBack()
-  };
-  const updateAndExit = (updated) => {
-    props.route.params.update(updated);
-    props.navigation.goBack()
-  };
-  const shareAndExit = (newMail) => {
-    props.route.params.share(newMail);
-    alert("Treasure successfully sent to: " + newMail.receiver);
-  };
   // console.log('hello' + screenProps.loggedInUser)
   return (
     <View>

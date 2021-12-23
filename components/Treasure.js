@@ -38,10 +38,11 @@ export default function Treasure(props) {
     props.route.params.share(newMail);
     alert("Treasure successfully sent to: " + newMail.receiver);
   };
-  const addAndExit = (vault) => {
-    props.route.params.add(vault);
-    alert("Treasure successfully sent to: " + vault.title);
+  const addAndExit = (updatedVault) => {
+    props.route.params.add(updatedVault);
+    alert("Treasure successfully sent to: " + updatedVault.title);
   };
+
   const [loaded] = useFonts({
     Karla_Regular: require('../assets/fonts/Karla-Regular.ttf'),
     Karla_ExtraLight: require('../assets/fonts/Karla-ExtraLight.ttf'),
